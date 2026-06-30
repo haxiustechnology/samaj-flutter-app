@@ -9,3 +9,5 @@ class ShikshanListEvent extends GuestEvent {}
 class NewsListEvent extends GuestEvent {}
 
 class AdvertiseListEvent extends GuestEvent {}
+
+class SamuhLagnaListEvent extends GuestEvent {}

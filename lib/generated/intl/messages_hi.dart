@@ -156,6 +156,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "rateApp": MessageLookupByLibrary.simpleMessage("ऐप रेट करें"),
     "requiredField": MessageLookupByLibrary.simpleMessage("आवश्यक"),
     "resendOtp": MessageLookupByLibrary.simpleMessage("ओटीपी पुनः भेजें"),
+    "samuhLagnaSamitiList": MessageLookupByLibrary.simpleMessage(
+      "समूह लग्न समिति सूची",
+    ),
     "save": MessageLookupByLibrary.simpleMessage("सहेजें"),
     "settings": MessageLookupByLibrary.simpleMessage("सेटिंग्स"),
     "shareApp": MessageLookupByLibrary.simpleMessage("ऐप साझा करें"),

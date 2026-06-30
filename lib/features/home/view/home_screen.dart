@@ -16,6 +16,7 @@ import '../../advertise/view/advertise_tab.dart';
 import 'pragati_mandal_list_page.dart';
 import 'shikshan_samiti_list_page.dart';
 import 'village_list_page.dart';
+import 'samuh_lagna_samiti_list_page.dart';
 import '../../member/view/all_members_page.dart';
 
 @RoutePage()
@@ -259,6 +260,19 @@ class HomeTab extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const VillageListPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  _GridItem(
+                    icon: Icons.favorite_rounded,
+                    title: S.of(context).samuhLagnaSamitiList,
+                    gradient: AppColors.gridCard1,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SamuhLagnaSamitiListPage(),
                         ),
                       );
                     },

@@ -6,6 +6,7 @@ import '../models/pragati_mandal_model.dart';
 import '../models/shikshan_samiti_model.dart';
 import '../models/news_model.dart';
 import '../models/advertise_model.dart';
+import '../models/samuh_lagna_samiti_model.dart';
 
 class GuestRepository {
   Future<ApiResponse<List<PragatiMandalModel>>> fetchPragatiMandalList() async {
@@ -33,6 +34,13 @@ class GuestRepository {
     return _fetchList<AdvertiseModel>(
       ApiEndpoints.advertise,
       (json) => AdvertiseModel.fromJson(json),
+    );
+  }
+
+  Future<ApiResponse<List<SamuhLagnaSamitiModel>>> fetchSamuhLagnaSamitiList() async {
+    return _fetchList<SamuhLagnaSamitiModel>(
+      ApiEndpoints.samuhLagnaSamiti,
+      (json) => SamuhLagnaSamitiModel.fromJson(json),
     );
   }
 

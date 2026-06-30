@@ -334,6 +334,16 @@ class S {
     );
   }
 
+  /// `Samuh Lagna Samiti List`
+  String get samuhLagnaSamitiList {
+    return Intl.message(
+      'Samuh Lagna Samiti List',
+      name: 'samuhLagnaSamitiList',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Village List`
   String get villageList {
     return Intl.message(
