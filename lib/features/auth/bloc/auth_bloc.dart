@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../../data/models/user_model.dart';
 import '../../../data/models/api_response.dart';
@@ -26,9 +27,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     try {
+      String? fcmToken;
+      try {
+        fcmToken = await FirebaseMessaging.instance.getToken();
+      } catch (e) {
+        AppLogger.error('Failed to get FCM token', e);
+      }
+
       final response = await authRepository.register({
         'name': event.name,
         'mobile': event.mobile,
+        'fcm_token': fcmToken,
       });
 
       if (response.isSuccess) {
@@ -79,8 +88,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     try {
+      String? fcmToken;
+      try {
+        fcmToken = await FirebaseMessaging.instance.getToken();
+      } catch (e) {
+        AppLogger.error('Failed to get FCM token', e);
+      }
+
       final response = await authRepository.login({
         'mobile': event.mobile,
+        'fcm_token': fcmToken,
       });
 
       if (response.isSuccess) {
@@ -151,8 +168,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     try {
+      String? fcmToken;
+      try {
+        fcmToken = await FirebaseMessaging.instance.getToken();
+      } catch (e) {
+        AppLogger.error('Failed to get FCM token', e);
+      }
+
       final response = await authRepository.resendOtp({
         'mobile': event.mobile,
+        'fcm_token': fcmToken,
       });
 
       if (response.isSuccess) {
@@ -175,11 +200,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     try {
+      String? fcmToken;
+      try {
+        fcmToken = await FirebaseMessaging.instance.getToken();
+      } catch (e) {
+        AppLogger.error('Failed to get FCM token', e);
+      }
+
       // Call register API with user data
       final response = await authRepository.register({
         'name': event.firstName,
         'mobile': event.mobile,
         'email': event.email.isNotEmpty ? event.email : null,
+        'fcm_token': fcmToken,
       });
 
       if (response.isSuccess) {
