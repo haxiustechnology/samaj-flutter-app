@@ -19,6 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CompleteRegistrationEvent>(_onCompleteRegistration);
     on<LogoutEvent>(_onLogout);
     on<UpdateProfileEvent>(_onUpdateProfile);
+    on<DeleteAccountEvent>(_onDeleteAccount);
   }
 
   Future<void> _onRegister(
@@ -270,6 +271,40 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await SharedPrefs.clearAll();
       
       emit(LogoutSuccess(message: 'Logged out'));
+      emit(AuthInitial());
+    }
+  }
+
+  Future<void> _onDeleteAccount(
+    DeleteAccountEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      final response = await authRepository.deleteAccount();
+
+      if (response.isSuccess) {
+        // Clear all stored data on successful deletion
+        await SharedPrefs.clearToken();
+        await SharedPrefs.setLoginStatus(false);
+        await SharedPrefs.clearAll();
+        
+        AppLogger.info('User account soft deleted successfully');
+        emit(LogoutSuccess(message: response.message));
+        
+        // Reset state
+        emit(AuthInitial());
+      } else {
+        emit(AuthError(message: response.message));
+      }
+    } catch (e) {
+      AppLogger.error('Delete account error', e);
+      // Even on error, clear local data to keep device in clean state
+      await SharedPrefs.clearToken();
+      await SharedPrefs.setLoginStatus(false);
+      await SharedPrefs.clearAll();
+      
+      emit(const LogoutSuccess(message: 'Account deleted'));
       emit(AuthInitial());
     }
   }

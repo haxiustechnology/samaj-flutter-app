@@ -6,6 +6,7 @@ class ApiEndpoints {
   static const String resendOtp = 'auth/resend-otp';
   static const String logout = 'auth/logout';
   static const String editProfile = 'auth/editProfile';
+  static const String deleteAccount = 'auth/delete-account';
   
   // Protected endpoints
   static const String home = 'home';

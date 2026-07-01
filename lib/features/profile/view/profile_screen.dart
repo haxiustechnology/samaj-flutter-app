@@ -105,6 +105,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  void _showDeleteAccountConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.backgroundWhite,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        title: Text(
+          'Delete Account',
+          style: AppTextStyles.heading3.copyWith(color: AppColors.error),
+        ),
+        content: const Text(
+          'Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(
+              S.of(context).cancel,
+              style: AppTextStyles.buttonSmall.copyWith(color: AppColors.textSecondary),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              context.read<AuthBloc>().add(const DeleteAccountEvent());
+            },
+            child: Text(
+              'Delete',
+              style: AppTextStyles.buttonSmall.copyWith(color: AppColors.error),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
@@ -297,6 +334,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     
                     const Divider(color: AppColors.borderLight, height: 24),
                     
+                    // Delete Account tile with dynamic spinner state
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        final isLoading = state is AuthLoading;
+                        return _buildMenuItem(
+                          icon: Icons.delete_forever_rounded,
+                          title: 'Delete Account',
+                          iconColor: AppColors.error,
+                          titleColor: AppColors.error,
+                          isLoading: isLoading,
+                          onTap: isLoading
+                              ? null
+                              : () {
+                                  _showDeleteAccountConfirmationDialog(context);
+                                },
+                        );
+                      },
+                    ),
+
                     // Logout tile with dynamic spinner state
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {

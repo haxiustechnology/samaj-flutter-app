@@ -122,6 +122,24 @@ class AuthRepository {
       );
     }
   }
+
+  /// Delete account
+  Future<ApiResponse<Map<String, dynamic>>> deleteAccount() async {
+    try {
+      final response = await ApiClient.dio.post(
+        ApiEndpoints.deleteAccount,
+      );
+      return ApiResponse<Map<String, dynamic>>.fromJson(
+        response.data as Map<String, dynamic>,
+        dataParser: (data) => data as Map<String, dynamic>,
+      );
+    } on DioException catch (e) {
+      return ApiResponse.error(
+        message: e.response?.data?['message'] ?? e.message ?? 'Delete account failed',
+        code: e.response?.statusCode ?? 500,
+      );
+    }
+  }
 }
 
 

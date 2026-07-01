@@ -82,4 +82,11 @@ class UpdateProfileEvent extends AuthEvent {
   List<Object?> get props => [data];
 }
 
+class DeleteAccountEvent extends AuthEvent {
+  const DeleteAccountEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
 
