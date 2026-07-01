@@ -12,6 +12,8 @@ import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_textfield.dart';
 import '../../../core/widgets/app_gradient_bg.dart';
 import '../../../generated/l10n.dart';
+import '../../profile/view/privacy_policy_page.dart';
+import '../../profile/view/terms_conditions_page.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -241,6 +243,54 @@ class _LoginPageState extends State<LoginPage> {
                                       color: AppColors.textSecondary,
                                     ),
                                   ),
+                                ),
+                                SizedBox(height: 16.h),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => const PrivacyPolicyPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'Privacy Policy',
+                                        style: AppTextStyles.caption.copyWith(
+                                          color: Colors.white70,
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      '  •  ',
+                                      style: AppTextStyles.caption.copyWith(
+                                        color: Colors.white30,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => const TermsConditionsPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'Terms & Conditions',
+                                        style: AppTextStyles.caption.copyWith(
+                                          color: Colors.white70,
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

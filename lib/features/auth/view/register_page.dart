@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,8 @@ import '../../../core/widgets/app_textfield.dart';
 import '../../../core/widgets/app_gradient_bg.dart';
 import 'package:samaj/generated/l10n.dart';
 import '../../../core/utils/snackbar_utils.dart';
+import '../../profile/view/terms_conditions_page.dart';
+import '../../profile/view/privacy_policy_page.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -241,10 +244,55 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ),
                                         SizedBox(width: 10.w),
                                         Expanded(
-                                          child: Text(
-                                            S.of(context).iReadAndAgreed,
-                                            style: AppTextStyles.bodyMediumSecondary.copyWith(
-                                              fontWeight: FontWeight.w500,
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: 'I read and agreed to ',
+                                              style: AppTextStyles.bodyMediumSecondary.copyWith(
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColors.textSecondary,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Terms & Conditions',
+                                                  style: AppTextStyles.bodyMediumSecondary.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: AppColors.primary,
+                                                    decoration: TextDecoration.underline,
+                                                  ),
+                                                  recognizer: TapGestureRecognizer()
+                                                    ..onTap = () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (_) => const TermsConditionsPage(),
+                                                        ),
+                                                      );
+                                                    },
+                                                ),
+                                                TextSpan(
+                                                  text: ' and ',
+                                                  style: AppTextStyles.bodyMediumSecondary.copyWith(
+                                                    color: AppColors.textSecondary,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: 'Privacy Policy',
+                                                  style: AppTextStyles.bodyMediumSecondary.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: AppColors.primary,
+                                                    decoration: TextDecoration.underline,
+                                                  ),
+                                                  recognizer: TapGestureRecognizer()
+                                                    ..onTap = () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (_) => const PrivacyPolicyPage(),
+                                                        ),
+                                                      );
+                                                    },
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),

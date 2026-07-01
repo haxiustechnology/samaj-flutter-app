@@ -232,31 +232,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         // Handle settings
                       },
                     ),
-                    _buildMenuItem(
-                      icon: Icons.share_rounded,
-                      title: S.of(context).shareApp,
-                      onTap: () async {
-                        await Share.share(
-                          'Join our community! Download the official Samaj App to connect with family members, view local news updates, and directories.\nDownload now: https://play.google.com/store/apps/details?id=com.kamlesh.samaj',
-                        );
-                      },
+                    SizedBox(height: 12.h),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildActionCard(
+                            icon: Icons.share_rounded,
+                            title: S.of(context).shareApp,
+                            gradient: AppColors.primaryGradient,
+                            onTap: () async {
+                              await Share.share(
+                                'Join our community! Download the official Samaj App to connect with family members, view local news updates, and directories.\nDownload now: https://play.google.com/store/apps/details?id=com.kamlesh.samaj',
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(width: 16.w),
+                        Expanded(
+                          child: _buildActionCard(
+                            icon: Icons.star_rate_rounded,
+                            title: S.of(context).rateApp,
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF7B1F3A), Color(0xFFA52B50)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            onTap: () async {
+                              final Uri storeUrl = Uri.parse(
+                                'https://play.google.com/store/apps/details?id=com.kamlesh.samaj',
+                              );
+                              if (await canLaunchUrl(storeUrl)) {
+                                await launchUrl(storeUrl, mode: LaunchMode.externalApplication);
+                              } else {
+                                if (context.mounted) {
+                                  SnackbarUtils.show(context, 'Could not open store to rate app');
+                                }
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                    _buildMenuItem(
-                      icon: Icons.star_rate_rounded,
-                      title: S.of(context).rateApp,
-                      onTap: () async {
-                        final Uri storeUrl = Uri.parse(
-                          'https://play.google.com/store/apps/details?id=com.kamlesh.samaj',
-                        );
-                        if (await canLaunchUrl(storeUrl)) {
-                          await launchUrl(storeUrl, mode: LaunchMode.externalApplication);
-                        } else {
-                          if (context.mounted) {
-                            SnackbarUtils.show(context, 'Could not open store to rate app');
-                          }
-                        }
-                      },
-                    ),
+                    SizedBox(height: 12.h),
                     _buildMenuItem(
                       icon: Icons.privacy_tip_outlined,
                       title: S.of(context).privacyPolicy,
@@ -388,6 +405,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
               size: 20.sp,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionCard({
+    required IconData icon,
+    required String title,
+    required LinearGradient gradient,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      height: 90.h,
+      decoration: BoxDecoration(
+        gradient: gradient,
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: gradient.colors.first.withOpacity(0.25),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16.r),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(6.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    icon,
+                    color: Colors.white,
+                    size: 20.sp,
+                  ),
+                ),
+                Text(
+                  title,
+                  style: AppTextStyles.subtitle2.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
