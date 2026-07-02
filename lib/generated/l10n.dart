@@ -344,6 +344,16 @@ class S {
     );
   }
 
+  /// `Mahila Mandal Samiti List`
+  String get mahilaMandalSamitiList {
+    return Intl.message(
+      'Mahila Mandal Samiti List',
+      name: 'mahilaMandalSamitiList',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Village List`
   String get villageList {
     return Intl.message(

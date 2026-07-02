@@ -18,6 +18,7 @@ class ApiEndpoints {
   static const String pragatiMandal = 'guest/pragati-mandal';
   static const String shikshanSamiti = 'guest/shikshan-samiti';
   static const String samuhLagnaSamiti = 'guest/samuh-lagna-samiti';
+  static const String mahilaMandalSamiti = 'guest/mahila-mandal-samiti';
   static const String news = 'guest/news';
   static const String advertise = 'guest/advertise';
   // Member module

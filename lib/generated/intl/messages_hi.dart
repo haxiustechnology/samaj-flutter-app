@@ -109,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginPromptOk": MessageLookupByLibrary.simpleMessage("लॉगिन"),
     "loginPromptTitle": MessageLookupByLibrary.simpleMessage("लॉगिन आवश्यक है"),
     "logout": MessageLookupByLibrary.simpleMessage("लॉगआउट"),
+    "mahilaMandalSamitiList": MessageLookupByLibrary.simpleMessage(
+      "महिला मंडल समिति सूची",
+    ),
     "maritalStatus": MessageLookupByLibrary.simpleMessage("वैवाहिक स्थिति"),
     "married": MessageLookupByLibrary.simpleMessage("विवाहित"),
     "masterDegree": MessageLookupByLibrary.simpleMessage("स्नातकोत्तर डिग्री"),

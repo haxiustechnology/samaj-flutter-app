@@ -100,6 +100,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginPromptOk": MessageLookupByLibrary.simpleMessage("લૉગિન"),
     "loginPromptTitle": MessageLookupByLibrary.simpleMessage("લૉગિન જરૂરી છે"),
     "logout": MessageLookupByLibrary.simpleMessage("લૉગઆઉટ"),
+    "mahilaMandalSamitiList": MessageLookupByLibrary.simpleMessage(
+      "મહિલા મંડળ સમિતિ સૂચિ",
+    ),
     "maritalStatus": MessageLookupByLibrary.simpleMessage("વૈवाहિક સ્થિતિ"),
     "married": MessageLookupByLibrary.simpleMessage("વિવાહિત"),
     "masterDegree": MessageLookupByLibrary.simpleMessage("સ્નાતકોત્તર ડિગ્રી"),

@@ -17,6 +17,7 @@ import 'pragati_mandal_list_page.dart';
 import 'shikshan_samiti_list_page.dart';
 import 'village_list_page.dart';
 import 'samuh_lagna_samiti_list_page.dart';
+import 'mahila_mandal_samiti_list_page.dart';
 import '../../member/view/all_members_page.dart';
 
 @RoutePage()
@@ -273,6 +274,19 @@ class HomeTab extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const SamuhLagnaSamitiListPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  _GridItem(
+                    icon: Icons.female_rounded,
+                    title: S.of(context).mahilaMandalSamitiList,
+                    gradient: AppColors.gridCard2,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MahilaMandalSamitiListPage(),
                         ),
                       );
                     },

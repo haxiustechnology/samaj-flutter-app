@@ -13,6 +13,7 @@ class GuestBloc extends Bloc<GuestEvent, GuestState> {
     on<NewsListEvent>(_onFetchNewsList);
     on<AdvertiseListEvent>(_onFetchAdvertiseList);
     on<SamuhLagnaListEvent>(_onFetchSamuhLagnaList);
+    on<MahilaMandalListEvent>(_onFetchMahilaMandalList);
   }
 
   Future<void> _onFetchPragatiMandalList(
@@ -90,6 +91,23 @@ class GuestBloc extends Bloc<GuestEvent, GuestState> {
     emit(GuestLoading());
     try {
       final response = await guestRepository.fetchSamuhLagnaSamitiList();
+      if (response.isSuccess) {
+        emit(GuestLoaded(data: response.data!));
+      } else {
+        emit(GuestError(message: response.message));
+      }
+    } catch (e) {
+      emit(GuestError(message: e.toString()));
+    }
+  }
+
+  Future<void> _onFetchMahilaMandalList(
+    MahilaMandalListEvent event,
+    Emitter<GuestState> emit,
+  ) async {
+    emit(GuestLoading());
+    try {
+      final response = await guestRepository.fetchMahilaMandalSamitiList();
       if (response.isSuccess) {
         emit(GuestLoaded(data: response.data!));
       } else {

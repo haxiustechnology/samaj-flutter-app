@@ -59,3 +59,6 @@ app.*.map.json
 /ios/.symlinks/
 *.xcworkspace
 
+# Firebase Configs
+android/app/google-services.json
+
