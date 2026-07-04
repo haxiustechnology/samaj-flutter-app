@@ -20,6 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutEvent>(_onLogout);
     on<UpdateProfileEvent>(_onUpdateProfile);
     on<DeleteAccountEvent>(_onDeleteAccount);
+    on<ForceLogoutEvent>(_onForceLogout);
   }
 
   Future<void> _onRegister(
@@ -306,6 +307,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       
       emit(const LogoutSuccess(message: 'Account deleted'));
       emit(AuthInitial());
+    }
+  }
+
+  Future<void> _onForceLogout(
+    ForceLogoutEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      await SharedPrefs.clearToken();
+      await SharedPrefs.setLoginStatus(false);
+      await SharedPrefs.clearAll();
+      
+      AppLogger.info('Force logout triggered: ${event.message}');
+      emit(LogoutSuccess(message: event.message));
+      emit(AuthInitial());
+    } catch (e) {
+      AppLogger.error('Force logout error', e);
     }
   }
 }

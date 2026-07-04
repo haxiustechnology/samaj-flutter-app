@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../auth/bloc/auth_bloc.dart';
+import '../../auth/bloc/auth_state.dart';
 
 import '../../../app/app_router.dart';
 import '../../../core/constants/colors.dart';
@@ -40,8 +43,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundCream,
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is LogoutSuccess) {
+          context.router.replaceAll([const LoginRoute()]);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundCream,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: _screens[_currentIndex],

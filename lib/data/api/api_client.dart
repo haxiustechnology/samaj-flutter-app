@@ -45,10 +45,20 @@ class ApiClient {
             error.response?.data,
             error.stackTrace,
           );
+          if (error.response?.statusCode == 401) {
+            String msg = 'Session expired. Please login again.';
+            final responseData = error.response?.data;
+            if (responseData is Map) {
+              msg = responseData['message']?.toString() ?? msg;
+            }
+            onUnauthorized?.call(msg);
+          }
           handler.next(error);
         },
       ),
     );
+
+  static void Function(String message)? onUnauthorized;
 
   static Dio get dio => _dio;
 }

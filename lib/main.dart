@@ -9,7 +9,9 @@ import 'app/app.dart';
 import 'app/app_router.dart';
 import 'app/app_bloc_observer.dart';
 import 'features/auth/bloc/auth_bloc.dart';
+import 'features/auth/bloc/auth_event.dart';
 import 'data/repositories/auth_repository.dart';
+import 'data/api/api_client.dart';
 
 // Global FlutterLocalNotificationsPlugin instance
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -100,14 +102,21 @@ void main() async {
   // Initialize app router
   final appRouter = AppRouter();
 
+  final authBloc = AuthBloc(authRepository: AuthRepository());
+
+  // Listen to 401 Unauthorized errors to automatically log out user
+  ApiClient.onUnauthorized = (message) {
+    authBloc.add(ForceLogoutEvent(message: message));
+  };
+
   // Provide top-level AuthBloc for the whole app and initialize ScreenUtil
   runApp(
     ScreenUtilInit(
       designSize: const Size(360, 800),
       minTextAdapt: true,
       builder: (context, child) {
-        return BlocProvider(
-          create: (_) => AuthBloc(authRepository: AuthRepository()),
+        return BlocProvider.value(
+          value: authBloc,
           child: App(appRouter: appRouter),
         );
       },

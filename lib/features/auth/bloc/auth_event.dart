@@ -89,4 +89,12 @@ class DeleteAccountEvent extends AuthEvent {
   List<Object?> get props => [];
 }
 
+class ForceLogoutEvent extends AuthEvent {
+  final String message;
+  const ForceLogoutEvent({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+
 
