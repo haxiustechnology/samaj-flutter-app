@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import '../api/api_client.dart';
 import '../api/endpoints.dart';
 import '../models/api_response.dart';
-import '../models/user_model.dart';
+
 
 class AuthRepository {
   /// Register user

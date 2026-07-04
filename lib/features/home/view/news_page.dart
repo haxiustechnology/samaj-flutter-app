@@ -161,7 +161,7 @@ class NewsPage extends StatelessWidget {
         child: Icon(
           Icons.image_outlined,
           size: 44.sp,
-          color: AppColors.primary.withOpacity(0.7),
+          color: AppColors.primary.withValues(alpha: 0.7),
         ),
       ),
     );

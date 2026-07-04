@@ -271,7 +271,7 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                             padding: EdgeInsets.all(4.w),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border: Border.all(color: AppColors.primary.withOpacity(0.3), width: 3),
+                              border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 3),
                             ),
                             child: CircleAvatar(
                               radius: 60.r,
@@ -332,7 +332,7 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                       borderRadius: BorderRadius.circular(20.r),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.04),
+                          color: Colors.black.withValues(alpha: 0.04),
                           blurRadius: 16,
                           offset: const Offset(0, 4),
                         ),
@@ -467,7 +467,7 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                       borderRadius: BorderRadius.circular(20.r),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.04),
+                          color: Colors.black.withValues(alpha: 0.04),
                           blurRadius: 16,
                           offset: const Offset(0, 4),
                         ),
@@ -518,7 +518,7 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                       borderRadius: BorderRadius.circular(20.r),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.04),
+                          color: Colors.black.withValues(alpha: 0.04),
                           blurRadius: 16,
                           offset: const Offset(0, 4),
                         ),

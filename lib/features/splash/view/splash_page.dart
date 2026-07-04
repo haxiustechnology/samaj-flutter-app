@@ -103,7 +103,7 @@ class _SplashPageState extends State<SplashPage>
                 width: 240.w, height: 240.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.08),
+                  color: Colors.white.withValues(alpha: 0.08),
                 ),
               ),
             ),
@@ -113,7 +113,7 @@ class _SplashPageState extends State<SplashPage>
                 width: 300.w, height: 300.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.06),
+                  color: Colors.white.withValues(alpha: 0.06),
                 ),
               ),
             ),
@@ -123,7 +123,7 @@ class _SplashPageState extends State<SplashPage>
                 width: 120.w, height: 120.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.05),
+                  color: Colors.white.withValues(alpha: 0.05),
                 ),
               ),
             ),
@@ -147,7 +147,7 @@ class _SplashPageState extends State<SplashPage>
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
+                                  color: Colors.black.withValues(alpha: 0.2),
                                   blurRadius: 30, offset: const Offset(0, 12),
                                 ),
                               ],
@@ -206,7 +206,7 @@ class _SplashPageState extends State<SplashPage>
                           width: 8.w,
                           height: 8.w + (value * 4),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.6 + value * 0.4),
+                            color: Colors.white.withValues(alpha: 0.6 + value * 0.4),
                             borderRadius: BorderRadius.circular(4),
                           ),
                         );

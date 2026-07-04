@@ -20,7 +20,7 @@ class GlobalLoaderOverlay extends StatelessWidget {
           builder: (context, state) {
             if (state is AuthLoading) {
               return Container(
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withValues(alpha: 0.4),
                 width: double.infinity,
                 height: double.infinity,
                 child: Center(
@@ -31,7 +31,7 @@ class GlobalLoaderOverlay extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16.r),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.15),
+                          color: Colors.black.withValues(alpha: 0.15),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),

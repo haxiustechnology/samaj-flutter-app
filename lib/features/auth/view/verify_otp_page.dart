@@ -112,7 +112,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black.withOpacity(0.15),
+                                          color: Colors.black.withValues(alpha: 0.15),
                                           blurRadius: 20,
                                           offset: const Offset(0, 8),
                                         ),
@@ -136,7 +136,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                                 Text(
                                   'Enter the OTP sent to +91 ${widget.mobile}',
                                   style: AppTextStyles.bodyLarge.copyWith(
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                     fontWeight: FontWeight.w500,
                                   ),
                                   textAlign: TextAlign.center,
@@ -150,7 +150,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                               borderRadius: BorderRadius.circular(24.r),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Colors.black.withValues(alpha: 0.1),
                                   blurRadius: 20,
                                   offset: const Offset(0, 10),
                                 ),
@@ -231,8 +231,12 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                 ),
               ),
             ),
-          ),
-        );
+          ],
+        ),
+      ),
+    ),
+  ),
+);
       },
     );
   }

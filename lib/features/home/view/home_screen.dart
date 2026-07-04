@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 import '../../auth/bloc/auth_bloc.dart';
 import '../../auth/bloc/auth_state.dart';
-
 import '../../../app/app_router.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
 import 'package:samaj/generated/l10n.dart';
 import '../../../core/utils/auth_guard.dart';
 import '../../profile/view/profile_screen.dart';
-import '../../../core/utils/shared_prefs.dart';
-import 'news_page.dart';
-import 'gallery_page.dart';
-import 'upcoming_events_page.dart';
+
 import '../../advertise/view/advertise_tab.dart';
 import 'pragati_mandal_list_page.dart';
 import 'shikshan_samiti_list_page.dart';
@@ -22,6 +20,7 @@ import 'village_list_page.dart';
 import 'samuh_lagna_samiti_list_page.dart';
 import 'mahila_mandal_samiti_list_page.dart';
 import '../../member/view/all_members_page.dart';
+
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -64,7 +63,7 @@ class _HomePageState extends State<HomePage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
               blurRadius: 20,
               offset: const Offset(0, -6),
             ),
@@ -117,8 +116,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildNavIcon(IconData icon, int index) {
     final isSelected = _currentIndex == index;
@@ -176,7 +176,7 @@ class HomeTab extends StatelessWidget {
                       Text(
                         'Prajapati Samaj Community',
                         style: AppTextStyles.bodyMedium.copyWith(
-                          color: Colors.white.withOpacity(0.85),
+                          color: Colors.white.withValues(alpha: 0.85),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -184,7 +184,7 @@ class HomeTab extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.18),
+                      color: Colors.white.withValues(alpha: 0.18),
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
@@ -331,7 +331,7 @@ class _GridItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
-            color: gradient.colors.first.withOpacity(0.25),
+            color: gradient.colors.first.withValues(alpha: 0.25),
             blurRadius: 12,
             offset: const Offset(0, 6),
           ),
@@ -351,7 +351,7 @@ class _GridItem extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.22),
+                    color: Colors.white.withValues(alpha: 0.22),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -368,7 +368,7 @@ class _GridItem extends StatelessWidget {
                     fontSize: 14.sp,
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.15),
+                        color: Colors.black.withValues(alpha: 0.15),
                         offset: const Offset(0, 1),
                         blurRadius: 2,
                       )

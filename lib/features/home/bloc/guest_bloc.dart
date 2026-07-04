@@ -16,6 +16,7 @@ class GuestBloc extends Bloc<GuestEvent, GuestState> {
     on<MahilaMandalListEvent>(_onFetchMahilaMandalList);
     on<GalleryListEvent>(_onFetchGalleryList);
     on<UpcomingEventsListEvent>(_onFetchUpcomingEventsList);
+    on<BannerListEvent>(_onFetchBanners);
   }
 
   Future<void> _onFetchPragatiMandalList(
@@ -144,6 +145,23 @@ class GuestBloc extends Bloc<GuestEvent, GuestState> {
     emit(GuestLoading());
     try {
       final response = await guestRepository.fetchUpcomingEventsList();
+      if (response.isSuccess) {
+        emit(GuestLoaded(data: response.data!));
+      } else {
+        emit(GuestError(message: response.message));
+      }
+    } catch (e) {
+      emit(GuestError(message: e.toString()));
+    }
+  }
+
+  Future<void> _onFetchBanners(
+    BannerListEvent event,
+    Emitter<GuestState> emit,
+  ) async {
+    emit(GuestLoading());
+    try {
+      final response = await guestRepository.fetchBanners();
       if (response.isSuccess) {
         emit(GuestLoaded(data: response.data!));
       } else {

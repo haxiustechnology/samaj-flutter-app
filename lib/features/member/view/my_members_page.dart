@@ -114,7 +114,7 @@ class MyMembersPage extends StatelessWidget {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: borderAccentColor.withOpacity(0.3),
+                                color: borderAccentColor.withValues(alpha: 0.3),
                                 width: 2,
                               ),
                             ),
@@ -210,7 +210,7 @@ class MyMembersPage extends StatelessWidget {
     return Container(
       width: 48.w,
       height: 48.w,
-      color: baseColor.withOpacity(0.1),
+      color: baseColor.withValues(alpha: 0.1),
       child: Icon(
         Icons.person_rounded,
         size: 24.sp,

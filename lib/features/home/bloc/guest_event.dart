@@ -17,3 +17,5 @@ class MahilaMandalListEvent extends GuestEvent {}
 class GalleryListEvent extends GuestEvent {}
 
 class UpcomingEventsListEvent extends GuestEvent {}
+
+class BannerListEvent extends GuestEvent {}

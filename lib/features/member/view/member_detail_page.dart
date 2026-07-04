@@ -53,7 +53,7 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
             padding: EdgeInsets.all(4.w),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.25),
+              color: Colors.white.withValues(alpha: 0.25),
             ),
             child: Container(
               padding: EdgeInsets.all(2.w),
@@ -89,13 +89,13 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
                 Icon(
                   Icons.location_on_rounded,
                   size: 16.sp,
-                  color: Colors.white.withOpacity(0.85),
+                  color: Colors.white.withValues(alpha: 0.85),
                 ),
                 SizedBox(width: 4.w),
                 Text(
                   member.villageName,
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     fontWeight: FontWeight.w600,
                   ),
                 ),

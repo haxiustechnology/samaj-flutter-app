@@ -23,6 +23,7 @@ class ApiEndpoints {
   static const String advertise = 'guest/advertise';
   static const String gallery = 'guest/gallery';
   static const String upcomingEvents = 'guest/upcoming-events';
+  static const String banners = 'guest/banners';
   // Member module
   static const String addMember = 'member/addMember';
   static const String editMember = 'member/editMember'; // expect "/:id" appended

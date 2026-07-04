@@ -80,7 +80,7 @@ class _AppDropdownFieldState<T> extends State<AppDropdownField<T>> {
             boxShadow: _isFocused
                 ? [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.12),
+                      color: AppColors.primary.withValues(alpha: 0.12),
                       blurRadius: 12.r,
                       spreadRadius: 2.r,
                       offset: const Offset(0, 4),
@@ -119,7 +119,7 @@ class _AppDropdownFieldState<T> extends State<AppDropdownField<T>> {
                   : null,
               filled: true,
               fillColor: widget.enabled
-                  ? (_isFocused ? AppColors.backgroundWhite : AppColors.backgroundCream.withOpacity(0.35))
+                  ? (_isFocused ? AppColors.backgroundWhite : AppColors.backgroundCream.withValues(alpha: 0.35))
                   : AppColors.backgroundLight,
               // Default border
               border: OutlineInputBorder(
@@ -145,7 +145,7 @@ class _AppDropdownFieldState<T> extends State<AppDropdownField<T>> {
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadiusVal),
-                borderSide: BorderSide(color: AppColors.borderLight.withOpacity(0.5), width: 1),
+                borderSide: BorderSide(color: AppColors.borderLight.withValues(alpha: 0.5), width: 1),
               ),
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 16.w,

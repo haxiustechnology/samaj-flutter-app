@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.15),
+                                    color: Colors.black.withValues(alpha: 0.15),
                                     blurRadius: 20,
                                     offset: const Offset(0, 8),
                                   ),
@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                           Text(
                             S.of(context).loginNow,
                             style: AppTextStyles.bodyLarge.copyWith(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                               fontWeight: FontWeight.w500,
                             ),
                             textAlign: TextAlign.center,
@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(24.r),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Colors.black.withValues(alpha: 0.1),
                                   blurRadius: 20,
                                   offset: const Offset(0, 10),
                                 ),

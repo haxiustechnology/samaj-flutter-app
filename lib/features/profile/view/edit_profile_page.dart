@@ -151,7 +151,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 borderRadius: BorderRadius.circular(24.r),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
+                                    color: Colors.black.withValues(alpha: 0.1),
                                     blurRadius: 20,
                                     offset: const Offset(0, 10),
                                   ),
@@ -171,7 +171,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             padding: EdgeInsets.all(4.w),
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
-                                              border: Border.all(color: AppColors.primary.withOpacity(0.3), width: 3),
+                                              border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 3),
                                             ),
                                             child: CircleAvatar(
                                               radius: 48.r,

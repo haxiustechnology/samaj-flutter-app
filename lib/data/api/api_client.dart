@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import '../../core/utils/shared_prefs.dart';
 import '../../core/constants/app_config.dart';
 import '../../core/utils/logger.dart';
-import 'dart:io' show Platform;
+
 
 class ApiClient {
   static final Dio _dio = Dio(

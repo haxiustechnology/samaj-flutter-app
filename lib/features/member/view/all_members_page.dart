@@ -621,7 +621,7 @@ class _AllMembersPageState extends State<AllMembersPage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: borderAccentColor.withOpacity(0.4),
+                  color: borderAccentColor.withValues(alpha: 0.4),
                   width: 2,
                 ),
               ),
@@ -710,16 +710,16 @@ class _AllMembersPageState extends State<AllMembersPage> {
 
     final lower = rawValue.toLowerCase();
     if (lower == 'female') {
-      bgColor = AppColors.secondary.withOpacity(0.08);
+      bgColor = AppColors.secondary.withValues(alpha: 0.08);
       fgColor = AppColors.secondary;
     } else if (lower == 'male') {
       bgColor = AppColors.primarySurface;
       fgColor = AppColors.primary;
     } else if (lower == 'government') {
-      bgColor = AppColors.success.withOpacity(0.08);
+      bgColor = AppColors.success.withValues(alpha: 0.08);
       fgColor = AppColors.success;
     } else if (lower == 'private') {
-      bgColor = AppColors.info.withOpacity(0.08);
+      bgColor = AppColors.info.withValues(alpha: 0.08);
       fgColor = AppColors.info;
     }
 
@@ -744,7 +744,7 @@ class _AllMembersPageState extends State<AllMembersPage> {
     return Container(
       width: 48.w,
       height: 48.w,
-      color: baseColor.withOpacity(0.1),
+      color: baseColor.withValues(alpha: 0.1),
       child: Icon(
         Icons.person_rounded,
         size: 24.sp,

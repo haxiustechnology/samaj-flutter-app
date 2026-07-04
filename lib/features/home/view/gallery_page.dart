@@ -72,7 +72,7 @@ class GalleryPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16.r),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.04),
+                          color: Colors.black.withValues(alpha: 0.04),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -169,7 +169,7 @@ class GalleryPage extends StatelessWidget {
               top: 10.h,
               right: 10.w,
               child: CircleAvatar(
-                backgroundColor: Colors.black.withOpacity(0.5),
+                backgroundColor: Colors.black.withValues(alpha: 0.5),
                 child: IconButton(
                   icon: const Icon(Icons.close, color: Colors.white),
                   onPressed: () => Navigator.of(context).pop(),

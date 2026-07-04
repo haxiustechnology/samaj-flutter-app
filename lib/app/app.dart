@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:auto_route/auto_route.dart';
@@ -9,7 +9,7 @@ import '../core/constants/colors.dart';
 import '../core/constants/text_styles.dart';
 import 'package:samaj/generated/l10n.dart';
 import 'app_router.dart';
-import 'app_bloc_observer.dart';
+
 import 'global_loader_overlay.dart';
 
 class App extends StatelessWidget {
@@ -105,7 +105,7 @@ class App extends StatelessWidget {
       cardTheme: CardThemeData(
         color: AppColors.surfaceCard,
         elevation: 0,
-        shadowColor: Colors.black.withOpacity(0.08),
+        shadowColor: Colors.black.withValues(alpha: 0.08),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         clipBehavior: Clip.antiAlias,
       ),

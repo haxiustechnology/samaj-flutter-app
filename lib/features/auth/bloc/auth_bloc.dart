@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../../data/models/user_model.dart';
-import '../../../data/models/api_response.dart';
+
 import '../../../core/utils/shared_prefs.dart';
 import '../../../core/utils/logger.dart';
 import 'auth_event.dart';

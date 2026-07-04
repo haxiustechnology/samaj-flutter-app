@@ -182,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: EdgeInsets.all(4.w),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                     ),
                     child: Container(
                       padding: EdgeInsets.all(2.w),
@@ -396,7 +396,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Text(
                             S.of(context).copyrightText,
                             style: AppTextStyles.caption.copyWith(
-                              color: AppColors.textMuted.withOpacity(0.6),
+                              color: AppColors.textMuted.withValues(alpha: 0.6),
                             ),
                           ),
                         ],
@@ -431,7 +431,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               padding: EdgeInsets.all(8.w),
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.08),
+                color: iconColor.withValues(alpha: 0.08),
                 shape: BoxShape.circle,
               ),
               child: isLoading
@@ -479,7 +479,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: gradient.colors.first.withOpacity(0.25),
+            color: gradient.colors.first.withValues(alpha: 0.25),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -499,7 +499,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   padding: EdgeInsets.all(6.w),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
