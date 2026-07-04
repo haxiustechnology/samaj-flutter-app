@@ -175,7 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "આમ તમારો નંબર પુષ્ટિ કરવા માટે આપણે તમને ટેક્સ્ટ કરીશું.",
     ),
     "welcomeToApp": MessageLookupByLibrary.simpleMessage(
-      "સમાજમાં આપનું સ્વાગત છે",
+      "શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ",
     ),
     "widowed": MessageLookupByLibrary.simpleMessage("વિધવા"),
   };

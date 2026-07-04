@@ -184,7 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "आपके नंबर की पुष्टि करने के लिए हम आपको टेक्स्ट करेंगे।",
     ),
     "welcomeToApp": MessageLookupByLibrary.simpleMessage(
-      "समाज में आपका स्वागत है",
+      "શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ",
     ),
     "widowed": MessageLookupByLibrary.simpleMessage("विधवा"),
   };

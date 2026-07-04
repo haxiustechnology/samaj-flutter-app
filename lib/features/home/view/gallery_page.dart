@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
+import '../../../data/repositories/guest_repository.dart';
+import '../../../data/models/gallery_model.dart';
+import '../bloc/guest_bloc.dart';
 import 'package:samaj/generated/l10n.dart';
 
 @RoutePage()
@@ -30,52 +36,175 @@ class GalleryPage extends StatelessWidget {
           ),
         ),
       ),
-      body: GridView.builder(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.all(16.w),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 12.w,
-          mainAxisSpacing: 12.h,
-          childAspectRatio: 1.0,
-        ),
-        itemCount: 20, // Replace with actual gallery count
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+      body: BlocProvider(
+        create: (context) => GuestBloc(guestRepository: GuestRepository())
+          ..add(GalleryListEvent()),
+        child: BlocBuilder<GuestBloc, GuestState>(
+          builder: (context, state) {
+            if (state is GuestLoading) {
+              return _buildShimmer();
+            } else if (state is GuestLoaded) {
+              final list = state.data.cast<GalleryModel>();
+              if (list.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No photos found in gallery',
+                    style: AppTextStyles.heading4.copyWith(color: AppColors.textSecondary),
+                  ),
+                );
+              }
+
+              return GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.all(16.w),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 12.w,
+                  mainAxisSpacing: 12.h,
+                  childAspectRatio: 1.0,
                 ),
-              ],
-              border: Border.all(
-                color: AppColors.borderLight,
-                width: 1,
-              ),
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  // Handle image tap - show full screen
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  final GalleryModel item = list[index];
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.04),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                      border: Border.all(
+                        color: AppColors.borderLight,
+                        width: 1,
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.r),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () => _showFullScreenImage(context, item.image),
+                          child: CachedNetworkImage(
+                            imageUrl: item.image,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(color: Colors.white),
+                            ),
+                            errorWidget: (context, url, error) => Center(
+                              child: Icon(
+                                Icons.broken_image_outlined,
+                                size: 28.sp,
+                                color: AppColors.textMuted,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
                 },
-                borderRadius: BorderRadius.circular(16.r),
-                child: Center(
-                  child: Icon(
-                    Icons.image_outlined,
-                    size: 36.sp,
-                    color: AppColors.primary.withOpacity(0.7),
+              );
+            } else if (state is GuestError) {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24.w),
+                  child: Text(
+                    '${S.of(context).error}: ${state.message}',
+                    style: AppTextStyles.bodyLarge.copyWith(color: AppColors.error),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
+    );
+  }
+
+  void _showFullScreenImage(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: EdgeInsets.all(10.w),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            InteractiveViewer(
+              panEnabled: true,
+              boundaryMargin: const EdgeInsets.all(20),
+              minScale: 0.5,
+              maxScale: 4.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.r),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.contain,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    color: Colors.black,
+                    width: double.infinity,
+                    height: 300.h,
+                    child: const Icon(
+                      Icons.broken_image_outlined,
+                      color: Colors.white,
+                      size: 48,
+                    ),
                   ),
                 ),
               ),
             ),
-          );
-        },
+            Positioned(
+              top: 10.h,
+              right: 10.w,
+              child: CircleAvatar(
+                backgroundColor: Colors.black.withOpacity(0.5),
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.white),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildShimmer() {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.all(16.w),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 12.w,
+        mainAxisSpacing: 12.h,
+        childAspectRatio: 1.0,
+      ),
+      itemCount: 12,
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+          ),
+        );
+      },
     );
   }
 }

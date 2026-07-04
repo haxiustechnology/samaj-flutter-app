@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
+import '../../../core/constants/assets.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_textfield.dart';
 import '../../../core/widgets/app_gradient_bg.dart';
@@ -73,69 +74,74 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
           backgroundColor: Colors.transparent,
           body: AppGradientBg(
             child: SafeArea(
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          // Back Button
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: IconButton(
-                              icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                              color: Colors.white,
-                              onPressed: () => context.router.maybePop(),
-                            ),
-                          ),
-                          SizedBox(height: 20.h),
-                          
-                          // Header Icon
-                          Hero(
-                            tag: 'app_logo',
-                            child: Container(
-                              height: 100.w,
-                              width: 100.w,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.15),
-                                    blurRadius: 20,
-                                    offset: const Offset(0, 8),
+              child: Column(
+                children: [
+                  // Custom AppBar (Transparent with back button)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                          color: Colors.white,
+                          onPressed: () => context.router.maybePop(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                // Header Icon
+                                Hero(
+                                  tag: 'app_logo',
+                                  child: Container(
+                                    height: 100.w,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.15),
+                                          blurRadius: 20,
+                                          offset: const Offset(0, 8),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        Assets.images.logo.path,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.lock_person_outlined,
-                                  size: 44.sp,
-                                  color: AppColors.primary,
                                 ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 24.h),
-                          Text(
-                            S.of(context).verifyOtp,
-                            style: AppTextStyles.heading1White,
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            'Enter the OTP sent to +91 ${widget.mobile}',
-                            style: AppTextStyles.bodyLarge.copyWith(
-                              color: Colors.white.withOpacity(0.9),
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 40.h),
+                                SizedBox(height: 24.h),
+                                Text(
+                                  S.of(context).verifyOtp,
+                                  style: AppTextStyles.heading1White,
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 8.h),
+                                Text(
+                                  'Enter the OTP sent to +91 ${widget.mobile}',
+                                  style: AppTextStyles.bodyLarge.copyWith(
+                                    color: Colors.white.withOpacity(0.9),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 40.h),
 
                           // Form Card Container
                           Container(

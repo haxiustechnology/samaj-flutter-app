@@ -8,6 +8,8 @@ import '../models/news_model.dart';
 import '../models/advertise_model.dart';
 import '../models/samuh_lagna_samiti_model.dart';
 import '../models/mahila_mandal_samiti_model.dart';
+import '../models/gallery_model.dart';
+import '../models/event_model.dart';
 
 class GuestRepository {
   Future<ApiResponse<List<PragatiMandalModel>>> fetchPragatiMandalList() async {
@@ -49,6 +51,20 @@ class GuestRepository {
     return _fetchList<MahilaMandalSamitiModel>(
       ApiEndpoints.mahilaMandalSamiti,
       (json) => MahilaMandalSamitiModel.fromJson(json),
+    );
+  }
+
+  Future<ApiResponse<List<GalleryModel>>> fetchGalleryList() async {
+    return _fetchList<GalleryModel>(
+      ApiEndpoints.gallery,
+      (json) => GalleryModel.fromJson(json),
+    );
+  }
+
+  Future<ApiResponse<List<EventModel>>> fetchUpcomingEventsList() async {
+    return _fetchList<EventModel>(
+      ApiEndpoints.upcomingEvents,
+      (json) => EventModel.fromJson(json),
     );
   }
 

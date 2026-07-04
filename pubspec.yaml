@@ -68,6 +68,7 @@ dependencies:
   url_launcher: ^6.3.2
   package_info_plus: ^10.1.0
   flutter_local_notifications: ^22.0.1
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/images/
 
 flutter_intl:
   enabled: true
@@ -117,3 +119,7 @@ flutter_intl:
           weight: 600
         - asset: assets/fonts/Nunito-Bold.ttf
           weight: 700
+
+flutter_gen:
+  output: lib/gen/
+  line_length: 80

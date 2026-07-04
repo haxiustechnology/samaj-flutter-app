@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../core/constants/assets.dart';
 import '../../../app/app_router.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
@@ -86,13 +87,10 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ],
                               ),
-                              child: Center(
-                                child: Text(
-                                  'ૐ', // Om symbol as a premium community icon
-                                  style: AppTextStyles.display.copyWith(
-                                    fontSize: 50.sp,
-                                    color: AppColors.primary,
-                                  ),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  Assets.images.logo.path,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -100,7 +98,10 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(height: 24.h),
                           Text(
                             S.of(context).welcomeToApp,
-                            style: AppTextStyles.heading1White,
+                            style: AppTextStyles.heading1White.copyWith(
+                              fontSize: 22.sp,
+                              height: 1.3,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 8.h),

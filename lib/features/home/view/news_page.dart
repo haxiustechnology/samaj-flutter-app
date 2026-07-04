@@ -11,6 +11,7 @@ import '../../../data/models/news_model.dart';
 import '../../../data/repositories/guest_repository.dart';
 import '../bloc/guest_bloc.dart';
 import 'package:samaj/generated/l10n.dart';
+import 'package:shimmer/shimmer.dart';
 
 @RoutePage()
 class NewsPage extends StatelessWidget {
@@ -42,9 +43,7 @@ class NewsPage extends StatelessWidget {
         body: BlocBuilder<GuestBloc, GuestState>(
           builder: (context, state) {
             if (state is GuestLoading) {
-              return const Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
-              );
+              return _buildShimmer();
             } else if (state is GuestLoaded) {
               final List<NewsModel> newsList = state.data.cast<NewsModel>();
               if (newsList.isEmpty) {
@@ -163,6 +162,71 @@ class NewsPage extends StatelessWidget {
           Icons.image_outlined,
           size: 44.sp,
           color: AppColors.primary.withOpacity(0.7),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildShimmer() {
+    return ListView.builder(
+      itemCount: 3,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      itemBuilder: (context, index) => Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: AppCard(
+            padding: EdgeInsets.all(16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 180.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                Container(
+                  width: 220.w,
+                  height: 16.h,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 8.h),
+                Container(
+                  width: double.infinity,
+                  height: 12.h,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 6.h),
+                Container(
+                  width: 180.w,
+                  height: 12.h,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 12.h),
+                Row(
+                  children: [
+                    Container(
+                      width: 14.w,
+                      height: 14.w,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: 6.w),
+                    Container(
+                      width: 70.w,
+                      height: 10.h,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import '../../../core/constants/colors.dart';
-import '../../../core/constants/text_styles.dart';
+import '../../../core/constants/assets.dart';
 import '../../../app/app_router.dart';
 import '../../../core/utils/shared_prefs.dart';
 
@@ -152,15 +152,10 @@ class _SplashPageState extends State<SplashPage>
                                 ),
                               ],
                             ),
-                            child: Center(
-                              child: Text(
-                                'ॐ',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 46.sp,
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                            child: ClipOval(
+                              child: Image.asset(
+                                Assets.images.logo.path,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
@@ -174,37 +169,19 @@ class _SplashPageState extends State<SplashPage>
                     position: _textSlide,
                     child: FadeTransition(
                       opacity: _textOpacity,
-                      child: Column(
-                        children: [
-                          Text(
-                            'Samaj',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 44.sp,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white,
-                              letterSpacing: 2,
-                            ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Text(
+                          'શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            height: 1.4,
                           ),
-                          SizedBox(height: 8.h),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(20.r),
-                            ),
-                            child: Text(
-                              'Prajapati Samaj — Ek Parivaar',
-                              style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontSize: 13.sp,
-                                color: Colors.white.withOpacity(0.9),
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                          ),
-                        ],
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),

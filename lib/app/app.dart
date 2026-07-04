@@ -10,6 +10,7 @@ import '../core/constants/text_styles.dart';
 import 'package:samaj/generated/l10n.dart';
 import 'app_router.dart';
 import 'app_bloc_observer.dart';
+import 'global_loader_overlay.dart';
 
 class App extends StatelessWidget {
   final AppRouter appRouter;
@@ -32,19 +33,21 @@ class App extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp.router(
-          title: 'Samaj',
-          debugShowCheckedModeBanner: false,
-          theme: _buildTheme(),
-          routerDelegate: AutoRouterDelegate(appRouter),
-          routeInformationParser: appRouter.defaultRouteParser(),
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
+        return GlobalLoaderOverlay(
+          child: MaterialApp.router(
+            title: 'Samaj',
+            debugShowCheckedModeBanner: false,
+            theme: _buildTheme(),
+            routerDelegate: AutoRouterDelegate(appRouter),
+            routeInformationParser: appRouter.defaultRouteParser(),
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+          ),
         );
       },
     );

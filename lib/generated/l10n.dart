@@ -69,10 +69,10 @@ class S {
     return Intl.message('Verify OTP', name: 'verifyOtp', desc: '', args: []);
   }
 
-  /// `Welcome to Demo`
+  /// `શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ`
   String get welcomeToApp {
     return Intl.message(
-      'Welcome to Demo',
+      'શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ',
       name: 'welcomeToApp',
       desc: '',
       args: [],

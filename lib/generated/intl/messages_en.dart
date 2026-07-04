@@ -175,7 +175,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "weWillTextYouToConfirmYourNumber": MessageLookupByLibrary.simpleMessage(
       "We\'ll call or text you to confirm your number",
     ),
-    "welcomeToApp": MessageLookupByLibrary.simpleMessage("Welcome to Demo"),
+    "welcomeToApp": MessageLookupByLibrary.simpleMessage(
+      "શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ",
+    ),
     "widowed": MessageLookupByLibrary.simpleMessage("Widowed"),
   };
 }

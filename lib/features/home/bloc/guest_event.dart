@@ -13,3 +13,7 @@ class AdvertiseListEvent extends GuestEvent {}
 class SamuhLagnaListEvent extends GuestEvent {}
 
 class MahilaMandalListEvent extends GuestEvent {}
+
+class GalleryListEvent extends GuestEvent {}
+
+class UpcomingEventsListEvent extends GuestEvent {}
