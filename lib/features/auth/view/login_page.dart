@@ -18,6 +18,7 @@ import '../../profile/view/terms_conditions_page.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 @RoutePage()
 class LoginPage extends StatefulWidget {
