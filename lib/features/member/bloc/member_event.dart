@@ -26,6 +26,13 @@ class FetchAllMembers extends MemberEvent {
   });
 }
 
+/// Fired on every keystroke in the search field.
+/// The BLoC debounces this for 400 ms before actually fetching.
+class SearchQueryChanged extends MemberEvent {
+  final String query;
+  SearchQueryChanged(this.query);
+}
+
 class FetchVillages extends MemberEvent {}
 
 class FetchMemberDetail extends MemberEvent {

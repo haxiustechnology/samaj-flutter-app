@@ -97,13 +97,13 @@ class _AllMembersPageState extends State<AllMembersPage> {
   }
 
   void _clearFilters() {
-    setState(() {
-      _search    = null;
-      _villageId = null;
-      _gender    = null;
-      _jobType   = null;
-    });
+    _search    = null;
+    _villageId = null;
+    _gender    = null;
+    _jobType   = null;
     _searchCtrl.clear();
+    // Tell BLoC the search box is now empty — triggers SearchBarUpdated + fetch
+    _bloc.add(SearchQueryChanged(''));
     _fetchFirstPage();
   }
 
@@ -178,37 +178,55 @@ class _AllMembersPageState extends State<AllMembersPage> {
   Widget _buildSearchBar() {
     return Padding(
       padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 8.h),
-      child: TextField(
-        controller: _searchCtrl,
-        textInputAction: TextInputAction.search,
-        style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w500),
-        decoration: InputDecoration(
-          hintText: 'Search by name…',
-          hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textMuted),
-          prefixIcon: const Icon(Icons.search_rounded, color: AppColors.primary),
-          suffixIcon: _searchCtrl.text.isNotEmpty
-              ? IconButton(
-                  icon: const Icon(Icons.clear_rounded, color: AppColors.textSecondary),
-                  onPressed: () {
-                    _searchCtrl.clear();
-                    _applyFilters();
-                  },
-                )
-              : null,
-          filled: true,
-          fillColor: AppColors.backgroundWhite,
-          contentPadding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: const BorderSide(color: AppColors.borderLight, width: 1.5),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: const BorderSide(color: AppColors.primary, width: 2),
-          ),
-        ),
-        onSubmitted: (_) => _applyFilters(),
-        onChanged: (_) => setState(() {}),
+      // BlocBuilder listens ONLY for SearchBarUpdated to refresh the clear icon
+      // — no setState needed anywhere in this widget
+      child: BlocBuilder<MemberBloc, MemberState>(
+        bloc: _bloc,
+        buildWhen: (prev, curr) => curr is SearchBarUpdated,
+        builder: (context, state) {
+          final hasText = _searchCtrl.text.isNotEmpty;
+          return TextField(
+            controller: _searchCtrl,
+            textInputAction: TextInputAction.search,
+            style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w500),
+            decoration: InputDecoration(
+              hintText: 'Search by name…',
+              hintStyle:
+                  AppTextStyles.bodyMedium.copyWith(color: AppColors.textMuted),
+              prefixIcon:
+                  const Icon(Icons.search_rounded, color: AppColors.primary),
+              suffixIcon: hasText
+                  ? IconButton(
+                      icon: const Icon(Icons.clear_rounded,
+                          color: AppColors.textSecondary),
+                      onPressed: () {
+                        _searchCtrl.clear();
+                        // Dispatch empty query — bloc resets & refetches
+                        _bloc.add(SearchQueryChanged(''));
+                      },
+                    )
+                  : null,
+              filled: true,
+              fillColor: AppColors.backgroundWhite,
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide:
+                    const BorderSide(color: AppColors.borderLight, width: 1.5),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide:
+                    const BorderSide(color: AppColors.primary, width: 2),
+              ),
+            ),
+            // Every keystroke → BLoC handles debounce internally
+            onChanged: (query) => _bloc.add(SearchQueryChanged(query)),
+            // Keyboard search button → apply immediately (no debounce wait)
+            onSubmitted: (_) => _applyFilters(),
+          );
+        },
       ),
     );
   }

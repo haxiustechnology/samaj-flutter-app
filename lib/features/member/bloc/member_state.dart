@@ -47,3 +47,10 @@ class MemberError extends MemberState {
   final String message;
   MemberError({required this.message});
 }
+
+/// Emitted immediately when the search text changes so the search bar
+/// can show/hide its clear button without any setState() in the widget.
+class SearchBarUpdated extends MemberState {
+  final String query;
+  const SearchBarUpdated(this.query);
+}

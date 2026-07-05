@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/repositories/member_repository.dart';
 import '../../../data/models/member_model.dart';
@@ -5,6 +6,12 @@ import '../../../data/models/village_model.dart';
 
 part 'member_event.dart';
 part 'member_state.dart';
+
+/// Restartable transformer: cancels previous in-flight handler when a new
+/// event arrives — perfect for debounced search (each keystroke restarts timer).
+EventTransformer<E> _restartable<E>() {
+  return (events, mapper) => events.switchMap(mapper);
+}
 
 class MemberBloc extends Bloc<MemberEvent, MemberState> {
   final MemberRepository repository;
@@ -23,10 +30,61 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
   MemberBloc({required this.repository}) : super(MemberInitial()) {
     on<FetchMyMembers>(_onFetchMyMembers);
     on<FetchAllMembers>(_onFetchAllMembers);
+    // Debounced search: restartable = each keystroke cancels the previous wait
+    on<SearchQueryChanged>(_onSearchQueryChanged, transformer: _restartable());
     on<FetchVillages>(_onFetchVillages);
     on<FetchMemberDetail>(_onFetchMemberDetail);
     on<SaveFcmToken>(_onSaveFcmToken);
     on<DeleteFcmToken>(_onDeleteFcmToken);
+  }
+
+  // ── Debounced Search ──────────────────────────────────────────────────────
+
+  Future<void> _onSearchQueryChanged(
+    SearchQueryChanged event,
+    Emitter<MemberState> emit,
+  ) async {
+    // Immediately emit so the clear (✕) button shows/hides without setState
+    emit(SearchBarUpdated(event.query));
+
+    // 400 ms debounce — restartable transformer cancels this if another
+    // keystroke arrives before the delay finishes
+    await Future.delayed(const Duration(milliseconds: 400));
+
+    _activeSearch = event.query.trim().isEmpty ? null : event.query.trim();
+
+    // Reset pagination and fetch fresh results
+    _allMembers.clear();
+    _nextCursor = null;
+    _hasMore    = true;
+    emit(MemberLoading());
+
+    final resp = await repository.allMembers(
+      lastId:    0,
+      limit:     10,
+      search:    _activeSearch,
+      villageId: _activeVillageId,
+      gender:    _activeGender,
+      jobType:   _activeJobType,
+    );
+
+    if (resp.isSuccess) {
+      final payload = resp.data as Map<String, dynamic>;
+      final rawList = (payload['members'] as List<dynamic>? ?? []);
+      final fetched = rawList
+          .map((e) => Member.fromJson(e as Map<String, dynamic>))
+          .toList();
+      _nextCursor = payload['next_cursor'] as int?;
+      _hasMore    = payload['has_more'] as bool? ?? false;
+      _allMembers.addAll(fetched);
+      emit(AllMembersLoaded(
+        members:    List.unmodifiable(_allMembers),
+        nextCursor: _nextCursor,
+        hasMore:    _hasMore,
+      ));
+    } else {
+      emit(MemberError(message: resp.message));
+    }
   }
 
   // ── My Members ────────────────────────────────────────────────────────────
@@ -43,6 +101,7 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
       emit(MemberError(message: resp.message));
     }
   }
+
 
   // ── All Members — Cursor Pagination ───────────────────────────────────────
 
