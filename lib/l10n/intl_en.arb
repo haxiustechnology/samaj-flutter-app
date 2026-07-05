@@ -113,7 +113,12 @@
   "copyrightText": "© 2026 Samaj Community. All rights reserved.",
   "deleteAccount": "Delete Account",
   "deleteAccountConfirm": "Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.",
-  "deleteText": "Delete"
+  "deleteText": "Delete",
+  "announcements": "Announcements",
+  "noNotifications": "No notifications broadcasted",
+  "refresh": "Refresh",
+  "failedToLoadNotifications": "Failed to load notifications history",
+  "alert": "Alert"
 }
 
 

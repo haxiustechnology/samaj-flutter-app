@@ -7,6 +7,7 @@ import '../../../core/constants/text_styles.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/full_screen_image_viewer.dart';
 import '../../../data/api/api_client.dart';
+import '../../../generated/l10n.dart';
 
 @RoutePage()
 class NotificationsPage extends StatefulWidget {
@@ -61,7 +62,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       } catch (_) {}
 
       setState(() {
-        _errorMessage = "Failed to load notifications history";
+        _errorMessage = S.of(context).failedToLoadNotifications;
       });
       debugPrint("Notifications Fetch Error: $e");
     } finally {
@@ -77,7 +78,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       backgroundColor: AppColors.backgroundCream,
       appBar: AppBar(
         title: Text(
-          "અગત્યની સૂચનાઓ (Announcements)",
+          S.of(context).announcements,
           style: AppTextStyles.appBarTitle.copyWith(fontSize: 16.sp),
         ),
         leading: IconButton(
@@ -123,7 +124,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
               ),
-              child: const Text("Retry", style: TextStyle(color: Colors.white)),
+              child: Text(S.of(context).refresh, style: const TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -138,7 +139,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
             Icon(Icons.notifications_off_outlined, size: 56.sp, color: AppColors.textSecondary.withValues(alpha: 0.5)),
             SizedBox(height: 16.h),
             Text(
-              "કોઈ નવી સૂચનાઓ નથી\n(No notifications broadcasted)",
+              S.of(context).noNotifications,
               textAlign: TextAlign.center,
               style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textSecondary),
             ),
@@ -146,7 +147,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
             ElevatedButton.icon(
               onPressed: _fetchNotifications,
               icon: const Icon(Icons.refresh_rounded, color: Colors.white, size: 18),
-              label: const Text("Refresh", style: TextStyle(color: Colors.white)),
+              label: Text(S.of(context).refresh, style: const TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 shape: RoundedRectangleBorder(
@@ -190,7 +191,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                         Icon(Icons.campaign_rounded, color: AppColors.primary, size: 20.sp),
                         SizedBox(width: 8.w),
                         Text(
-                          "સંદેશ (Alert)",
+                          S.of(context).alert,
                           style: AppTextStyles.subtitle2.copyWith(
                             color: AppColors.primary,
                             fontWeight: FontWeight.bold,

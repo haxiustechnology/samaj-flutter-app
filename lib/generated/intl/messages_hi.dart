@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "addMember": MessageLookupByLibrary.simpleMessage("सदस्य जोड़ें"),
     "advertise": MessageLookupByLibrary.simpleMessage("विज्ञापन"),
     "age": MessageLookupByLibrary.simpleMessage("आयु"),
+    "alert": MessageLookupByLibrary.simpleMessage("अलर्ट"),
+    "announcements": MessageLookupByLibrary.simpleMessage("महत्वपूर्ण सूचनाएं"),
     "areYouSureYouWantToLogout": MessageLookupByLibrary.simpleMessage(
       "क्या आप वाकई लॉगआउट करना चाहते हैं?",
     ),
@@ -82,6 +84,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterSurname": MessageLookupByLibrary.simpleMessage("उपनाम दर्ज करें"),
     "error": MessageLookupByLibrary.simpleMessage("त्रुटि"),
     "examplePercentage": MessageLookupByLibrary.simpleMessage("उदा. 72%"),
+    "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
+      "सूचना इतिहास लोड करने में विफल",
+    ),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "साइन अप समाप्त करें",
     ),
@@ -132,6 +137,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "mobile": MessageLookupByLibrary.simpleMessage("मोबाइल नंबर"),
     "myMembers": MessageLookupByLibrary.simpleMessage("मेरे सदस्य"),
     "news": MessageLookupByLibrary.simpleMessage("समाचार"),
+    "noNotifications": MessageLookupByLibrary.simpleMessage(
+      "कोई नई सूचना नहीं है",
+    ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(वैकल्पिक)"),
     "or": MessageLookupByLibrary.simpleMessage("या"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("फोन नंबर"),
@@ -166,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "प्रोफ़ाइल छवि (वैकल्पिक)",
     ),
     "rateApp": MessageLookupByLibrary.simpleMessage("ऐप रेट करें"),
+    "refresh": MessageLookupByLibrary.simpleMessage("ताज़ा करें"),
     "requiredField": MessageLookupByLibrary.simpleMessage("आवश्यक"),
     "resendOtp": MessageLookupByLibrary.simpleMessage("ओटीपी पुनः भेजें"),
     "samuhLagnaSamitiList": MessageLookupByLibrary.simpleMessage(

@@ -863,6 +863,46 @@ class S {
   String get deleteText {
     return Intl.message('Delete', name: 'deleteText', desc: '', args: []);
   }
+
+  /// `Announcements`
+  String get announcements {
+    return Intl.message(
+      'Announcements',
+      name: 'announcements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No notifications broadcasted`
+  String get noNotifications {
+    return Intl.message(
+      'No notifications broadcasted',
+      name: 'noNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh`
+  String get refresh {
+    return Intl.message('Refresh', name: 'refresh', desc: '', args: []);
+  }
+
+  /// `Failed to load notifications history`
+  String get failedToLoadNotifications {
+    return Intl.message(
+      'Failed to load notifications history',
+      name: 'failedToLoadNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alert`
+  String get alert {
+    return Intl.message('Alert', name: 'alert', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

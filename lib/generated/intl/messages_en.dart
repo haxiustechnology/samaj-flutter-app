@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "addMember": MessageLookupByLibrary.simpleMessage("Add Member"),
     "advertise": MessageLookupByLibrary.simpleMessage("Advertise"),
     "age": MessageLookupByLibrary.simpleMessage("Age"),
+    "alert": MessageLookupByLibrary.simpleMessage("Alert"),
+    "announcements": MessageLookupByLibrary.simpleMessage("Announcements"),
     "areYouSureYouWantToLogout": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to logout?",
     ),
@@ -72,6 +74,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterSurname": MessageLookupByLibrary.simpleMessage("Enter surname"),
     "error": MessageLookupByLibrary.simpleMessage("Error"),
     "examplePercentage": MessageLookupByLibrary.simpleMessage("e.g. 72%"),
+    "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
+      "Failed to load notifications history",
+    ),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "Finish signing up",
     ),
@@ -124,6 +129,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
     "myMembers": MessageLookupByLibrary.simpleMessage("My Members"),
     "news": MessageLookupByLibrary.simpleMessage("News"),
+    "noNotifications": MessageLookupByLibrary.simpleMessage(
+      "No notifications broadcasted",
+    ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(Optional)"),
     "or": MessageLookupByLibrary.simpleMessage("Or"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
@@ -156,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Profile image (optional)",
     ),
     "rateApp": MessageLookupByLibrary.simpleMessage("Rate App"),
+    "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
     "requiredField": MessageLookupByLibrary.simpleMessage("Required"),
     "resendOtp": MessageLookupByLibrary.simpleMessage("Resend OTP"),
     "samuhLagnaSamitiList": MessageLookupByLibrary.simpleMessage(

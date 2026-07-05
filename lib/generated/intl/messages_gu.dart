@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "addMember": MessageLookupByLibrary.simpleMessage("સભ્ય ઉમેરો"),
     "advertise": MessageLookupByLibrary.simpleMessage("જાહેરાત"),
     "age": MessageLookupByLibrary.simpleMessage("ઉંમર"),
+    "alert": MessageLookupByLibrary.simpleMessage("સંદેશ"),
+    "announcements": MessageLookupByLibrary.simpleMessage("અગત્યની સૂચનાઓ"),
     "areYouSureYouWantToLogout": MessageLookupByLibrary.simpleMessage(
       "શું તમે ખરેખર લૉગઆઉટ કરવા માંગો છો?",
     ),
@@ -74,6 +76,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterSurname": MessageLookupByLibrary.simpleMessage("ઉપનામ દાખલ કરો"),
     "error": MessageLookupByLibrary.simpleMessage("ભૂલ"),
     "examplePercentage": MessageLookupByLibrary.simpleMessage("ઉદાહરણ: 72%"),
+    "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
+      "સૂચનાઓ મેળવવામાં નિષ્ફળતા",
+    ),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "સાઇન અપ પૂર્ણ કરો",
     ),
@@ -123,6 +128,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "mobile": MessageLookupByLibrary.simpleMessage("મોબાઇલ નંબર"),
     "myMembers": MessageLookupByLibrary.simpleMessage("મારા સભ્ય"),
     "news": MessageLookupByLibrary.simpleMessage("સમાચાર"),
+    "noNotifications": MessageLookupByLibrary.simpleMessage(
+      "કોઈ નવી સૂચનાઓ નથી",
+    ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(વૈકલ્પિક)"),
     "or": MessageLookupByLibrary.simpleMessage("અથવા"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("ફોન નંબર"),
@@ -157,6 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "પ્રોફાઇલ છবি (વૈકલ્પિક)",
     ),
     "rateApp": MessageLookupByLibrary.simpleMessage("એપ્લિકેશન રેટ કરો"),
+    "refresh": MessageLookupByLibrary.simpleMessage("ફરીથી લોડ કરો"),
     "requiredField": MessageLookupByLibrary.simpleMessage("આવશ્યક"),
     "resendOtp": MessageLookupByLibrary.simpleMessage("OTP ફરીથી મોકલો"),
     "samuhLagnaSamitiList": MessageLookupByLibrary.simpleMessage(
