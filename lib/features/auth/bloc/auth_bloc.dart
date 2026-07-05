@@ -236,7 +236,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LogoutEvent event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(LogoutLoading());
     try {
       // Call logout API
       final response = await authRepository.logout();
@@ -280,7 +280,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     DeleteAccountEvent event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(DeleteAccountLoading());
     try {
       final response = await authRepository.deleteAccount();
 

@@ -339,7 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     // Delete Account tile with dynamic spinner state
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
-                        final isLoading = state is AuthLoading;
+                        final isLoading = state is DeleteAccountLoading;
                         return _buildMenuItem(
                           icon: Icons.delete_forever_rounded,
                           title: 'Delete Account',
@@ -358,7 +358,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     // Logout tile with dynamic spinner state
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
-                        final isLoading = state is AuthLoading;
+                        final isLoading = state is LogoutLoading;
                         return _buildMenuItem(
                           icon: Icons.logout_rounded,
                           title: S.of(context).logout,

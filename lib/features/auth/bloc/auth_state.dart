@@ -14,6 +14,10 @@ class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
+class LogoutLoading extends AuthState {}
+
+class DeleteAccountLoading extends AuthState {}
+
 class AuthSuccess extends AuthState {
   final UserModel? user;
   final String? message;
