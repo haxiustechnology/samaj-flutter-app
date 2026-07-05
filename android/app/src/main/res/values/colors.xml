@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary amber color matching the app's header gradient top color
+         (same as AppColors.primaryGradient: Color(0xFFD97706) → #D97706) -->
+    <color name="splash_background">#D97706</color>
+</resources>
