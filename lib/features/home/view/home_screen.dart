@@ -468,7 +468,7 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
               children: [
                 SizedBox(height: 16.h),
                 SizedBox(
-                  height: 160.h,
+                  height: 185.h,
                   child: PageView.builder(
                     controller: _pageController,
                     onPageChanged: (index) {
@@ -552,7 +552,7 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: Container(
-            height: 160.h,
+            height: 185.h,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
