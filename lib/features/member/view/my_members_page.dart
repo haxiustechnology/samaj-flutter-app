@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:samaj/generated/l10n.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
 import '../../../core/widgets/app_card.dart';
@@ -51,7 +52,7 @@ class MyMembersPage extends StatelessWidget {
         backgroundColor: AppColors.backgroundCream,
         appBar: AppBar(
           title: Text(
-            'My Family Members',
+            S.of(context).myMembers,
             style: AppTextStyles.appBarTitle,
           ),
           leading: IconButton(
@@ -82,7 +83,7 @@ class MyMembersPage extends StatelessWidget {
                       ),
                       SizedBox(height: 16.h),
                       Text(
-                        'No family members added yet.',
+                        S.of(context).noMembersAdded,
                         style: AppTextStyles.heading4.copyWith(
                           color: AppColors.textSecondary,
                         ),

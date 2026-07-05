@@ -38,6 +38,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "bachelorPercentage": MessageLookupByLibrary.simpleMessage(
       "स्नातक प्रतिशत",
     ),
+    "businessJobDetails": MessageLookupByLibrary.simpleMessage(
+      "व्यवसाय / नौकरी का विवरण",
+    ),
+    "businessJobDetailsHint": MessageLookupByLibrary.simpleMessage(
+      "अपने व्यवसाय या नौकरी प्रोफ़ाइल के बारे में विवरण प्रदान करें",
+    ),
+    "businessJobDetailsOptional": MessageLookupByLibrary.simpleMessage(
+      "व्यवसाय / नौकरी का विवरण (वैकल्पिक)",
+    ),
+    "camera": MessageLookupByLibrary.simpleMessage("कैमरा"),
     "cancel": MessageLookupByLibrary.simpleMessage("रद्द करें"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("भाषा बदलें"),
     "community": MessageLookupByLibrary.simpleMessage("समुदाय"),
@@ -52,6 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "क्या आप वाकई अपना खाता स्थायी रूप से हटाना चाहते हैं? यह प्रक्रिया रद्द नहीं की जा सकती है, और आपका पंजीकृत सदस्य प्रोफ़ाइल निष्क्रिय कर दिया जाएगा।",
     ),
     "deleteText": MessageLookupByLibrary.simpleMessage("हटाएं"),
+    "designationPost": MessageLookupByLibrary.simpleMessage("पद / पोस्ट"),
+    "designationPostHint": MessageLookupByLibrary.simpleMessage(
+      "जैसे: पुलिस, डॉक्टर, आईटी मैनेजर",
+    ),
+    "designationPostOptional": MessageLookupByLibrary.simpleMessage(
+      "पद / पोस्ट (वैकल्पिक)",
+    ),
+    "divorced": MessageLookupByLibrary.simpleMessage("तलाकशुदा"),
     "doingJobQuestion": MessageLookupByLibrary.simpleMessage(
       "क्या आप काम कर रहे हैं?",
     ),
@@ -77,6 +95,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterMiddleName": MessageLookupByLibrary.simpleMessage(
       "मध्यम नाम दर्ज करें",
     ),
+    "enterMobileNumber": MessageLookupByLibrary.simpleMessage(
+      "10-अंकीय मोबाइल नंबर दर्ज करें",
+    ),
     "enterOtp": MessageLookupByLibrary.simpleMessage("ओटीपी दर्ज करें"),
     "enterSscSchool": MessageLookupByLibrary.simpleMessage(
       "SSC स्कूल दर्ज करें",
@@ -87,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
       "सूचना इतिहास लोड करने में विफल",
     ),
+    "female": MessageLookupByLibrary.simpleMessage("महिला"),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "साइन अप समाप्त करें",
     ),
@@ -126,22 +148,49 @@ class MessageLookup extends MessageLookupByLibrary {
     "mahilaMandalSamitiList": MessageLookupByLibrary.simpleMessage(
       "महिला मंडल समिति सूची",
     ),
+    "male": MessageLookupByLibrary.simpleMessage("पुरुष"),
     "maritalStatus": MessageLookupByLibrary.simpleMessage("वैवाहिक स्थिति"),
     "married": MessageLookupByLibrary.simpleMessage("विवाहित"),
     "masterDegree": MessageLookupByLibrary.simpleMessage("स्नातकोत्तर डिग्री"),
     "masterPercentage": MessageLookupByLibrary.simpleMessage(
       "स्नातकोत्तर प्रतिशत",
     ),
+    "memberAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "सदस्य सफलतापूर्वक जोड़ा गया",
+    ),
+    "memberUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "सदस्य सफलतापूर्वक अपडेट किया गया",
+    ),
     "messages": MessageLookupByLibrary.simpleMessage("संदेश"),
     "middleName": MessageLookupByLibrary.simpleMessage("मध्यम नाम"),
     "mobile": MessageLookupByLibrary.simpleMessage("मोबाइल नंबर"),
+    "mobileNumberOptional": MessageLookupByLibrary.simpleMessage(
+      "मोबाइल नंबर (वैकल्पिक)",
+    ),
+    "mobileValidationMsg": MessageLookupByLibrary.simpleMessage(
+      "मोबाइल नंबर बिल्कुल 10 अंकों का होना चाहिए",
+    ),
     "myMembers": MessageLookupByLibrary.simpleMessage("मेरे सदस्य"),
     "news": MessageLookupByLibrary.simpleMessage("समाचार"),
+    "no": MessageLookupByLibrary.simpleMessage("नहीं"),
+    "noMembersAdded": MessageLookupByLibrary.simpleMessage(
+      "अभी तक कोई सदस्य नहीं जोड़ा गया है।",
+    ),
     "noNotifications": MessageLookupByLibrary.simpleMessage(
       "कोई नई सूचना नहीं है",
     ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(वैकल्पिक)"),
     "or": MessageLookupByLibrary.simpleMessage("या"),
+    "otherEducation": MessageLookupByLibrary.simpleMessage(
+      "अन्य शिक्षा / योग्यताएं",
+    ),
+    "otherEducationHint": MessageLookupByLibrary.simpleMessage(
+      "किसी भी अन्य डिग्री या पाठ्यक्रमों का विवरण प्रदान करें",
+    ),
+    "otherEducationOptional": MessageLookupByLibrary.simpleMessage(
+      "अन्य शिक्षा / योग्यताएं (वैकल्पिक)",
+    ),
+    "personalDetails": MessageLookupByLibrary.simpleMessage("व्यक्तिगत विवरण"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("फोन नंबर"),
     "pleaseAgreeToTermsAndConditions": MessageLookupByLibrary.simpleMessage(
       "कृपया नियम और शर्तों से सहमत हों",
@@ -187,12 +236,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "शिक्षण समिति सूची",
     ),
     "signUp": MessageLookupByLibrary.simpleMessage("साइन अप करें"),
-    "single": MessageLookupByLibrary.simpleMessage("एकल"),
+    "single": MessageLookupByLibrary.simpleMessage("अविवाहित"),
     "sscPercentage": MessageLookupByLibrary.simpleMessage("SSC प्रतिशत"),
     "sscSchool": MessageLookupByLibrary.simpleMessage("SSC स्कूल"),
     "surname": MessageLookupByLibrary.simpleMessage("उपनाम"),
     "termsConditions": MessageLookupByLibrary.simpleMessage("नियम एवं शर्तें"),
     "upcomingEvents": MessageLookupByLibrary.simpleMessage("आगामी कार्यक्रम"),
+    "uploaded": MessageLookupByLibrary.simpleMessage("अपलोड हो गया"),
     "uploading": MessageLookupByLibrary.simpleMessage("अपलोड हो रहा है..."),
     "verifyOtp": MessageLookupByLibrary.simpleMessage("ओटीपी सत्यापित करें"),
     "versionText": m1,
@@ -204,6 +254,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeToApp": MessageLookupByLibrary.simpleMessage(
       "श्री सत्यावीस वरीया गोल प्रजापति समाज",
     ),
-    "widowed": MessageLookupByLibrary.simpleMessage("विधवा"),
+    "widow": MessageLookupByLibrary.simpleMessage("विधवा/विधुर"),
+    "workingStatus": MessageLookupByLibrary.simpleMessage("कार्य की स्थिति"),
+    "years": MessageLookupByLibrary.simpleMessage("वर्ष"),
+    "yes": MessageLookupByLibrary.simpleMessage("हाँ"),
   };
 }

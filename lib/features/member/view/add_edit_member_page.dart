@@ -38,16 +38,23 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
   final _masterDegree = TextEditingController();
   final _masterPercentage = TextEditingController();
   
-  String _gender = 'Male';
-  int? _age;
-  String _maritalStatus = 'single';
-  DateTime? _dob;
-  int? _villageId;
-  bool _isDoingJob = false;
-  String? _jobType;
-  File? _imageFile;
-  bool _isUploading = false;
-  double _uploadProgress = 0.0;
+  // new optional fields
+  final _mobile = TextEditingController();
+  final _businessDetails = TextEditingController();
+  final _jobPost = TextEditingController();
+  final _otherEducation = TextEditingController();
+  
+  final ValueNotifier<String> _gender = ValueNotifier<String>('Male');
+  final ValueNotifier<int?> _age = ValueNotifier<int?>(null);
+  final ValueNotifier<String> _maritalStatus = ValueNotifier<String>('single');
+  final ValueNotifier<DateTime?> _dob = ValueNotifier<DateTime?>(null);
+  final ValueNotifier<int?> _villageId = ValueNotifier<int?>(null);
+  final ValueNotifier<bool> _isDoingJob = ValueNotifier<bool>(false);
+  final ValueNotifier<String?> _jobType = ValueNotifier<String?>(null);
+  final ValueNotifier<File?> _imageFile = ValueNotifier<File?>(null);
+  final ValueNotifier<bool> _isUploading = ValueNotifier<bool>(false);
+  final ValueNotifier<double> _uploadProgress = ValueNotifier<double>(0.0);
+  
   final _repo = MemberRepository();
   late MemberBloc _bloc;
 
@@ -61,33 +68,37 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
       // Normalize gender to match dropdown item values ('Male' / 'Female')
       final g = (widget.member!.gender ?? '').toString().toLowerCase();
       if (g == 'male') {
-        _gender = 'Male';
+        _gender.value = 'Male';
       } else if (g == 'female') {
-        _gender = 'Female';
+        _gender.value = 'Female';
       } else {
-        _gender = 'Male';
+        _gender.value = 'Male';
       }
       // parse dob if available
       if (widget.member!.birthdate != null) {
-        _dob = DateTime.tryParse(widget.member!.birthdate!);
+        _dob.value = DateTime.tryParse(widget.member!.birthdate!);
       }
-      _villageId = widget.member!.villageId;
+      _villageId.value = widget.member!.villageId;
       // Normalize marital status to lowercase keys used by the dropdown
-      final ms = (widget.member!.maritalStatus ?? '').toString().toLowerCase();
-      _maritalStatus = ms.isNotEmpty ? ms : 'single';
+      var ms = widget.member!.maritalStatus.toString().toLowerCase();
+      if (ms == 'widowed') ms = 'widow';
+      if (!['single', 'married', 'divorced', 'widow'].contains(ms)) {
+        ms = 'single';
+      }
+      _maritalStatus.value = ms;
       // set isDoingJob based on member data
       if (widget.member!.isDoingJob != null) {
-        _isDoingJob = widget.member!.isDoingJob == 1;
+        _isDoingJob.value = widget.member!.isDoingJob == 1;
       }
       // Normalize job type if present
       if (widget.member!.jobType != null) {
         final jt = widget.member!.jobType!.toString().toLowerCase();
         if (jt == 'private') {
-          _jobType = 'Private';
+          _jobType.value = 'Private';
         } else if (jt == 'government') {
-          _jobType = 'Government';
+          _jobType.value = 'Government';
         } else {
-          _jobType = widget.member!.jobType;
+          _jobType.value = widget.member!.jobType;
         }
       }
       // prefill education
@@ -99,15 +110,53 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
       _bachelorPercentage.text = widget.member!.bachelorPercentage ?? '';
       _masterDegree.text = widget.member!.masterDegree ?? '';
       _masterPercentage.text = widget.member!.masterPercentage ?? '';
+      
+      // new fields prefill
+      _mobile.text = widget.member!.mobile ?? '';
+      _businessDetails.text = widget.member!.businessDetails ?? '';
+      _jobPost.text = widget.member!.jobPost ?? '';
+      _otherEducation.text = widget.member!.otherEducation ?? '';
     }
     _bloc = MemberBloc(repository: MemberRepository());
     _bloc.add(FetchVillages());
   }
 
+  @override
+  void dispose() {
+    _first.dispose();
+    _middle.dispose();
+    _surname.dispose();
+    _sscSchool.dispose();
+    _sscPercentage.dispose();
+    _hscSchool.dispose();
+    _hscPercentage.dispose();
+    _bachelorDegree.dispose();
+    _bachelorPercentage.dispose();
+    _masterDegree.dispose();
+    _masterPercentage.dispose();
+    _mobile.dispose();
+    _businessDetails.dispose();
+    _jobPost.dispose();
+    _otherEducation.dispose();
+    
+    _gender.dispose();
+    _age.dispose();
+    _maritalStatus.dispose();
+    _dob.dispose();
+    _villageId.dispose();
+    _isDoingJob.dispose();
+    _jobType.dispose();
+    _imageFile.dispose();
+    _isUploading.dispose();
+    _uploadProgress.dispose();
+    
+    super.dispose();
+  }
+
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final x = await picker.pickImage(source: source, imageQuality: 80);
-    if (x != null) setState(() => _imageFile = File(x.path));
+    if (x != null) _imageFile.value = File(x.path);
   }
 
   void _showImageSourceActionSheet(BuildContext context) {
@@ -134,7 +183,7 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
             ),
             ListTile(
               leading: const Icon(Icons.camera_alt_outlined, color: AppColors.primary),
-              title: const Text('Camera', style: AppTextStyles.bodyMedium),
+              title: Text(S.of(ctx).camera, style: AppTextStyles.bodyMedium),
               onTap: () {
                 Navigator.pop(ctx);
                 _pickImage(ImageSource.camera);
@@ -157,7 +206,7 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
 
   Future<void> _pickDob() async {
     final now = DateTime.now();
-    final initial = _dob ?? DateTime(now.year - 20, now.month, now.day);
+    final initial = _dob.value ?? DateTime(now.year - 20, now.month, now.day);
     final picked = await showDatePicker(
       context: context,
       initialDate: initial,
@@ -178,17 +227,15 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
     );
     if (!mounted) return;
     if (picked != null) {
-      setState(() {
-        _dob = picked;
-        _age = _calculateAge(picked);
-      });
+      _dob.value = picked;
+      _age.value = _calculateAge(picked);
     }
   }
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
-    if (_imageFile != null) {
-      final len = _imageFile!.lengthSync();
+    if (_imageFile.value != null) {
+      final len = _imageFile.value!.lengthSync();
       const warnBytes = 1572864; // 1.5 * 1024 * 1024
       if (len > warnBytes) {
         final ok = await showDialog<bool>(
@@ -219,13 +266,18 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
       'first_name': _first.text.trim(),
       'middle_name': _middle.text.trim(),
       'surname': _surname.text.trim(),
-      'gender': _gender,
-      'village_id': _villageId,
-      'marital_status': _maritalStatus,
-      'age': _age,
-      'is_doing_job': _isDoingJob ? 1 : 0,
-      'job_type': _jobType,
-      'birthdate': _dob != null ? _dob!.toIso8601String().split('T').first : null,
+      'gender': _gender.value,
+      'village_id': _villageId.value,
+      'marital_status': _maritalStatus.value,
+      'age': _age.value,
+      'is_doing_job': _isDoingJob.value ? 1 : 0,
+      'job_type': _isDoingJob.value ? _jobType.value : null,
+      'birthdate': _dob.value != null ? _dob.value!.toIso8601String().split('T').first : null,
+      'mobile': _mobile.text.trim().isEmpty ? null : _mobile.text.trim(),
+      'business_details': _businessDetails.text.trim().isEmpty ? null : _businessDetails.text.trim(),
+      'job_post': _isDoingJob.value && (_jobType.value == 'Private' || _jobType.value == 'Government')
+          ? (_jobPost.text.trim().isEmpty ? null : _jobPost.text.trim())
+          : null,
       'education': {
         'ssc_school': _sscSchool.text.trim(),
         'ssc_percentage': _sscPercentage.text.trim(),
@@ -235,42 +287,39 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
         'bachelor_percentage': _bachelorPercentage.text.trim(),
         'master_degree': _masterDegree.text.trim(),
         'master_percentage': _masterPercentage.text.trim(),
+        'other_education': _otherEducation.text.trim().isEmpty ? null : _otherEducation.text.trim(),
       }
     };
 
-    setState(() {
-      _isUploading = true;
-      _uploadProgress = 0.0;
-    });
+    _isUploading.value = true;
+    _uploadProgress.value = 0.0;
     try {
       if (widget.member == null) {
-        final resp = await _repo.addMember(body, imageFile: _imageFile, onSendProgress: (sent, total) {
-          if (total > 0) setState(() => _uploadProgress = sent / total);
+        final resp = await _repo.addMember(body, imageFile: _imageFile.value, onSendProgress: (sent, total) {
+          if (total > 0) _uploadProgress.value = sent / total;
         });
         if (!mounted) return;
         if (resp.isSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Member added successfully')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(S.of(context).memberAddedSuccessfully)));
           Navigator.pop(context, true);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(resp.message)));
         }
       } else {
-        final resp = await _repo.editMember(widget.member!.id, body, imageFile: _imageFile, onSendProgress: (sent, total) {
-          if (total > 0) setState(() => _uploadProgress = sent / total);
+        final resp = await _repo.editMember(widget.member!.id, body, imageFile: _imageFile.value, onSendProgress: (sent, total) {
+          if (total > 0) _uploadProgress.value = sent / total;
         });
         if (!mounted) return;
         if (resp.isSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Member updated successfully')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(S.of(context).memberUpdatedSuccessfully)));
           Navigator.pop(context, true);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(resp.message)));
         }
       }
     } finally {
-      setState(() {
-        _isUploading = false;
-        _uploadProgress = 0.0;
-      });
+      _isUploading.value = false;
+      _uploadProgress.value = 0.0;
     }
   }
 
@@ -311,38 +360,43 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                       onTap: () => _showImageSourceActionSheet(context),
                       child: Stack(
                         children: [
-                          Container(
-                            padding: EdgeInsets.all(4.w),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 3),
-                            ),
-                            child: CircleAvatar(
-                              radius: 60.r,
-                              backgroundColor: AppColors.backgroundWhite,
-                              child: ClipOval(
-                                child: _imageFile == null
-                                    ? (widget.member?.profileImage != null && widget.member!.profileImage!.isNotEmpty
-                                        ? CachedNetworkImage(
-                                            imageUrl: widget.member!.profileImage!,
+                          ValueListenableBuilder<File?>(
+                            valueListenable: _imageFile,
+                            builder: (context, imageFileValue, _) {
+                              return Container(
+                                padding: EdgeInsets.all(4.w),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 3),
+                                ),
+                                child: CircleAvatar(
+                                  radius: 60.r,
+                                  backgroundColor: AppColors.backgroundWhite,
+                                  child: ClipOval(
+                                    child: imageFileValue == null
+                                        ? (widget.member?.profileImage != null && widget.member!.profileImage!.isNotEmpty
+                                            ? CachedNetworkImage(
+                                                imageUrl: widget.member!.profileImage!,
+                                                width: 120.w,
+                                                height: 120.w,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) => const Center(
+                                                  child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
+                                                ),
+                                                errorWidget: (context, url, error) =>
+                                                    const Icon(Icons.broken_image_rounded, size: 36, color: AppColors.primary),
+                                              )
+                                            : const Icon(Icons.camera_alt_rounded, size: 36, color: AppColors.primary))
+                                        : Image.file(
+                                            imageFileValue,
                                             width: 120.w,
                                             height: 120.w,
                                             fit: BoxFit.cover,
-                                            placeholder: (context, url) => const Center(
-                                              child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
-                                            ),
-                                            errorWidget: (context, url, error) =>
-                                                const Icon(Icons.broken_image_rounded, size: 36, color: AppColors.primary),
-                                          )
-                                        : const Icon(Icons.camera_alt_rounded, size: 36, color: AppColors.primary))
-                                    : Image.file(
-                                        _imageFile!,
-                                        width: 120.w,
-                                        height: 120.w,
-                                        fit: BoxFit.cover,
-                                      ),
-                              ),
-                            ),
+                                          ),
+                                  ),
+                                ),
+                              );
+                            }
                           ),
                           Positioned(
                             bottom: 4.h,
@@ -387,7 +441,7 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          'Personal Details',
+                          S.of(context).personalDetails,
                           style: AppTextStyles.subtitle1.copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppColors.primary,
@@ -423,54 +477,96 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                         SizedBox(height: 16.h),
 
                         // Gender Dropdown (Redesigned)
-                        AppDropdownField<String>(
-                          value: _gender,
-                          label: S.of(context).gender,
-                          items: const [
-                            DropdownMenuItem(value: 'Male', child: Text('Male')),
-                            DropdownMenuItem(value: 'Female', child: Text('Female'))
-                          ],
-                          onChanged: (v) => setState(() => _gender = v ?? 'Male'),
+                        ValueListenableBuilder<String>(
+                          valueListenable: _gender,
+                          builder: (context, genderValue, _) {
+                            return AppDropdownField<String>(
+                              value: genderValue,
+                              label: S.of(context).gender,
+                              items: [
+                                DropdownMenuItem(value: 'Male', child: Text(S.of(context).male)),
+                                DropdownMenuItem(value: 'Female', child: Text(S.of(context).female))
+                              ],
+                              onChanged: (v) => _gender.value = v ?? 'Male',
+                            );
+                          }
                         ),
                         SizedBox(height: 16.h),
 
                         // Birthdate picker inside AppTextField container look
-                        GestureDetector(
-                          onTap: _pickDob,
-                          child: AbsorbPointer(
-                            child: AppTextField(
-                              controller: TextEditingController(
-                                text: _dob != null ? _dob!.toIso8601String().split('T').first : '',
+                        ValueListenableBuilder<DateTime?>(
+                          valueListenable: _dob,
+                          builder: (context, dobValue, _) {
+                            return GestureDetector(
+                              onTap: _pickDob,
+                              child: AbsorbPointer(
+                                child: AppTextField(
+                                  controller: TextEditingController(
+                                    text: dobValue != null ? dobValue.toIso8601String().split('T').first : '',
+                                  ),
+                                  label: S.of(context).dateOfBirth,
+                                  hint: S.of(context).dateOfBirth,
+                                  prefixIcon: const Icon(Icons.calendar_today_rounded),
+                                  validator: (v) => null,
+                                ),
                               ),
-                              label: S.of(context).dateOfBirth,
-                              hint: S.of(context).dateOfBirth,
-                              prefixIcon: const Icon(Icons.calendar_today_rounded),
-                              validator: (v) => null,
-                            ),
-                          ),
+                            );
+                          }
                         ),
-                        if (_age != null) ...[
-                          SizedBox(height: 8.h),
-                          Text(
-                            '${S.of(context).age}: $_age years',
-                            style: AppTextStyles.bodyMedium.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textSecondary,
-                            ),
-                          ),
-                        ],
+                        ValueListenableBuilder<int?>(
+                          valueListenable: _age,
+                          builder: (context, ageValue, _) {
+                            if (ageValue == null) return const SizedBox.shrink();
+                            return Padding(
+                              padding: EdgeInsets.only(top: 8.h),
+                              child: Text(
+                                '${S.of(context).age}: $ageValue ${S.of(context).years}',
+                                style: AppTextStyles.bodyMedium.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            );
+                          }
+                        ),
                         SizedBox(height: 16.h),
 
                         // Marital status dropdown
-                        AppDropdownField<String>(
-                          value: _maritalStatus,
-                          label: S.of(context).maritalStatus,
-                          items: [
-                            DropdownMenuItem(value: 'single', child: Text(S.of(context).single)),
-                            DropdownMenuItem(value: 'married', child: Text(S.of(context).married)),
-                            DropdownMenuItem(value: 'widowed', child: Text(S.of(context).widowed)),
+                        ValueListenableBuilder<String>(
+                          valueListenable: _maritalStatus,
+                          builder: (context, maritalStatusValue, _) {
+                            return AppDropdownField<String>(
+                              value: maritalStatusValue,
+                              label: S.of(context).maritalStatus,
+                              items: [
+                                DropdownMenuItem(value: 'single', child: Text(S.of(context).single)),
+                                DropdownMenuItem(value: 'married', child: Text(S.of(context).married)),
+                                DropdownMenuItem(value: 'divorced', child: Text(S.of(context).divorced)),
+                                DropdownMenuItem(value: 'widow', child: Text(S.of(context).widow)),
+                              ],
+                              onChanged: (v) => _maritalStatus.value = v ?? 'single',
+                            );
+                          }
+                        ),
+                        SizedBox(height: 16.h),
+
+                        // Optional Mobile Number
+                        AppTextField(
+                          controller: _mobile,
+                          label: S.of(context).mobileNumberOptional,
+                          hint: S.of(context).enterMobileNumber,
+                          keyboardType: TextInputType.phone,
+                          prefixIcon: const Icon(Icons.phone_iphone_rounded),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(10),
                           ],
-                          onChanged: (v) => setState(() => _maritalStatus = v ?? 'single'),
+                          validator: (v) {
+                            if (v != null && v.isNotEmpty && v.length != 10) {
+                              return S.of(context).mobileValidationMsg;
+                            }
+                            return null;
+                          },
                         ),
                         SizedBox(height: 16.h),
 
@@ -485,14 +581,19 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                             }
                             if (state is VillagesLoaded) {
                               final villages = state.villages;
-                              return AppDropdownField<int>(
-                                value: _villageId,
-                                label: S.of(context).village,
-                                items: villages
-                                    .map((v) => DropdownMenuItem(value: v.id, child: Text(v.villageName)))
-                                    .toList(),
-                                onChanged: (val) => setState(() => _villageId = val),
-                                validator: (v) => v == null ? S.of(context).requiredField : null,
+                              return ValueListenableBuilder<int?>(
+                                valueListenable: _villageId,
+                                builder: (context, villageIdValue, _) {
+                                  return AppDropdownField<int>(
+                                    value: villageIdValue,
+                                    label: S.of(context).village,
+                                    items: villages
+                                        .map((v) => DropdownMenuItem(value: v.id, child: Text(v.villageName)))
+                                        .toList(),
+                                    onChanged: (val) => _villageId.value = val,
+                                    validator: (v) => v == null ? S.of(context).requiredField : null,
+                                  );
+                                }
                               );
                             }
                             if (state is MemberError) return Text(state.message, style: TextStyle(color: AppColors.error));
@@ -521,35 +622,72 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              S.of(context).doingJobQuestion,
-                              style: AppTextStyles.subtitle1.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textPrimary,
-                              ),
-                            ),
-                            Switch.adaptive(
-                              value: _isDoingJob,
-                              activeColor: AppColors.primary,
-                              onChanged: (v) => setState(() => _isDoingJob = v),
-                            ),
-                          ],
+                        ValueListenableBuilder<bool>(
+                          valueListenable: _isDoingJob,
+                          builder: (context, isDoingJobValue, _) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      S.of(context).doingJobQuestion,
+                                      style: AppTextStyles.subtitle1.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.textPrimary,
+                                      ),
+                                    ),
+                                    Switch.adaptive(
+                                      value: isDoingJobValue,
+                                      activeColor: AppColors.primary,
+                                      onChanged: (v) => _isDoingJob.value = v,
+                                    ),
+                                  ],
+                                ),
+                                if (isDoingJobValue) ...[
+                                  SizedBox(height: 12.h),
+                                  ValueListenableBuilder<String?>(
+                                    valueListenable: _jobType,
+                                    builder: (context, jobTypeValue, _) {
+                                      return Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          AppDropdownField<String>(
+                                            value: jobTypeValue,
+                                            label: S.of(context).jobType,
+                                            items: [
+                                              DropdownMenuItem(value: 'Private', child: Text(S.of(context).privateJob)),
+                                              DropdownMenuItem(value: 'Government', child: Text(S.of(context).governmentJob)),
+                                            ],
+                                            onChanged: (v) => _jobType.value = v,
+                                          ),
+                                          if (jobTypeValue == 'Private' || jobTypeValue == 'Government') ...[
+                                            SizedBox(height: 16.h),
+                                            AppTextField(
+                                              controller: _jobPost,
+                                              label: S.of(context).designationPostOptional,
+                                              hint: S.of(context).designationPostHint,
+                                              prefixIcon: const Icon(Icons.badge_outlined),
+                                            ),
+                                          ],
+                                        ],
+                                      );
+                                    }
+                                  ),
+                                  SizedBox(height: 16.h),
+                                  AppTextField(
+                                    controller: _businessDetails,
+                                    label: S.of(context).businessJobDetailsOptional,
+                                    hint: S.of(context).businessJobDetailsHint,
+                                    prefixIcon: const Icon(Icons.business_center_outlined),
+                                    maxLines: 3,
+                                  ),
+                                ],
+                              ],
+                            );
+                          }
                         ),
-                        if (_isDoingJob) ...[
-                          SizedBox(height: 12.h),
-                          AppDropdownField<String>(
-                            value: _jobType,
-                            label: S.of(context).jobType,
-                            items: const [
-                              DropdownMenuItem(value: 'Private', child: Text('Private')),
-                              DropdownMenuItem(value: 'Government', child: Text('Government')),
-                            ],
-                            onChanged: (v) => setState(() => _jobType = v),
-                          ),
-                        ],
                       ],
                     ),
                   ),
@@ -624,42 +762,64 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                           keyboardType: TextInputType.number,
                           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9%\.]'))],
                         ),
+                        SizedBox(height: 16.h),
+                        AppTextField(
+                          controller: _otherEducation,
+                          label: S.of(context).otherEducationOptional,
+                          hint: S.of(context).otherEducationHint,
+                          prefixIcon: const Icon(Icons.school_outlined),
+                          maxLines: 3,
+                        ),
                       ],
                     ),
                   ),
                   SizedBox(height: 24.h),
 
                   // Upload Progress
-                  if (_isUploading) ...[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(4.r),
-                            child: LinearProgressIndicator(
-                              value: _uploadProgress,
-                              backgroundColor: AppColors.borderLight,
-                              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-                              minHeight: 6.h,
+                  ValueListenableBuilder<bool>(
+                    valueListenable: _isUploading,
+                    builder: (context, isUploadingValue, _) {
+                      if (!isUploadingValue) return const SizedBox.shrink();
+                      return ValueListenableBuilder<double>(
+                        valueListenable: _uploadProgress,
+                        builder: (context, progressValue, _) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(4.r),
+                                  child: LinearProgressIndicator(
+                                    value: progressValue,
+                                    backgroundColor: AppColors.borderLight,
+                                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                                    minHeight: 6.h,
+                                  ),
+                                ),
+                                SizedBox(height: 8.h),
+                                Text(
+                                  '${(progressValue * 100).toStringAsFixed(0)}% ${S.of(context).uploaded}',
+                                  style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            '${(_uploadProgress * 100).toStringAsFixed(0)}% uploaded',
-                            style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                          );
+                        }
+                      );
+                    }
+                  ),
 
                   // Submit button
-                  AppButton(
-                    text: S.of(context).save,
-                    onPressed: _isUploading ? null : _submit,
-                    isLoading: _isUploading,
+                  ValueListenableBuilder<bool>(
+                    valueListenable: _isUploading,
+                    builder: (context, isUploadingValue, _) {
+                      return AppButton(
+                        text: S.of(context).save,
+                        onPressed: isUploadingValue ? null : _submit,
+                        isLoading: isUploadingValue,
+                      );
+                    }
                   ),
                   SizedBox(height: 32.h),
                 ],

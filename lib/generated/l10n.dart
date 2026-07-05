@@ -694,9 +694,14 @@ class S {
     return Intl.message('Married', name: 'married', desc: '', args: []);
   }
 
+  /// `Divorced`
+  String get divorced {
+    return Intl.message('Divorced', name: 'divorced', desc: '', args: []);
+  }
+
   /// `Widowed`
-  String get widowed {
-    return Intl.message('Widowed', name: 'widowed', desc: '', args: []);
+  String get widow {
+    return Intl.message('Widowed', name: 'widow', desc: '', args: []);
   }
 
   /// `Guest mode`
@@ -902,6 +907,211 @@ class S {
   /// `Alert`
   String get alert {
     return Intl.message('Alert', name: 'alert', desc: '', args: []);
+  }
+
+  /// `Personal Details`
+  String get personalDetails {
+    return Intl.message(
+      'Personal Details',
+      name: 'personalDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Male`
+  String get male {
+    return Intl.message('Male', name: 'male', desc: '', args: []);
+  }
+
+  /// `Female`
+  String get female {
+    return Intl.message('Female', name: 'female', desc: '', args: []);
+  }
+
+  /// `years`
+  String get years {
+    return Intl.message('years', name: 'years', desc: '', args: []);
+  }
+
+  /// `Mobile Number (Optional)`
+  String get mobileNumberOptional {
+    return Intl.message(
+      'Mobile Number (Optional)',
+      name: 'mobileNumberOptional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter 10-digit mobile number`
+  String get enterMobileNumber {
+    return Intl.message(
+      'Enter 10-digit mobile number',
+      name: 'enterMobileNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mobile number must be exactly 10 digits`
+  String get mobileValidationMsg {
+    return Intl.message(
+      'Mobile number must be exactly 10 digits',
+      name: 'mobileValidationMsg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Designation / Post (Optional)`
+  String get designationPostOptional {
+    return Intl.message(
+      'Designation / Post (Optional)',
+      name: 'designationPostOptional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `e.g. Police, Doctor, IT Manager`
+  String get designationPostHint {
+    return Intl.message(
+      'e.g. Police, Doctor, IT Manager',
+      name: 'designationPostHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Business / Job Details (Optional)`
+  String get businessJobDetailsOptional {
+    return Intl.message(
+      'Business / Job Details (Optional)',
+      name: 'businessJobDetailsOptional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Provide details about your business or job profile`
+  String get businessJobDetailsHint {
+    return Intl.message(
+      'Provide details about your business or job profile',
+      name: 'businessJobDetailsHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other Education / Qualifications (Optional)`
+  String get otherEducationOptional {
+    return Intl.message(
+      'Other Education / Qualifications (Optional)',
+      name: 'otherEducationOptional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Provide details of any other degrees or courses`
+  String get otherEducationHint {
+    return Intl.message(
+      'Provide details of any other degrees or courses',
+      name: 'otherEducationHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message('Camera', name: 'camera', desc: '', args: []);
+  }
+
+  /// `Member added successfully`
+  String get memberAddedSuccessfully {
+    return Intl.message(
+      'Member added successfully',
+      name: 'memberAddedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Member updated successfully`
+  String get memberUpdatedSuccessfully {
+    return Intl.message(
+      'Member updated successfully',
+      name: 'memberUpdatedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `uploaded`
+  String get uploaded {
+    return Intl.message('uploaded', name: 'uploaded', desc: '', args: []);
+  }
+
+  /// `Designation / Post`
+  String get designationPost {
+    return Intl.message(
+      'Designation / Post',
+      name: 'designationPost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Business / Job Details`
+  String get businessJobDetails {
+    return Intl.message(
+      'Business / Job Details',
+      name: 'businessJobDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other Education / Qualifications`
+  String get otherEducation {
+    return Intl.message(
+      'Other Education / Qualifications',
+      name: 'otherEducation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Working Status`
+  String get workingStatus {
+    return Intl.message(
+      'Working Status',
+      name: 'workingStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message('Yes', name: 'yes', desc: '', args: []);
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message('No', name: 'no', desc: '', args: []);
+  }
+
+  /// `No family members added yet.`
+  String get noMembersAdded {
+    return Intl.message(
+      'No family members added yet.',
+      name: 'noMembersAdded',
+      desc: '',
+      args: [],
+    );
   }
 }
 

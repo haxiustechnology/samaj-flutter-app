@@ -22,6 +22,11 @@ class Member {
   final String? masterDegree;
   final String? masterPercentage;
 
+  final String? mobile;
+  final String? businessDetails;
+  final String? jobPost;
+  final String? otherEducation;
+
   Member({
     required this.id,
     required this.firstName,
@@ -44,6 +49,10 @@ class Member {
     this.bachelorPercentage,
     this.masterDegree,
     this.masterPercentage,
+    this.mobile,
+    this.businessDetails,
+    this.jobPost,
+    this.otherEducation,
   });
 
   factory Member.fromJson(Map<String, dynamic> json) {
@@ -69,6 +78,10 @@ class Member {
       bachelorPercentage: json['bachelor_percentage']?.toString(),
       masterDegree: json['master_degree'],
       masterPercentage: json['master_percentage']?.toString(),
+      mobile: json['mobile'],
+      businessDetails: json['business_details'],
+      jobPost: json['job_post'],
+      otherEducation: json['other_education'],
     );
   }
 }

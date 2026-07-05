@@ -38,6 +38,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "bachelorPercentage": MessageLookupByLibrary.simpleMessage(
       "સ્નાતક ટકાવારી",
     ),
+    "businessJobDetails": MessageLookupByLibrary.simpleMessage(
+      "વ્યવસાય / નોકરીની વિગતો",
+    ),
+    "businessJobDetailsHint": MessageLookupByLibrary.simpleMessage(
+      "તમારા વ્યવસાય અથવા નોકરીની પ્રોફાઇલ વિશે વિગતો આપો",
+    ),
+    "businessJobDetailsOptional": MessageLookupByLibrary.simpleMessage(
+      "વ્યવસાય / નોકરીની વિગતો (વૈકલ્પિક)",
+    ),
+    "camera": MessageLookupByLibrary.simpleMessage("કેમેરા"),
     "cancel": MessageLookupByLibrary.simpleMessage("રદ કરો"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("ભાષા બદલો"),
     "community": MessageLookupByLibrary.simpleMessage("સમુદાય"),
@@ -52,6 +62,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "શું તમે ખરેખર તમારું એકાઉન્ટ કાયમ માટે કાઢી નાખવા માંગો છો? આ પ્રક્રિયા રદ કરી શકાશે નહીં, અને તમારી નોંધાયેલ સભ્ય પ્રોફાઇલ નિષ્ક્રિય થઈ જશે.",
     ),
     "deleteText": MessageLookupByLibrary.simpleMessage("કાઢી નાખો"),
+    "designationPost": MessageLookupByLibrary.simpleMessage("હોદ્દો / પોસ્ટ"),
+    "designationPostHint": MessageLookupByLibrary.simpleMessage(
+      "દા.ત. પોલીસ, ડૉક્ટર, આઈટી મેનેજર",
+    ),
+    "designationPostOptional": MessageLookupByLibrary.simpleMessage(
+      "હોદ્દો / પોસ્ટ (વૈકલ્પિક)",
+    ),
+    "divorced": MessageLookupByLibrary.simpleMessage("છૂટાછેડા"),
     "doingJobQuestion": MessageLookupByLibrary.simpleMessage("નોકરી કરો છો?"),
     "editMember": MessageLookupByLibrary.simpleMessage("સભ્ય સંપાદિત કરો"),
     "editProfile": MessageLookupByLibrary.simpleMessage("પ્રોફાઇલ સંપાદિત કરો"),
@@ -71,6 +89,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterMiddleName": MessageLookupByLibrary.simpleMessage(
       "મધ્યમ નામ દાખલ કરો",
     ),
+    "enterMobileNumber": MessageLookupByLibrary.simpleMessage(
+      "૧૦-અંકનો મોબાઇલ નંબર દાખલ કરો",
+    ),
     "enterOtp": MessageLookupByLibrary.simpleMessage("OTP દાખલ કરો"),
     "enterSscSchool": MessageLookupByLibrary.simpleMessage("SSC શાળા દાખલ કરો"),
     "enterSurname": MessageLookupByLibrary.simpleMessage("ઉપનામ દાખલ કરો"),
@@ -79,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
       "સૂચનાઓ મેળવવામાં નિષ્ફળતા",
     ),
+    "female": MessageLookupByLibrary.simpleMessage("સ્ત્રી"),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "સાઇન અપ પૂર્ણ કરો",
     ),
@@ -117,22 +139,49 @@ class MessageLookup extends MessageLookupByLibrary {
     "mahilaMandalSamitiList": MessageLookupByLibrary.simpleMessage(
       "મહિલા મંડળ સમિતિ સૂચિ",
     ),
-    "maritalStatus": MessageLookupByLibrary.simpleMessage("વૈवाहિક સ્થિતિ"),
+    "male": MessageLookupByLibrary.simpleMessage("પુરુષ"),
+    "maritalStatus": MessageLookupByLibrary.simpleMessage("વૈવાહિક સ્થિતિ"),
     "married": MessageLookupByLibrary.simpleMessage("વિવાહિત"),
     "masterDegree": MessageLookupByLibrary.simpleMessage("સ્નાતકોત્તર ડિગ્રી"),
     "masterPercentage": MessageLookupByLibrary.simpleMessage(
       "સ્નાતકોત્તર ટકાવારી",
     ),
+    "memberAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "સભ્ય સફળતાપૂર્વક ઉમેરવામાં આવ્યો",
+    ),
+    "memberUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "સભ્ય સફળતાપૂર્વક અપડેટ કરવામાં આવ્યો",
+    ),
     "messages": MessageLookupByLibrary.simpleMessage("સંદેશાઓ"),
     "middleName": MessageLookupByLibrary.simpleMessage("મધ્યમ નામ"),
     "mobile": MessageLookupByLibrary.simpleMessage("મોબાઇલ નંબર"),
+    "mobileNumberOptional": MessageLookupByLibrary.simpleMessage(
+      "મોબાઇલ નંબર (વૈકલ્પિક)",
+    ),
+    "mobileValidationMsg": MessageLookupByLibrary.simpleMessage(
+      "મોબાઇલ નંબર બરાબર ૧૦ અંકનો હોવો જોઈએ",
+    ),
     "myMembers": MessageLookupByLibrary.simpleMessage("મારા સભ્ય"),
     "news": MessageLookupByLibrary.simpleMessage("સમાચાર"),
+    "no": MessageLookupByLibrary.simpleMessage("ના"),
+    "noMembersAdded": MessageLookupByLibrary.simpleMessage(
+      "હજી સુધી કોઈ સભ્ય ઉમેરવામાં આવ્યા નથી.",
+    ),
     "noNotifications": MessageLookupByLibrary.simpleMessage(
       "કોઈ નવી સૂચનાઓ નથી",
     ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(વૈકલ્પિક)"),
     "or": MessageLookupByLibrary.simpleMessage("અથવા"),
+    "otherEducation": MessageLookupByLibrary.simpleMessage(
+      "અન્ય શિક્ષણ / લાયકાત",
+    ),
+    "otherEducationHint": MessageLookupByLibrary.simpleMessage(
+      "કોઈપણ અન્ય ડિગ્રી અથવા અભ્યાસક્રમોની વિગતો પ્રદાન કરો",
+    ),
+    "otherEducationOptional": MessageLookupByLibrary.simpleMessage(
+      "અન્ય શિક્ષણ / લાયકાત (વૈકલ્પિક)",
+    ),
+    "personalDetails": MessageLookupByLibrary.simpleMessage("વ્યક્તિગત વિગતો"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("ફોન નંબર"),
     "pleaseAgreeToTermsAndConditions": MessageLookupByLibrary.simpleMessage(
       "કૃપયા શરતો અને શરતો સાથે સંમત થાઓ",
@@ -178,12 +227,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "શિક્ષણ સમિતિ સૂચિ",
     ),
     "signUp": MessageLookupByLibrary.simpleMessage("સાઇન અપ કરો"),
-    "single": MessageLookupByLibrary.simpleMessage("એકલવ્ય"),
+    "single": MessageLookupByLibrary.simpleMessage("અપરિણીત"),
     "sscPercentage": MessageLookupByLibrary.simpleMessage("SSC ટકાવારી"),
     "sscSchool": MessageLookupByLibrary.simpleMessage("SSC શાળા"),
     "surname": MessageLookupByLibrary.simpleMessage("ઉપનામ"),
     "termsConditions": MessageLookupByLibrary.simpleMessage("નિયમો અને શરતો"),
     "upcomingEvents": MessageLookupByLibrary.simpleMessage("આગામી ઇવેન્ટ્સ"),
+    "uploaded": MessageLookupByLibrary.simpleMessage("અપલોડ થયું"),
     "uploading": MessageLookupByLibrary.simpleMessage("અપલોડ થઈ રહ્યું છે..."),
     "verifyOtp": MessageLookupByLibrary.simpleMessage("OTP ચકાસો"),
     "versionText": m1,
@@ -195,6 +245,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeToApp": MessageLookupByLibrary.simpleMessage(
       "શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ",
     ),
-    "widowed": MessageLookupByLibrary.simpleMessage("વિધવા"),
+    "widow": MessageLookupByLibrary.simpleMessage("વિધવા/વિધુર"),
+    "workingStatus": MessageLookupByLibrary.simpleMessage("નોકરીની સ્થિતિ"),
+    "years": MessageLookupByLibrary.simpleMessage("વર્ષ"),
+    "yes": MessageLookupByLibrary.simpleMessage("હા"),
   };
 }

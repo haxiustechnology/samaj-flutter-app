@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:samaj/generated/l10n.dart';
+import '../../../data/models/member_model.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
 import '../../../core/widgets/app_card.dart';
@@ -121,7 +124,7 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
     );
   }
 
-  Widget _infoTile(String title, String? value) {
+  Widget _infoTile(String title, String? value, {Widget? trailing}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
       child: Row(
@@ -139,12 +142,22 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
           ),
           Expanded(
             flex: 3,
-            child: Text(
-              value != null && value.isNotEmpty ? value : '—',
-              style: AppTextStyles.bodyMedium.copyWith(
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
-              ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    value != null && value.isNotEmpty ? value : '—',
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                if (trailing != null) ...[
+                  SizedBox(width: 8.w),
+                  trailing,
+                ],
+              ],
             ),
           ),
         ],
@@ -152,7 +165,7 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
     );
   }
 
-  Widget _educationCard(dynamic member) {
+  Widget _educationCard(Member member) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       child: AppCard(
@@ -165,7 +178,7 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
               child: Text(
-                'Educational Details',
+                S.of(context).education,
                 style: AppTextStyles.heading4.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.secondary,
@@ -173,14 +186,16 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
               ),
             ),
             const Divider(color: AppColors.borderLight, thickness: 1),
-            _infoTile('SSC School', member.sscSchool),
-            _infoTile('SSC Percentage', member.sscPercentage),
-            _infoTile('HSC School', member.hscSchool),
-            _infoTile('HSC Percentage', member.hscPercentage),
-            _infoTile('Bachelor Degree', member.bachelorDegree),
-            _infoTile('Bachelor Percentage', member.bachelorPercentage),
-            _infoTile('Master Degree', member.masterDegree),
-            _infoTile('Master Percentage', member.masterPercentage),
+            _infoTile(S.of(context).sscSchool, member.sscSchool),
+            _infoTile(S.of(context).sscPercentage, member.sscPercentage),
+            _infoTile(S.of(context).hscSchool, member.hscSchool),
+            _infoTile(S.of(context).hscPercentage, member.hscPercentage),
+            _infoTile(S.of(context).bachelorDegree, member.bachelorDegree),
+            _infoTile(S.of(context).bachelorPercentage, member.bachelorPercentage),
+            _infoTile(S.of(context).masterDegree, member.masterDegree),
+            _infoTile(S.of(context).masterPercentage, member.masterPercentage),
+            if (member.otherEducation?.isNotEmpty == true)
+              _infoTile(S.of(context).otherEducation, member.otherEducation),
           ],
         ),
       ),
@@ -195,7 +210,7 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
         backgroundColor: AppColors.backgroundCream,
         appBar: AppBar(
           title: Text(
-            'Member Profile',
+            S.of(context).profile,
             style: AppTextStyles.appBarTitle,
           ),
           leading: IconButton(
@@ -216,6 +231,24 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
             }
             if (state is MemberDetailLoaded) {
               final member = state.member;
+              
+              // Localize gender
+              final String g = member.gender?.toString().toLowerCase() ?? '';
+              final String genderText = g == 'male' ? S.of(context).male : (g == 'female' ? S.of(context).female : '—');
+
+              // Localize marital status
+              final String ms = member.maritalStatus.toString().toLowerCase();
+              final String maritalStatusText = ms == 'single' ? S.of(context).single :
+                  (ms == 'married' ? S.of(context).married :
+                  (ms == 'divorced' ? S.of(context).divorced :
+                  (ms == 'widow' || ms == 'widowed' ? S.of(context).widow : '—')));
+
+              // Localize working/job type values
+              final String workingStatusText = member.isDoingJob == 1 ? S.of(context).yes : S.of(context).no;
+              final String jt = member.jobType?.toString().toLowerCase() ?? '';
+              final String jobTypeText = jt == 'private' ? S.of(context).privateJob :
+                  (jt == 'government' ? S.of(context).governmentJob : (member.jobType ?? '—'));
+
               return SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -237,7 +270,7 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                               child: Text(
-                                'Personal Profile',
+                                S.of(context).personalDetails,
                                 style: AppTextStyles.heading4.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.primary,
@@ -245,12 +278,37 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
                               ),
                             ),
                             const Divider(color: AppColors.borderLight, thickness: 1),
-                            _infoTile('Gender', member.gender?.toString().toUpperCase()),
-                            _infoTile('Birthdate', member.birthdate),
-                            _infoTile('Age', member.age?.toString()),
-                            _infoTile('Marital Status', member.maritalStatus),
-                            _infoTile('Working Status', member.isDoingJob == 1 ? 'Yes' : 'No'),
-                            if (member.isDoingJob == 1) _infoTile('Job Type', member.jobType),
+                            _infoTile(S.of(context).gender, genderText),
+                            _infoTile(S.of(context).dateOfBirth, member.birthdate),
+                            _infoTile(S.of(context).age, member.age != null ? '${member.age} ${S.of(context).years}' : '—'),
+                            _infoTile(S.of(context).maritalStatus, maritalStatusText),
+                            
+                            // Call Action for optional Mobile field
+                            if (member.mobile?.isNotEmpty == true)
+                              _infoTile(
+                                S.of(context).mobile,
+                                member.mobile,
+                                trailing: IconButton(
+                                  icon: const Icon(Icons.phone_rounded, color: AppColors.primary, size: 20),
+                                  onPressed: () async {
+                                    final Uri url = Uri.parse('tel:${member.mobile}');
+                                    if (await canLaunchUrl(url)) {
+                                      await launchUrl(url);
+                                    }
+                                  },
+                                  constraints: const BoxConstraints(),
+                                  padding: EdgeInsets.zero,
+                                ),
+                              ),
+                              
+                            _infoTile(S.of(context).workingStatus, workingStatusText),
+                            if (member.isDoingJob == 1) ...[
+                              _infoTile(S.of(context).jobType, jobTypeText),
+                              if (member.jobPost?.isNotEmpty == true)
+                                _infoTile(S.of(context).designationPost, member.jobPost),
+                              if (member.businessDetails?.isNotEmpty == true)
+                                _infoTile(S.of(context).businessJobDetails, member.businessDetails),
+                            ],
                           ],
                         ),
                       ),

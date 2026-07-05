@@ -38,6 +38,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "bachelorPercentage": MessageLookupByLibrary.simpleMessage(
       "Bachelor Percentage",
     ),
+    "businessJobDetails": MessageLookupByLibrary.simpleMessage(
+      "Business / Job Details",
+    ),
+    "businessJobDetailsHint": MessageLookupByLibrary.simpleMessage(
+      "Provide details about your business or job profile",
+    ),
+    "businessJobDetailsOptional": MessageLookupByLibrary.simpleMessage(
+      "Business / Job Details (Optional)",
+    ),
+    "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Change Language"),
     "community": MessageLookupByLibrary.simpleMessage("Community"),
@@ -52,6 +62,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.",
     ),
     "deleteText": MessageLookupByLibrary.simpleMessage("Delete"),
+    "designationPost": MessageLookupByLibrary.simpleMessage(
+      "Designation / Post",
+    ),
+    "designationPostHint": MessageLookupByLibrary.simpleMessage(
+      "e.g. Police, Doctor, IT Manager",
+    ),
+    "designationPostOptional": MessageLookupByLibrary.simpleMessage(
+      "Designation / Post (Optional)",
+    ),
+    "divorced": MessageLookupByLibrary.simpleMessage("Divorced"),
     "doingJobQuestion": MessageLookupByLibrary.simpleMessage("Doing Job?"),
     "editMember": MessageLookupByLibrary.simpleMessage("Edit Member"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
@@ -69,6 +89,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterMiddleName": MessageLookupByLibrary.simpleMessage(
       "Enter middle name",
     ),
+    "enterMobileNumber": MessageLookupByLibrary.simpleMessage(
+      "Enter 10-digit mobile number",
+    ),
     "enterOtp": MessageLookupByLibrary.simpleMessage("Enter OTP"),
     "enterSscSchool": MessageLookupByLibrary.simpleMessage("Enter SSC school"),
     "enterSurname": MessageLookupByLibrary.simpleMessage("Enter surname"),
@@ -77,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
       "Failed to load notifications history",
     ),
+    "female": MessageLookupByLibrary.simpleMessage("Female"),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "Finish signing up",
     ),
@@ -118,22 +142,49 @@ class MessageLookup extends MessageLookupByLibrary {
     "mahilaMandalSamitiList": MessageLookupByLibrary.simpleMessage(
       "Mahila Mandal Samiti List",
     ),
+    "male": MessageLookupByLibrary.simpleMessage("Male"),
     "maritalStatus": MessageLookupByLibrary.simpleMessage("Marital Status"),
     "married": MessageLookupByLibrary.simpleMessage("Married"),
     "masterDegree": MessageLookupByLibrary.simpleMessage("Master Degree"),
     "masterPercentage": MessageLookupByLibrary.simpleMessage(
       "Master Percentage",
     ),
+    "memberAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Member added successfully",
+    ),
+    "memberUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Member updated successfully",
+    ),
     "messages": MessageLookupByLibrary.simpleMessage("Messages"),
     "middleName": MessageLookupByLibrary.simpleMessage("Middle Name"),
     "mobile": MessageLookupByLibrary.simpleMessage("Mobile"),
+    "mobileNumberOptional": MessageLookupByLibrary.simpleMessage(
+      "Mobile Number (Optional)",
+    ),
+    "mobileValidationMsg": MessageLookupByLibrary.simpleMessage(
+      "Mobile number must be exactly 10 digits",
+    ),
     "myMembers": MessageLookupByLibrary.simpleMessage("My Members"),
     "news": MessageLookupByLibrary.simpleMessage("News"),
+    "no": MessageLookupByLibrary.simpleMessage("No"),
+    "noMembersAdded": MessageLookupByLibrary.simpleMessage(
+      "No family members added yet.",
+    ),
     "noNotifications": MessageLookupByLibrary.simpleMessage(
       "No notifications broadcasted",
     ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(Optional)"),
     "or": MessageLookupByLibrary.simpleMessage("Or"),
+    "otherEducation": MessageLookupByLibrary.simpleMessage(
+      "Other Education / Qualifications",
+    ),
+    "otherEducationHint": MessageLookupByLibrary.simpleMessage(
+      "Provide details of any other degrees or courses",
+    ),
+    "otherEducationOptional": MessageLookupByLibrary.simpleMessage(
+      "Other Education / Qualifications (Optional)",
+    ),
+    "personalDetails": MessageLookupByLibrary.simpleMessage("Personal Details"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "pleaseAgreeToTermsAndConditions": MessageLookupByLibrary.simpleMessage(
       "Please agree to terms and conditions",
@@ -185,6 +236,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Terms & Conditions",
     ),
     "upcomingEvents": MessageLookupByLibrary.simpleMessage("Upcoming Events"),
+    "uploaded": MessageLookupByLibrary.simpleMessage("uploaded"),
     "uploading": MessageLookupByLibrary.simpleMessage("Uploading..."),
     "verifyOtp": MessageLookupByLibrary.simpleMessage("Verify OTP"),
     "versionText": m1,
@@ -196,6 +248,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeToApp": MessageLookupByLibrary.simpleMessage(
       "Shree Satyavish Variya Gol Prajapati Samaj",
     ),
-    "widowed": MessageLookupByLibrary.simpleMessage("Widowed"),
+    "widow": MessageLookupByLibrary.simpleMessage("Widowed"),
+    "workingStatus": MessageLookupByLibrary.simpleMessage("Working Status"),
+    "years": MessageLookupByLibrary.simpleMessage("years"),
+    "yes": MessageLookupByLibrary.simpleMessage("Yes"),
   };
 }
