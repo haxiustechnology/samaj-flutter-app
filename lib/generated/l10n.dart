@@ -838,6 +838,31 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete Account`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete Account',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.`
+  String get deleteAccountConfirm {
+    return Intl.message(
+      'Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.',
+      name: 'deleteAccountConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get deleteText {
+    return Intl.message('Delete', name: 'deleteText', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

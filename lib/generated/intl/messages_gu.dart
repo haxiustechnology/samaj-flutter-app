@@ -45,6 +45,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "© ૨૦૨૬ સમાજ સમુદાય. સર્વાધિકાર સુરક્ષિત.",
     ),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("જન્મ તારીખ"),
+    "deleteAccount": MessageLookupByLibrary.simpleMessage("એકાઉન્ટ કાઢી નાખો"),
+    "deleteAccountConfirm": MessageLookupByLibrary.simpleMessage(
+      "શું તમે ખરેખર તમારું એકાઉન્ટ કાયમ માટે કાઢી નાખવા માંગો છો? આ પ્રક્રિયા રદ કરી શકાશે નહીં, અને તમારી નોંધાયેલ સભ્ય પ્રોફાઇલ નિષ્ક્રિય થઈ જશે.",
+    ),
+    "deleteText": MessageLookupByLibrary.simpleMessage("કાઢી નાખો"),
     "doingJobQuestion": MessageLookupByLibrary.simpleMessage("નોકરી કરો છો?"),
     "editMember": MessageLookupByLibrary.simpleMessage("સભ્ય સંપાદિત કરો"),
     "editProfile": MessageLookupByLibrary.simpleMessage("પ્રોફાઇલ સંપાદિત કરો"),

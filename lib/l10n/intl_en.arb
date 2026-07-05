@@ -110,7 +110,10 @@
   "privacyPolicy": "Privacy Policy",
   "termsConditions": "Terms & Conditions",
   "versionText": "Version {version} (Build {build})",
-  "copyrightText": "© 2026 Samaj Community. All rights reserved."
+  "copyrightText": "© 2026 Samaj Community. All rights reserved.",
+  "deleteAccount": "Delete Account",
+  "deleteAccountConfirm": "Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.",
+  "deleteText": "Delete"
 }
 
 

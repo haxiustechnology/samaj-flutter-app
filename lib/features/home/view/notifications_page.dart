@@ -44,6 +44,22 @@ class _NotificationsPageState extends State<NotificationsPage> {
         }
       }
     } catch (e) {
+      dynamic err = e;
+      try {
+        final response = err.response;
+        if (response != null && response.data is Map) {
+          final code = response.data['code'];
+          if (code == 2) {
+            // Code 2 = NO_DATA_FOUND
+            setState(() {
+              _notifications = [];
+              _errorMessage = null;
+            });
+            return;
+          }
+        }
+      } catch (_) {}
+
       setState(() {
         _errorMessage = "Failed to load notifications history";
       });
@@ -125,6 +141,19 @@ class _NotificationsPageState extends State<NotificationsPage> {
               "કોઈ નવી સૂચનાઓ નથી\n(No notifications broadcasted)",
               textAlign: TextAlign.center,
               style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textSecondary),
+            ),
+            SizedBox(height: 20.h),
+            ElevatedButton.icon(
+              onPressed: _fetchNotifications,
+              icon: const Icon(Icons.refresh_rounded, color: Colors.white, size: 18),
+              label: const Text("Refresh", style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+              ),
             ),
           ],
         ),

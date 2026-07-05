@@ -45,6 +45,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "© 2026 Samaj Community. All rights reserved.",
     ),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
+    "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
+    "deleteAccountConfirm": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.",
+    ),
+    "deleteText": MessageLookupByLibrary.simpleMessage("Delete"),
     "doingJobQuestion": MessageLookupByLibrary.simpleMessage("Doing Job?"),
     "editMember": MessageLookupByLibrary.simpleMessage("Edit Member"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),

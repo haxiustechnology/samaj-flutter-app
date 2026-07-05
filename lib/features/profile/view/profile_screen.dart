@@ -117,11 +117,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: AppColors.backgroundWhite,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
         title: Text(
-          'Delete Account',
+          S.of(context).deleteAccount,
           style: AppTextStyles.heading3.copyWith(color: AppColors.error),
         ),
-        content: const Text(
-          'Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.',
+        content: Text(
+          S.of(context).deleteAccountConfirm,
           style: AppTextStyles.bodyMedium,
         ),
         actions: [
@@ -138,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               context.read<AuthBloc>().add(const DeleteAccountEvent());
             },
             child: Text(
-              'Delete',
+              S.of(context).deleteText,
               style: AppTextStyles.buttonSmall.copyWith(color: AppColors.error),
             ),
           ),
@@ -367,7 +367,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         final isLoading = state is DeleteAccountLoading;
                         return _buildMenuItem(
                           icon: Icons.delete_forever_rounded,
-                          title: 'Delete Account',
+                          title: S.of(context).deleteAccount,
                           iconColor: AppColors.error,
                           titleColor: AppColors.error,
                           isLoading: isLoading,

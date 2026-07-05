@@ -45,6 +45,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "© 2026 समाज समुदाय। सर्वाधिकार सुरक्षित।",
     ),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("जन्म तिथि"),
+    "deleteAccount": MessageLookupByLibrary.simpleMessage("खाता हटाएं"),
+    "deleteAccountConfirm": MessageLookupByLibrary.simpleMessage(
+      "क्या आप वाकई अपना खाता स्थायी रूप से हटाना चाहते हैं? यह प्रक्रिया रद्द नहीं की जा सकती है, और आपका पंजीकृत सदस्य प्रोफ़ाइल निष्क्रिय कर दिया जाएगा।",
+    ),
+    "deleteText": MessageLookupByLibrary.simpleMessage("हटाएं"),
     "doingJobQuestion": MessageLookupByLibrary.simpleMessage(
       "क्या आप काम कर रहे हैं?",
     ),
