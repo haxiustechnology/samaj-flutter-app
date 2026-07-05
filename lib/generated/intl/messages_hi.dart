@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "स्नातक प्रतिशत",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("रद्द करें"),
+    "changeLanguage": MessageLookupByLibrary.simpleMessage("भाषा बदलें"),
     "community": MessageLookupByLibrary.simpleMessage("समुदाय"),
     "continueAction": MessageLookupByLibrary.simpleMessage("जारी रखें"),
     "continueText": MessageLookupByLibrary.simpleMessage("जारी रखें"),
@@ -53,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "education": MessageLookupByLibrary.simpleMessage("शिक्षा"),
     "email": MessageLookupByLibrary.simpleMessage("ईमेल"),
+    "english": MessageLookupByLibrary.simpleMessage("अंग्रेज़ी"),
     "enterBachelorDegree": MessageLookupByLibrary.simpleMessage(
       "स्नातक डिग्री दर्ज करें",
     ),
@@ -86,8 +88,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "getStarted": MessageLookupByLibrary.simpleMessage("शुरू करें"),
     "governmentJob": MessageLookupByLibrary.simpleMessage("सरकारी"),
     "guestMode": MessageLookupByLibrary.simpleMessage("अतिथि मोड"),
+    "gujarati": MessageLookupByLibrary.simpleMessage("गुजराती"),
     "hello": MessageLookupByLibrary.simpleMessage("नमस्ते!"),
     "hey": m0,
+    "hindi": MessageLookupByLibrary.simpleMessage("हिंदी"),
     "home": MessageLookupByLibrary.simpleMessage("होम"),
     "hscPercentage": MessageLookupByLibrary.simpleMessage("HSC प्रतिशत"),
     "hscSchool": MessageLookupByLibrary.simpleMessage("HSC स्कूल"),
@@ -184,7 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "आपके नंबर की पुष्टि करने के लिए हम आपको टेक्स्ट करेंगे।",
     ),
     "welcomeToApp": MessageLookupByLibrary.simpleMessage(
-      "શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ",
+      "श्री सत्यावीस वरीया गोल प्रजापति समाज",
     ),
     "widowed": MessageLookupByLibrary.simpleMessage("विधवा"),
   };

@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 
 import '../../auth/bloc/auth_bloc.dart';
@@ -20,6 +23,10 @@ import 'village_list_page.dart';
 import 'samuh_lagna_samiti_list_page.dart';
 import 'mahila_mandal_samiti_list_page.dart';
 import '../../member/view/all_members_page.dart';
+
+import '../../../data/repositories/guest_repository.dart';
+import '../../../data/models/banner_model.dart';
+import '../bloc/guest_bloc.dart';
 
 
 @RoutePage()
@@ -145,71 +152,76 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundCream,
-      body: Column(
-        children: [
-          // Elegant Header with Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: AppColors.headerGradient,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            // Elegant Header with Gradient
+            Container(
+              decoration: const BoxDecoration(
+                gradient: AppColors.headerGradient,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 16.h, bottom: 24.h),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          S.of(context).welcomeToApp,
+                          style: AppTextStyles.heading3.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 4.h),
+                        Text(
+                          'Prajapati Samaj Community',
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: Colors.white.withValues(alpha: 0.85),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.18),
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.notifications_none_rounded),
+                        color: Colors.white,
+                        onPressed: () {
+                          // Action for notifications
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 16.h, bottom: 24.h),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        S.of(context).welcomeToApp,
-                        style: AppTextStyles.heading3.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 4.h),
-                      Text(
-                        'Prajapati Samaj Community',
-                        style: AppTextStyles.bodyMedium.copyWith(
-                          color: Colors.white.withValues(alpha: 0.85),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.18),
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.notifications_none_rounded),
-                      color: Colors.white,
-                      onPressed: () {
-                        // Action for notifications
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          
-          // Grid Contents
-          Expanded(
-            child: Padding(
+
+            // Dynamic Banner Slider
+            const HomeBannerSlider(),
+            
+            // Grid Contents
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 crossAxisSpacing: 16.w,
                 mainAxisSpacing: 16.h,
                 childAspectRatio: 1.05,
-                physics: const BouncingScrollPhysics(),
                 children: [
                   _GridItem(
                     icon: Icons.article_rounded,
@@ -303,8 +315,8 @@ class HomeTab extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -392,5 +404,159 @@ class CommunityTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AllMembersPage();
+  }
+}
+
+class HomeBannerSlider extends StatefulWidget {
+  const HomeBannerSlider({super.key});
+
+  @override
+  State<HomeBannerSlider> createState() => _HomeBannerSliderState();
+}
+
+class _HomeBannerSliderState extends State<HomeBannerSlider> {
+  final PageController _pageController = PageController();
+  Timer? _timer;
+  int _currentPage = 0;
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _startAutoPlay(int totalPages) {
+    _timer?.cancel();
+    if (totalPages <= 1) return;
+    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+      if (_pageController.hasClients) {
+        final nextPage = (_currentPage + 1) % totalPages;
+        _pageController.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => GuestBloc(guestRepository: GuestRepository())..add(BannerListEvent()),
+      child: BlocBuilder<GuestBloc, GuestState>(
+        builder: (context, state) {
+          if (state is GuestLoading) {
+            return _buildShimmerLoading();
+          } else if (state is GuestLoaded) {
+            final banners = state.data.cast<BannerModel>();
+            if (banners.isEmpty) {
+              return const SizedBox.shrink();
+            }
+
+            // Start or restart autoplay timer when state completes
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _startAutoPlay(banners.length);
+            });
+
+            return Column(
+              children: [
+                SizedBox(height: 16.h),
+                SizedBox(
+                  height: 160.h,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentPage = index;
+                      });
+                    },
+                    itemCount: banners.length,
+                    itemBuilder: (context, index) {
+                      final banner = banners[index];
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.08),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16.r),
+                            child: CachedNetworkImage(
+                              imageUrl: banner.image,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              placeholder: (context, url) => Container(
+                                color: Colors.grey[200],
+                                child: const Center(
+                                  child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                color: Colors.grey[300],
+                                child: const Icon(Icons.broken_image_rounded, size: 40, color: Colors.grey),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                if (banners.length > 1) ...[
+                  SizedBox(height: 10.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      banners.length,
+                      (index) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: EdgeInsets.symmetric(horizontal: 4.w),
+                        width: _currentPage == index ? 18.w : 6.w,
+                        height: 6.h,
+                        decoration: BoxDecoration(
+                          color: _currentPage == index ? AppColors.primary : AppColors.borderLight,
+                          borderRadius: BorderRadius.circular(3.r),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            );
+          }
+          return const SizedBox.shrink();
+        },
+      ),
+    );
+  }
+
+  Widget _buildShimmerLoading() {
+    return Padding(
+      padding: EdgeInsets.only(top: 16.h),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            height: 160.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

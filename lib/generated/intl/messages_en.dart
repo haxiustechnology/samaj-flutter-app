@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Bachelor Percentage",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "changeLanguage": MessageLookupByLibrary.simpleMessage("Change Language"),
     "community": MessageLookupByLibrary.simpleMessage("Community"),
     "continueAction": MessageLookupByLibrary.simpleMessage("Continue"),
     "continueText": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -49,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
     "education": MessageLookupByLibrary.simpleMessage("Education"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "english": MessageLookupByLibrary.simpleMessage("English"),
     "enterBachelorDegree": MessageLookupByLibrary.simpleMessage(
       "Enter bachelor degree",
     ),
@@ -76,8 +78,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
     "governmentJob": MessageLookupByLibrary.simpleMessage("Government"),
     "guestMode": MessageLookupByLibrary.simpleMessage("Guest mode"),
+    "gujarati": MessageLookupByLibrary.simpleMessage("Gujarati"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello!"),
     "hey": m0,
+    "hindi": MessageLookupByLibrary.simpleMessage("Hindi"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "hscPercentage": MessageLookupByLibrary.simpleMessage("HSC Percentage"),
     "hscSchool": MessageLookupByLibrary.simpleMessage("HSC School"),
@@ -176,7 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "We\'ll call or text you to confirm your number",
     ),
     "welcomeToApp": MessageLookupByLibrary.simpleMessage(
-      "શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ",
+      "Shree Satyavish Variya Gol Prajapati Samaj",
     ),
     "widowed": MessageLookupByLibrary.simpleMessage("Widowed"),
   };

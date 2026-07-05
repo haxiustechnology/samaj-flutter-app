@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
 import '../../../core/widgets/app_card.dart';
@@ -211,9 +212,7 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
         body: BlocBuilder<MemberBloc, MemberState>(
           builder: (context, state) {
             if (state is MemberDetailLoading || state is MemberLoading) {
-              return const Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
-              );
+              return _buildShimmer();
             }
             if (state is MemberDetailLoaded) {
               final member = state.member;
@@ -280,6 +279,101 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
             }
             return const SizedBox.shrink();
           },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildShimmer() {
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Header skeleton
+            Container(
+              height: 220.h,
+              color: Colors.white,
+            ),
+            SizedBox(height: 16.h),
+            
+            // Details Card skeleton
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+              child: AppCard(
+                padding: EdgeInsets.all(16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 120.w,
+                      height: 18.h,
+                      color: Colors.white,
+                    ),
+                    SizedBox(height: 16.h),
+                    for (int i = 0; i < 4; i++) ...[
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 80.w,
+                              height: 14.h,
+                              color: Colors.white,
+                            ),
+                            const Spacer(),
+                            Container(
+                              width: 140.w,
+                              height: 14.h,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+            
+            // Professional Details Card skeleton
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+              child: AppCard(
+                padding: EdgeInsets.all(16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 160.w,
+                      height: 18.h,
+                      color: Colors.white,
+                    ),
+                    SizedBox(height: 16.h),
+                    Row(
+                      children: [
+                        Container(
+                          width: 100.w,
+                          height: 14.h,
+                          color: Colors.white,
+                        ),
+                        const Spacer(),
+                        Container(
+                          width: 100.w,
+                          height: 14.h,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

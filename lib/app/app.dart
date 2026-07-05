@@ -5,6 +5,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:auto_route/auto_route.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../core/constants/colors.dart';
 import '../core/constants/text_styles.dart';
 import 'package:samaj/generated/l10n.dart';
@@ -12,13 +14,49 @@ import 'app_router.dart';
 
 import 'global_loader_overlay.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   final AppRouter appRouter;
 
   const App({
     super.key,
     required this.appRouter,
   });
+
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _AppState? state = context.findAncestorStateOfType<_AppState>();
+    state?.changeLocale(newLocale);
+  }
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  Locale? _locale;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedLocale();
+  }
+
+  Future<void> _loadSavedLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    final langCode = prefs.getString('app_locale');
+    if (langCode != null) {
+      setState(() {
+        _locale = Locale(langCode);
+      });
+    }
+  }
+
+  Future<void> changeLocale(Locale newLocale) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('app_locale', newLocale.languageCode);
+    setState(() {
+      _locale = newLocale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +76,9 @@ class App extends StatelessWidget {
             title: 'Samaj',
             debugShowCheckedModeBanner: false,
             theme: _buildTheme(),
-            routerDelegate: AutoRouterDelegate(appRouter),
-            routeInformationParser: appRouter.defaultRouteParser(),
+            routerDelegate: AutoRouterDelegate(widget.appRouter),
+            routeInformationParser: widget.appRouter.defaultRouteParser(),
+            locale: _locale,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
@@ -103,9 +104,7 @@ class AdvertiseTab extends StatelessWidget {
         body: BlocBuilder<GuestBloc, GuestState>(
           builder: (context, state) {
             if (state is GuestLoading) {
-              return const Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
-              );
+              return _buildShimmer();
             } else if (state is GuestLoaded) {
               final List<AdvertiseModel> ads = state.data.cast<AdvertiseModel>();
               if (ads.isEmpty) {
@@ -269,6 +268,76 @@ class AdvertiseTab extends StatelessWidget {
           color: AppColors.primary.withValues(alpha: 0.7),
         ),
       ),
+    );
+  }
+
+  Widget _buildShimmer() {
+    return ListView.builder(
+      itemCount: 3,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.h),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: AppCard(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 60.w,
+                        height: 16.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                      Container(
+                        width: 100.w,
+                        height: 16.h,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12.h),
+                  Container(
+                    height: 160.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  Container(
+                    width: 150.w,
+                    height: 18.h,
+                    color: Colors.white,
+                  ),
+                  SizedBox(height: 8.h),
+                  Container(
+                    width: double.infinity,
+                    height: 14.h,
+                    color: Colors.white,
+                  ),
+                  SizedBox(height: 6.h),
+                  Container(
+                    width: 200.w,
+                    height: 14.h,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

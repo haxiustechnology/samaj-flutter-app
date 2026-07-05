@@ -9,6 +9,7 @@ import '../../../core/utils/shared_prefs.dart';
 import '../../../core/utils/snackbar_utils.dart';
 import '../../../features/auth/bloc/auth_bloc.dart';
 import '../../../app/app_router.dart';
+import '../../../app/app.dart';
 import 'package:samaj/generated/l10n.dart';
 import '../../../core/utils/auth_guard.dart';
 import '../../../core/widgets/app_card.dart';
@@ -264,10 +265,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                     ),
                     _buildMenuItem(
-                      icon: Icons.settings_outlined,
-                      title: S.of(context).settings,
+                      icon: Icons.translate_rounded,
+                      title: S.of(context).changeLanguage,
                       onTap: () {
-                        // Handle settings
+                        _showLanguageBottomSheet(context);
                       },
                     ),
                     SizedBox(height: 12.h),
@@ -280,7 +281,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             gradient: AppColors.primaryGradient,
                             onTap: () async {
                               await Share.share(
-                                'Join our community! Download the official Samaj App to connect with family members, view local news updates, and directories.\nDownload now: https://play.google.com/store/apps/details?id=com.kamlesh.samaj',
+                                'Join our community! Download the official Samaj App to connect with family members, view local news updates, and directories.\nDownload now: https://play.google.com/store/apps/details?id=com.valiyasamaj.app.samaj',
                               );
                             },
                           ),
@@ -519,6 +520,110 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void _showLanguageBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext sheetContext) {
+        final currentLocale = Localizations.localeOf(context);
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.backgroundWhite,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24.r),
+              topRight: Radius.circular(24.r),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 12.h, bottom: 8.h),
+                  width: 40.w,
+                  height: 4.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.borderLight,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: Text(
+                  S.of(context).changeLanguage,
+                  style: AppTextStyles.heading4.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ),
+              const Divider(),
+              _buildLanguageOption(
+                context: context,
+                locale: const Locale('en'),
+                title: S.of(context).english,
+                isSelected: currentLocale.languageCode == 'en',
+                sheetContext: sheetContext,
+              ),
+              _buildLanguageOption(
+                context: context,
+                locale: const Locale('gu'),
+                title: S.of(context).gujarati,
+                isSelected: currentLocale.languageCode == 'gu',
+                sheetContext: sheetContext,
+              ),
+              _buildLanguageOption(
+                context: context,
+                locale: const Locale('hi'),
+                title: S.of(context).hindi,
+                isSelected: currentLocale.languageCode == 'hi',
+                sheetContext: sheetContext,
+              ),
+              SizedBox(height: MediaQuery.of(context).padding.bottom + 16.h),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLanguageOption({
+    required BuildContext context,
+    required Locale locale,
+    required String title,
+    required bool isSelected,
+    required BuildContext sheetContext,
+  }) {
+    return InkWell(
+      onTap: () {
+        App.setLocale(context, locale);
+        Navigator.pop(sheetContext);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: AppTextStyles.subtitle1.copyWith(
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                color: isSelected ? AppColors.primary : AppColors.textPrimary,
+              ),
+            ),
+            Icon(
+              isSelected
+                  ? Icons.radio_button_checked_rounded
+                  : Icons.radio_button_off_rounded,
+              color: isSelected ? AppColors.primary : AppColors.textMuted,
+            ),
+          ],
         ),
       ),
     );

@@ -69,14 +69,39 @@ class S {
     return Intl.message('Verify OTP', name: 'verifyOtp', desc: '', args: []);
   }
 
-  /// `શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ`
+  /// `Shree Satyavish Variya Gol Prajapati Samaj`
   String get welcomeToApp {
     return Intl.message(
-      'શ્રી સત્યાવીસ વરીયા ગોળ પ્રજાપતિ સમાજ',
+      'Shree Satyavish Variya Gol Prajapati Samaj',
       name: 'welcomeToApp',
       desc: '',
       args: [],
     );
+  }
+
+  /// `Change Language`
+  String get changeLanguage {
+    return Intl.message(
+      'Change Language',
+      name: 'changeLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message('English', name: 'english', desc: '', args: []);
+  }
+
+  /// `Gujarati`
+  String get gujarati {
+    return Intl.message('Gujarati', name: 'gujarati', desc: '', args: []);
+  }
+
+  /// `Hindi`
+  String get hindi {
+    return Intl.message('Hindi', name: 'hindi', desc: '', args: []);
   }
 
   /// `Login now!`
