@@ -21,10 +21,12 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
   String? _activeGender;
   String? _activeJobType;
 
-  // ── Debounce: tracks the latest typed query ────────────────────────────────
-  // Each handler checks if it's still the "latest" before calling the API.
-  // If a newer keystroke arrived during the 400ms wait, this handler exits early.
+  // ── Debounce: tracks the latest typed query + search generation ─────────────
+  // _latestSearchQuery: exit early if user typed more chars before 400ms passed
+  // _searchGen: even if two handlers reach the API call, only the LATEST one
+  //             is allowed to write to _allMembers (prevents duplicate records)
   String _latestSearchQuery = '';
+  int    _searchGen = 0;
 
   MemberBloc({required this.repository}) : super(MemberInitial()) {
     on<FetchMyMembers>(_onFetchMyMembers);
@@ -43,23 +45,24 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
     SearchQueryChanged event,
     Emitter<MemberState> emit,
   ) async {
-    // Track the most recently typed query
+    // Track most-recent query so older concurrent handlers exit early
     _latestSearchQuery = event.query;
 
-    // Immediately emit so the clear (✕) button shows/hides without setState
+    // Immediately emit — clear (✕) button shows/hides without setState
     emit(SearchBarUpdated(event.query));
 
-    // 400 ms debounce: wait, then check if a newer keystroke came in.
-    // If yes → this handler exits early (latest-wins pattern).
+    // ── Debounce: 400ms wait ──────────────────────────────────────────────
     await Future.delayed(const Duration(milliseconds: 400));
-    if (_latestSearchQuery != event.query) return; // stale — skip API call
+
+    // If a newer keystroke arrived during the wait → bail out (stale)
+    if (_latestSearchQuery != event.query) return;
+
+    // ── Generation guard: prevents race-condition duplicates ──────────────
+    // Even if two handlers both pass the debounce check, only the one that
+    // holds the CURRENT generation is allowed to commit results.
+    final myGen = ++_searchGen;
 
     _activeSearch = event.query.trim().isEmpty ? null : event.query.trim();
-
-    // Reset pagination and fetch fresh results
-    _allMembers.clear();
-    _nextCursor = null;
-    _hasMore    = true;
     emit(MemberLoading());
 
     final resp = await repository.allMembers(
@@ -71,6 +74,9 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
       jobType:   _activeJobType,
     );
 
+    // Another search started while we were awaiting → discard these results
+    if (_searchGen != myGen) return;
+
     if (resp.isSuccess) {
       final payload = resp.data as Map<String, dynamic>;
       final rawList = (payload['members'] as List<dynamic>? ?? []);
@@ -79,7 +85,12 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
           .toList();
       _nextCursor = payload['next_cursor'] as int?;
       _hasMore    = payload['has_more'] as bool? ?? false;
-      _allMembers.addAll(fetched);
+
+      // Clear & addAll in the same sync block — no interleaving possible
+      _allMembers
+        ..clear()
+        ..addAll(fetched);
+
       emit(AllMembersLoaded(
         members:    List.unmodifiable(_allMembers),
         nextCursor: _nextCursor,
