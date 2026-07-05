@@ -761,8 +761,8 @@ class _AllMembersPageState extends State<AllMembersPage> {
       itemBuilder: (_, __) => Padding(
         padding: EdgeInsets.symmetric(vertical: 6.h),
         child: Shimmer.fromColors(
-          baseColor: AppColors.backgroundCream,
-          highlightColor: AppColors.backgroundWhite,
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           child: Card(
             elevation: 0,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
