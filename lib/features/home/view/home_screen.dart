@@ -217,8 +217,9 @@ class HomeTab extends StatelessWidget {
             
             // Grid Contents
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 8.h, bottom: 20.h),
               child: GridView.count(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
