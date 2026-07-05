@@ -9,6 +9,7 @@ import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/full_screen_image_viewer.dart';
 import '../../../data/models/advertise_model.dart';
 import '../../../data/repositories/guest_repository.dart';
 import '../../home/bloc/guest_bloc.dart';

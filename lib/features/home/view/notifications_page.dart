@@ -10,7 +10,7 @@ import '../../../data/api/api_client.dart';
 
 @RoutePage()
 class NotificationsPage extends StatefulWidget {
-  const NotificationsPage({Key? key}) : super(key: key);
+  const NotificationsPage({super.key});
 
   @override
   State<NotificationsPage> createState() => _NotificationsPageState();
