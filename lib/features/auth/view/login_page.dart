@@ -37,11 +37,65 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _handleLogin() {
+  Future<void> _handleLogin() async {
     if (_formKey.currentState!.validate()) {
+      final messaging = FirebaseMessaging.instance;
+      var settings = await messaging.getNotificationSettings();
+      
+      if (settings.authorizationStatus != AuthorizationStatus.authorized &&
+          settings.authorizationStatus != AuthorizationStatus.provisional) {
+        // Prompt for notification permissions
+        settings = await messaging.requestPermission(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+      }
+
+      if (settings.authorizationStatus != AuthorizationStatus.authorized &&
+          settings.authorizationStatus != AuthorizationStatus.provisional) {
+        if (mounted) {
+          _showNotificationRequiredDialog();
+        }
+        return;
+      }
+
       final mobile = _phoneController.text.trim();
-      context.read<AuthBloc>().add(LoginEvent(mobile: mobile));
+      if (mounted) {
+        context.read<AuthBloc>().add(LoginEvent(mobile: mobile));
+      }
     }
+  }
+
+  void _showNotificationRequiredDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.backgroundWhite,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        title: Row(
+          children: [
+            const Icon(Icons.notifications_active_rounded, color: AppColors.primary),
+            SizedBox(width: 10.w),
+            const Text('Permission Required', style: AppTextStyles.heading3),
+          ],
+        ),
+        content: const Text(
+          'Push notifications are required to receive the OTP in this app. Please enable Notification permissions in your phone Settings so you can receive the OTP successfully.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(
+              'OK',
+              style: AppTextStyles.buttonSmall.copyWith(color: AppColors.primary),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override

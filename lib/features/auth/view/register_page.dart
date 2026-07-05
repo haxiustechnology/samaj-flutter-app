@@ -17,6 +17,7 @@ import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
 import '../../../app/app_router.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 @RoutePage()
 class RegisterPage extends StatefulWidget {
@@ -52,21 +53,75 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  void _handleSignUp() {
+  Future<void> _handleSignUp() async {
     if (_formKey.currentState!.validate()) {
       if (!_agreedToTerms) {
         SnackbarUtils.show(context, S.of(context).pleaseAgreeToTermsAndConditions);
         return;
       }
 
-      context.read<AuthBloc>().add(
-            CompleteRegistrationEvent(
-              firstName: _fullNameController.text.trim(),
-              email: _emailController.text.trim(),
-              mobile: _mobileController.text.trim(),
-            ),
-          );
+      final messaging = FirebaseMessaging.instance;
+      var settings = await messaging.getNotificationSettings();
+      
+      if (settings.authorizationStatus != AuthorizationStatus.authorized &&
+          settings.authorizationStatus != AuthorizationStatus.provisional) {
+        // Request permissions
+        settings = await messaging.requestPermission(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+      }
+
+      if (settings.authorizationStatus != AuthorizationStatus.authorized &&
+          settings.authorizationStatus != AuthorizationStatus.provisional) {
+        if (mounted) {
+          _showNotificationRequiredDialog();
+        }
+        return;
+      }
+
+      if (mounted) {
+        context.read<AuthBloc>().add(
+              CompleteRegistrationEvent(
+                firstName: _fullNameController.text.trim(),
+                email: _emailController.text.trim(),
+                mobile: _mobileController.text.trim(),
+              ),
+            );
+      }
     }
+  }
+
+  void _showNotificationRequiredDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.backgroundWhite,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        title: Row(
+          children: [
+            const Icon(Icons.notifications_active_rounded, color: AppColors.primary),
+            SizedBox(width: 10.w),
+            const Text('Permission Required', style: AppTextStyles.heading3),
+          ],
+        ),
+        content: const Text(
+          'Push notifications are required to receive the OTP in this app. Please enable Notification permissions in your phone Settings so you can receive the OTP successfully.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(
+              'OK',
+              style: AppTextStyles.buttonSmall.copyWith(color: AppColors.primary),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
