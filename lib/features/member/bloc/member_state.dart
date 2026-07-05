@@ -52,5 +52,5 @@ class MemberError extends MemberState {
 /// can show/hide its clear button without any setState() in the widget.
 class SearchBarUpdated extends MemberState {
   final String query;
-  const SearchBarUpdated(this.query);
+  SearchBarUpdated(this.query);
 }
