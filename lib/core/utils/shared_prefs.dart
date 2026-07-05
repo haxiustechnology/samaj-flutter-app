@@ -4,7 +4,8 @@ import '../../data/models/user_model.dart';
 
 class SharedPrefs {
   static const String _keyToken = 'auth_token';
-  static const String _keyLanguage = 'language_code';
+  static const String _keyLanguageCode = 'language_code';
+  static const String _keyLanguageLocale = 'app_locale';
   static const String _keyUserId = 'user_id';
   static const String _keyUserName = 'user_name';
   static const String _keyUserMobile = 'user_mobile';
@@ -38,12 +39,13 @@ class SharedPrefs {
   // Language Management
   static Future<void> saveLanguage(String languageCode) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyLanguage, languageCode);
+    await prefs.setString(_keyLanguageLocale, languageCode);
+    await prefs.setString(_keyLanguageCode, languageCode);
   }
 
   static Future<String> getLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyLanguage) ?? 'gu';
+    return prefs.getString(_keyLanguageLocale) ?? prefs.getString(_keyLanguageCode) ?? 'gu';
   }
 
   // Login Status Management
@@ -99,10 +101,14 @@ class SharedPrefs {
   // Logout - clear auth data but keep language preference
   static Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    final language = prefs.getString(_keyLanguage);
+    final langLocale = prefs.getString(_keyLanguageLocale);
+    final langCode = prefs.getString(_keyLanguageCode);
     await prefs.clear();
-    if (language != null) {
-      await prefs.setString(_keyLanguage, language);
+    if (langLocale != null) {
+      await prefs.setString(_keyLanguageLocale, langLocale);
+    }
+    if (langCode != null) {
+      await prefs.setString(_keyLanguageCode, langCode);
     }
   }
 }

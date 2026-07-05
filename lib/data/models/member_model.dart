@@ -62,13 +62,13 @@ class Member {
       profileImage: json['profile_image'],
       villageName: json['village_name'],
       sscSchool: json['ssc_school'],
-      sscPercentage: json['ssc_percentage'],
+      sscPercentage: json['ssc_percentage']?.toString(),
       hscSchool: json['hsc_school'],
-      hscPercentage: json['hsc_percentage'],
+      hscPercentage: json['hsc_percentage']?.toString(),
       bachelorDegree: json['bachelor_degree'],
-      bachelorPercentage: json['bachelor_percentage'],
+      bachelorPercentage: json['bachelor_percentage']?.toString(),
       masterDegree: json['master_degree'],
-      masterPercentage: json['master_percentage'],
+      masterPercentage: json['master_percentage']?.toString(),
     );
   }
 }

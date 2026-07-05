@@ -108,12 +108,16 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
     FetchMyMembers event,
     Emitter<MemberState> emit,
   ) async {
-    emit(MemberLoading());
-    final resp = await repository.myMembers();
-    if (resp.isSuccess) {
-      emit(MyMembersLoaded(members: resp.data!));
-    } else {
-      emit(MemberError(message: resp.message));
+    try {
+      emit(MemberLoading());
+      final resp = await repository.myMembers();
+      if (resp.isSuccess) {
+        emit(MyMembersLoaded(members: resp.data ?? []));
+      } else {
+        emit(MemberError(message: resp.message));
+      }
+    } catch (e) {
+      emit(MemberError(message: e.toString()));
     }
   }
 

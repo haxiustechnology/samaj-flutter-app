@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/constants/colors.dart';
 import '../core/constants/text_styles.dart';
+import '../core/utils/shared_prefs.dart';
 import 'package:samaj/generated/l10n.dart';
 import 'app_router.dart';
 
@@ -41,16 +42,14 @@ class _AppState extends State<App> {
   }
 
   Future<void> _loadSavedLocale() async {
-    final prefs = await SharedPreferences.getInstance();
-    final langCode = prefs.getString('app_locale') ?? 'gu';
+    final langCode = await SharedPrefs.getLanguage();
     setState(() {
       _locale = Locale(langCode);
     });
   }
 
   Future<void> changeLocale(Locale newLocale) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('app_locale', newLocale.languageCode);
+    await SharedPrefs.saveLanguage(newLocale.languageCode);
     setState(() {
       _locale = newLocale;
     });
