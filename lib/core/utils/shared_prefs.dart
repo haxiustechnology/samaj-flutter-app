@@ -43,7 +43,7 @@ class SharedPrefs {
 
   static Future<String> getLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyLanguage) ?? 'en';
+    return prefs.getString(_keyLanguage) ?? 'gu';
   }
 
   // Login Status Management

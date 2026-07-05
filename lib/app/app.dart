@@ -42,12 +42,10 @@ class _AppState extends State<App> {
 
   Future<void> _loadSavedLocale() async {
     final prefs = await SharedPreferences.getInstance();
-    final langCode = prefs.getString('app_locale');
-    if (langCode != null) {
-      setState(() {
-        _locale = Locale(langCode);
-      });
-    }
+    final langCode = prefs.getString('app_locale') ?? 'gu';
+    setState(() {
+      _locale = Locale(langCode);
+    });
   }
 
   Future<void> changeLocale(Locale newLocale) async {
