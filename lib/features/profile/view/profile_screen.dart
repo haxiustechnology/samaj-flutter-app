@@ -221,6 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
                 child: ListView(
+                  padding: EdgeInsets.zero,
                   physics: const BouncingScrollPhysics(),
                   children: [
                     _buildMenuItem(
@@ -296,7 +297,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             onTap: () async {
                               final Uri storeUrl = Uri.parse(
-                                'https://play.google.com/store/apps/details?id=com.kamlesh.samaj',
+                                'https://play.google.com/store/apps/details?id=com.valiyasamaj.app.samaj',
                               );
                               if (await canLaunchUrl(storeUrl)) {
                                 await launchUrl(storeUrl, mode: LaunchMode.externalApplication);

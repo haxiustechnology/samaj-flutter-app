@@ -235,8 +235,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
         ),
       ),
     ),
-  ),
-);
+  );
       },
     );
   }

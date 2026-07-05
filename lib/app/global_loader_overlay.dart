@@ -13,8 +13,10 @@ class GlobalLoaderOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Stack(
+        children: [
         child,
         BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
@@ -53,6 +55,7 @@ class GlobalLoaderOverlay extends StatelessWidget {
           },
         ),
       ],
-    );
-  }
+    ),
+  );
+}
 }
