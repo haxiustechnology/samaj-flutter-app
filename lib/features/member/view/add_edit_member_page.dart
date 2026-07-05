@@ -104,10 +104,46 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
     _bloc.add(FetchVillages());
   }
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
-    final x = await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+    final x = await picker.pickImage(source: source, imageQuality: 80);
     if (x != null) setState(() => _imageFile = File(x.path));
+  }
+
+  void _showImageSourceActionSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.backgroundWhite,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.r),
+          topRight: Radius.circular(20.r),
+        ),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library_outlined, color: AppColors.primary),
+              title: Text(S.of(ctx).gallery, style: AppTextStyles.bodyMedium),
+              onTap: () {
+                Navigator.pop(ctx);
+                _pickImage(ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.camera_alt_outlined, color: AppColors.primary),
+              title: const Text('Camera', style: AppTextStyles.bodyMedium),
+              onTap: () {
+                Navigator.pop(ctx);
+                _pickImage(ImageSource.camera);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   int _calculateAge(DateTime birthDate) {
@@ -264,7 +300,7 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                   // Photo picker with warm primary border ring
                   Center(
                     child: GestureDetector(
-                      onTap: _pickImage,
+                      onTap: () => _showImageSourceActionSheet(context),
                       child: Stack(
                         children: [
                           Container(
