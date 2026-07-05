@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
 import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/full_screen_image_viewer.dart';
 import '../../../data/models/news_model.dart';
 import '../../../data/repositories/guest_repository.dart';
 import '../bloc/guest_bloc.dart';
@@ -71,21 +72,54 @@ class NewsPage extends StatelessWidget {
                         children: [
                           // Live Image with network support & placeholder
                           if (news.image != null && news.image!.isNotEmpty) ...[
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12.r),
-                              child: CachedNetworkImage(
-                                imageUrl: news.image!,
-                                height: 180.h,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) => Container(
-                                  color: AppColors.primarySurface,
-                                  child: const Center(
-                                    child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  child: Container(
+                                    color: Colors.black12,
+                                    height: 180.h,
+                                    width: double.infinity,
+                                    child: CachedNetworkImage(
+                                      imageUrl: news.image!,
+                                      fit: BoxFit.contain,
+                                      placeholder: (context, url) => Container(
+                                        color: AppColors.primarySurface,
+                                        child: const Center(
+                                          child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) => _buildPlaceholderImage(),
+                                    ),
                                   ),
                                 ),
-                                errorWidget: (context, url, error) => _buildPlaceholderImage(),
-                              ),
+                                Positioned(
+                                  top: 8.h,
+                                  right: 8.w,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => FullScreenImageViewer(imageUrl: news.image!),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withValues(alpha: 0.5),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      padding: EdgeInsets.all(8.w),
+                                      child: const Icon(
+                                        Icons.visibility,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ] else ...[
                             _buildPlaceholderImage(),

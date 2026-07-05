@@ -12,6 +12,7 @@ import '../../auth/bloc/auth_state.dart';
 import '../../../app/app_router.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/text_styles.dart';
+import '../../../core/widgets/full_screen_image_viewer.dart';
 import 'package:samaj/generated/l10n.dart';
 import '../../../core/utils/auth_guard.dart';
 import '../../profile/view/profile_screen.dart';
@@ -22,6 +23,7 @@ import 'shikshan_samiti_list_page.dart';
 import 'village_list_page.dart';
 import 'samuh_lagna_samiti_list_page.dart';
 import 'mahila_mandal_samiti_list_page.dart';
+import 'notifications_page.dart';
 import '../../member/view/all_members_page.dart';
 
 import '../../../data/repositories/guest_repository.dart';
@@ -203,7 +205,12 @@ class HomeTab extends StatelessWidget {
                         icon: const Icon(Icons.notifications_none_rounded),
                         color: Colors.white,
                         onPressed: () {
-                          // Action for notifications
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NotificationsPage(),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -494,19 +501,32 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16.r),
-                            child: CachedNetworkImage(
-                              imageUrl: banner.image,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              placeholder: (context, url) => Container(
-                                color: Colors.grey[200],
-                                child: const Center(
-                                  child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => FullScreenImageViewer(imageUrl: banner.image),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                color: Colors.black87,
+                                child: CachedNetworkImage(
+                                  imageUrl: banner.image,
+                                  fit: BoxFit.contain,
+                                  width: double.infinity,
+                                  placeholder: (context, url) => Container(
+                                    color: Colors.grey[200],
+                                    child: const Center(
+                                      child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) => Container(
+                                    color: Colors.grey[300],
+                                    child: const Icon(Icons.broken_image_rounded, size: 40, color: Colors.grey),
+                                  ),
                                 ),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                color: Colors.grey[300],
-                                child: const Icon(Icons.broken_image_rounded, size: 40, color: Colors.grey),
                               ),
                             ),
                           ),

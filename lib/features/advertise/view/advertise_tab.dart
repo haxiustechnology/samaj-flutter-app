@@ -190,21 +190,54 @@ class AdvertiseTab extends StatelessWidget {
                           ),
                           SizedBox(height: 12.h),
                           if (ad.image != null && ad.image!.isNotEmpty) ...[
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12.r),
-                              child: CachedNetworkImage(
-                                imageUrl: ad.image!,
-                                height: 160.h,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) => Container(
-                                  color: AppColors.primarySurface,
-                                  child: const Center(
-                                    child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  child: Container(
+                                    color: Colors.black12,
+                                    height: 160.h,
+                                    width: double.infinity,
+                                    child: CachedNetworkImage(
+                                      imageUrl: ad.image!,
+                                      fit: BoxFit.contain,
+                                      placeholder: (context, url) => Container(
+                                        color: AppColors.primarySurface,
+                                        child: const Center(
+                                          child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 2),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) => _buildPlaceholderAdIcon(),
+                                    ),
                                   ),
                                 ),
-                                errorWidget: (context, url, error) => _buildPlaceholderAdIcon(),
-                              ),
+                                Positioned(
+                                  top: 8.h,
+                                  right: 8.w,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => FullScreenImageViewer(imageUrl: ad.image!),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withValues(alpha: 0.5),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      padding: EdgeInsets.all(8.w),
+                                      child: const Icon(
+                                        Icons.visibility,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(height: 12.h),
                           ],

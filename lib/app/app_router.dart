@@ -7,6 +7,7 @@ import '../features/home/view/home_screen.dart';
 import '../features/home/view/news_page.dart';
 import '../features/home/view/gallery_page.dart';
 import '../features/home/view/upcoming_events_page.dart';
+import '../features/home/view/notifications_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -28,5 +29,6 @@ class AppRouter  extends RootStackRouter {
     AutoRoute(page: NewsRoute.page),
     AutoRoute(page: GalleryRoute.page),
     AutoRoute(page: UpcomingEventsRoute.page),
+    AutoRoute(page: NotificationsRoute.page),
   ];
 }

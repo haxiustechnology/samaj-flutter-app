@@ -14,7 +14,7 @@ part of 'app_router.dart';
 /// [GalleryPage]
 class GalleryRoute extends PageRouteInfo<void> {
   const GalleryRoute({List<PageRouteInfo>? children})
-    : super(GalleryRoute.name, initialChildren: children);
+      : super(GalleryRoute.name, initialChildren: children);
 
   static const String name = 'GalleryRoute';
 
@@ -30,7 +30,7 @@ class GalleryRoute extends PageRouteInfo<void> {
 /// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
-    : super(HomeRoute.name, initialChildren: children);
+      : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
@@ -46,14 +46,14 @@ class HomeRoute extends PageRouteInfo<void> {
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
-    : super(LoginRoute.name, initialChildren: children);
+      : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return LoginPage();
+      return const LoginPage();
     },
   );
 }
@@ -62,7 +62,7 @@ class LoginRoute extends PageRouteInfo<void> {
 /// [NewsPage]
 class NewsRoute extends PageRouteInfo<void> {
   const NewsRoute({List<PageRouteInfo>? children})
-    : super(NewsRoute.name, initialChildren: children);
+      : super(NewsRoute.name, initialChildren: children);
 
   static const String name = 'NewsRoute';
 
@@ -75,17 +75,33 @@ class NewsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [NotificationsPage]
+class NotificationsRoute extends PageRouteInfo<void> {
+  const NotificationsRoute({List<PageRouteInfo>? children})
+      : super(NotificationsRoute.name, initialChildren: children);
+
+  static const String name = 'NotificationsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NotificationsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [RegisterPage]
 class RegisterRoute extends PageRouteInfo<void> {
   const RegisterRoute({List<PageRouteInfo>? children})
-    : super(RegisterRoute.name, initialChildren: children);
+      : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return RegisterPage();
+      return const RegisterPage();
     },
   );
 }
@@ -94,7 +110,7 @@ class RegisterRoute extends PageRouteInfo<void> {
 /// [SplashPage]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})
-    : super(SplashRoute.name, initialChildren: children);
+      : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
@@ -110,7 +126,7 @@ class SplashRoute extends PageRouteInfo<void> {
 /// [UpcomingEventsPage]
 class UpcomingEventsRoute extends PageRouteInfo<void> {
   const UpcomingEventsRoute({List<PageRouteInfo>? children})
-    : super(UpcomingEventsRoute.name, initialChildren: children);
+      : super(UpcomingEventsRoute.name, initialChildren: children);
 
   static const String name = 'UpcomingEventsRoute';
 
@@ -125,12 +141,15 @@ class UpcomingEventsRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [VerifyOtpPage]
 class VerifyOtpRoute extends PageRouteInfo<VerifyOtpRouteArgs> {
-  VerifyOtpRoute({required String mobile, List<PageRouteInfo>? children})
-    : super(
-        VerifyOtpRoute.name,
-        args: VerifyOtpRouteArgs(mobile: mobile),
-        initialChildren: children,
-      );
+  VerifyOtpRoute({
+    Key? key,
+    required String mobile,
+    List<PageRouteInfo>? children,
+  }) : super(
+          VerifyOtpRoute.name,
+          args: VerifyOtpRouteArgs(key: key, mobile: mobile),
+          initialChildren: children,
+        );
 
   static const String name = 'VerifyOtpRoute';
 
@@ -138,18 +157,30 @@ class VerifyOtpRoute extends PageRouteInfo<VerifyOtpRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<VerifyOtpRouteArgs>();
-      return VerifyOtpPage(mobile: args.mobile);
+      return VerifyOtpPage(key: args.key, mobile: args.mobile);
     },
   );
 }
 
 class VerifyOtpRouteArgs {
-  const VerifyOtpRouteArgs({required this.mobile});
+  const VerifyOtpRouteArgs({this.key, required this.mobile});
+
+  final Key? key;
 
   final String mobile;
 
   @override
   String toString() {
-    return 'VerifyOtpRouteArgs{mobile: $mobile}';
+    return 'VerifyOtpRouteArgs{key: $key, mobile: $mobile}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! VerifyOtpRouteArgs) return false;
+    return key == other.key && mobile == other.mobile;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ mobile.hashCode;
 }

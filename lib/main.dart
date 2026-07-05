@@ -102,6 +102,21 @@ void main() async {
   // Initialize app router
   final appRouter = AppRouter();
 
+  // Route to NotificationsPage when notification is tapped in background/foreground
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    debugPrint('🔔 FCM Notification tapped while app in background: ${message.notification?.title}');
+    appRouter.navigate(const NotificationsRoute());
+  });
+
+  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    if (message != null) {
+      debugPrint('🔔 FCM Notification tapped while app was terminated: ${message.notification?.title}');
+      Future.delayed(const Duration(milliseconds: 1500), () {
+        appRouter.navigate(const NotificationsRoute());
+      });
+    }
+  });
+
   final authBloc = AuthBloc(authRepository: AuthRepository());
 
   // Listen to 401 Unauthorized errors to automatically log out user
