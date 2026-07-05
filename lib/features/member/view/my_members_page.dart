@@ -182,7 +182,7 @@ class MyMembersPage extends StatelessWidget {
                                   MaterialPageRoute(builder: (_) => AddEditMemberPage(member: m)),
                                 );
                                 if (updated == true && context.mounted) {
-                                  context.read<MemberBloc>().add(FetchMembers());
+                                  context.read<MemberBloc>().add(FetchMyMembers());
                                 }
                               },
                             ),
