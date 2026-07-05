@@ -23,6 +23,7 @@ import 'privacy_policy_page.dart';
 import 'terms_conditions_page.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -34,6 +35,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final ValueNotifier<String?> _userNameNotifier = ValueNotifier<String?>(null);
+  final ValueNotifier<String?> _userProfileImageNotifier = ValueNotifier<String?>(null);
   final ValueNotifier<String> _appVersionNotifier = ValueNotifier<String>('');
   final ValueNotifier<String> _buildNumberNotifier = ValueNotifier<String>('');
 
@@ -47,6 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void dispose() {
     _userNameNotifier.dispose();
+    _userProfileImageNotifier.dispose();
     _appVersionNotifier.dispose();
     _buildNumberNotifier.dispose();
     super.dispose();
@@ -56,6 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final user = await SharedPrefs.getUserModel();
     if (user == null) return;
     _userNameNotifier.value = user.name;
+    _userProfileImageNotifier.value = user.profileImage;
   }
 
   Future<void> _loadAppInfo() async {
@@ -191,14 +195,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         shape: BoxShape.circle,
                         color: Colors.white,
                       ),
-                      child: CircleAvatar(
-                        radius: 50.r,
-                        backgroundColor: AppColors.primarySurface,
-                        child: Icon(
-                          Icons.person_rounded,
-                          size: 54.sp,
-                          color: AppColors.primary,
-                        ),
+                      child: ValueListenableBuilder<String?>(
+                        valueListenable: _userProfileImageNotifier,
+                        builder: (context, profileImage, _) {
+                          final hasImage = profileImage != null && profileImage.isNotEmpty;
+                          return CircleAvatar(
+                            radius: 50.r,
+                            backgroundColor: AppColors.primarySurface,
+                            child: ClipOval(
+                              child: hasImage
+                                  ? CachedNetworkImage(
+                                      imageUrl: profileImage,
+                                      fit: BoxFit.cover,
+                                      width: 100.w,
+                                      height: 100.w,
+                                      placeholder: (context, url) => const CircularProgressIndicator(color: AppColors.primary),
+                                      errorWidget: (context, url, error) => Icon(
+                                        Icons.person_rounded,
+                                        size: 54.sp,
+                                        color: AppColors.primary,
+                                      ),
+                                    )
+                                  : Icon(
+                                      Icons.person_rounded,
+                                      size: 54.sp,
+                                      color: AppColors.primary,
+                                    ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
