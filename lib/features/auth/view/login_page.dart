@@ -71,26 +71,29 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           // App Branding/Header Area
                           SizedBox(height: 20.h),
-                          Hero(
-                            tag: 'app_logo',
-                            child: Container(
-                              height: 100.w,
-                              width: 100.w,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withValues(alpha: 0.15),
-                                    blurRadius: 20,
-                                    offset: const Offset(0, 8),
+                          Center(
+                            child: Hero(
+                              tag: 'app_logo',
+                              child: Container(
+                                height: 100.w,
+                                width: 100.w,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(24.r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withValues(alpha: 0.15),
+                                      blurRadius: 20,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ],
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(24.r),
+                                  child: Image.asset(
+                                    Assets.images.logo.path,
+                                    fit: BoxFit.cover,
                                   ),
-                                ],
-                              ),
-                              child: ClipOval(
-                                child: Image.asset(
-                                  Assets.images.logo.path,
-                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
