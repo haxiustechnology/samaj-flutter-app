@@ -107,7 +107,7 @@ class AuthRepository {
   /// Edit profile
   Future<ApiResponse<Map<String, dynamic>>> editProfile(Map<String, dynamic> data) async {
     try {
-      final response = await ApiClient.dio.put(
+      final response = await ApiClient.dio.post(
         ApiEndpoints.editProfile,
         data: data,
       );
