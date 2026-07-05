@@ -176,11 +176,14 @@ class MyMembersPage extends StatelessWidget {
                             ),
                             child: IconButton(
                               icon: const Icon(Icons.edit_rounded, color: AppColors.primary),
-                              onPressed: () {
-                                Navigator.push(
+                              onPressed: () async {
+                                final updated = await Navigator.push<bool?>(
                                   context,
                                   MaterialPageRoute(builder: (_) => AddEditMemberPage(member: m)),
                                 );
+                                if (updated == true && context.mounted) {
+                                  context.read<MemberBloc>().add(FetchMembers());
+                                }
                               },
                             ),
                           ),

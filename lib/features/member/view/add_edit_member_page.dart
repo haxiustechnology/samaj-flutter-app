@@ -248,15 +248,23 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
           if (total > 0) setState(() => _uploadProgress = sent / total);
         });
         if (!mounted) return;
-        if (resp.isSuccess) Navigator.pop(context);
-        else ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(resp.message)));
+        if (resp.isSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Member added successfully')));
+          Navigator.pop(context, true);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(resp.message)));
+        }
       } else {
         final resp = await _repo.editMember(widget.member!.id, body, imageFile: _imageFile, onSendProgress: (sent, total) {
           if (total > 0) setState(() => _uploadProgress = sent / total);
         });
         if (!mounted) return;
-        if (resp.isSuccess) Navigator.pop(context);
-        else ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(resp.message)));
+        if (resp.isSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Member updated successfully')));
+          Navigator.pop(context, true);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(resp.message)));
+        }
       }
     } finally {
       setState(() {
