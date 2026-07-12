@@ -31,6 +31,9 @@ class _AllMembersPageState extends State<AllMembersPage> {
   int?    _villageId;
   String? _gender;   // null | 'male' | 'female' | 'other'
   String? _jobType;  // null | 'private' | 'government' | 'none'
+  bool?   _isDoingJob;
+  String? _jobPost;
+  final TextEditingController _jobPostCtrl = TextEditingController();
 
   List<Village> _villages = [];
 
@@ -69,6 +72,8 @@ class _AllMembersPageState extends State<AllMembersPage> {
       villageId: _villageId,
       gender:    _gender,
       jobType:   _jobType,
+      isDoingJob: _isDoingJob,
+      jobPost:   _jobPost,
     ));
   }
 
@@ -79,6 +84,8 @@ class _AllMembersPageState extends State<AllMembersPage> {
       villageId: _villageId,
       gender:    _gender,
       jobType:   _jobType,
+      isDoingJob: _isDoingJob,
+      jobPost:   _jobPost,
     ));
   }
 
@@ -101,19 +108,28 @@ class _AllMembersPageState extends State<AllMembersPage> {
     _villageId = null;
     _gender    = null;
     _jobType   = null;
+    _isDoingJob = null;
+    _jobPost   = null;
     _searchCtrl.clear();
+    _jobPostCtrl.clear();
     // Tell BLoC the search box is now empty — triggers SearchBarUpdated + fetch
     _bloc.add(SearchQueryChanged(''));
     _fetchFirstPage();
   }
 
   bool get _hasActiveFilter =>
-      _search != null || _villageId != null || _gender != null || _jobType != null;
+      _search != null ||
+      _villageId != null ||
+      _gender != null ||
+      _jobType != null ||
+      _isDoingJob != null ||
+      _jobPost != null;
 
   @override
   void dispose() {
     _scroll.dispose();
     _searchCtrl.dispose();
+    _jobPostCtrl.dispose();
     _bloc.close();
     _villageBloc.close();
     super.dispose();
@@ -258,6 +274,22 @@ class _AllMembersPageState extends State<AllMembersPage> {
         onDelete: () => setState(() { _villageId = null; _fetchFirstPage(); }),
       ));
     }
+    if (_isDoingJob != null) {
+      chips.add(_filterChip(
+        label: _isDoingJob! ? 'JOB: YES' : 'JOB: NO',
+        onDelete: () => setState(() { _isDoingJob = null; _fetchFirstPage(); }),
+      ));
+    }
+    if (_jobPost != null && _jobPost!.isNotEmpty) {
+      chips.add(_filterChip(
+        label: 'POST: ${_jobPost!.toUpperCase()}',
+        onDelete: () => setState(() {
+          _jobPost = null;
+          _jobPostCtrl.clear();
+          _fetchFirstPage();
+        }),
+      ));
+    }
 
     if (chips.isEmpty) return const SizedBox.shrink();
 
@@ -302,6 +334,9 @@ class _AllMembersPageState extends State<AllMembersPage> {
     String? tempGender   = _gender;
     String? tempJobType  = _jobType;
     int?    tempVillage  = _villageId;
+    bool?   tempIsDoingJob = _isDoingJob;
+    String? tempJobPost  = _jobPost;
+    final tempJobPostCtrl = TextEditingController(text: tempJobPost ?? '');
 
     showModalBottomSheet(
       context: context,
@@ -315,8 +350,8 @@ class _AllMembersPageState extends State<AllMembersPage> {
           builder: (ctx, setSheet) {
             return DraggableScrollableSheet(
               expand: false,
-              initialChildSize: 0.65,
-              maxChildSize: 0.9,
+              initialChildSize: 0.85,
+              maxChildSize: 0.95,
               builder: (_, sc) => Padding(
                 padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 24.h),
                 child: ListView(
@@ -376,6 +411,75 @@ class _AllMembersPageState extends State<AllMembersPage> {
                     ),
                     SizedBox(height: 20.h),
 
+                    // Job Status Filter (Is Doing Job)
+                    Text(
+                      'Job / Business Status',
+                      style: AppTextStyles.labelLarge.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    Wrap(
+                      spacing: 8.w,
+                      children: [
+                        ChoiceChip(
+                          label: const Text('All'),
+                          selected: tempIsDoingJob == null,
+                          onSelected: (_) => setSheet(() => tempIsDoingJob = null),
+                          selectedColor: AppColors.primary,
+                          backgroundColor: AppColors.backgroundCream,
+                          checkmarkColor: Colors.white,
+                          labelStyle: AppTextStyles.bodyMedium.copyWith(
+                            color: tempIsDoingJob == null ? Colors.white : AppColors.textPrimary,
+                            fontWeight: tempIsDoingJob == null ? FontWeight.bold : FontWeight.w500,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            side: BorderSide(
+                              color: tempIsDoingJob == null ? AppColors.primary : AppColors.borderLight,
+                            ),
+                          ),
+                        ),
+                        ChoiceChip(
+                          label: const Text('Working'),
+                          selected: tempIsDoingJob == true,
+                          onSelected: (_) => setSheet(() => tempIsDoingJob = true),
+                          selectedColor: AppColors.primary,
+                          backgroundColor: AppColors.backgroundCream,
+                          checkmarkColor: Colors.white,
+                          labelStyle: AppTextStyles.bodyMedium.copyWith(
+                            color: tempIsDoingJob == true ? Colors.white : AppColors.textPrimary,
+                            fontWeight: tempIsDoingJob == true ? FontWeight.bold : FontWeight.w500,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            side: BorderSide(
+                              color: tempIsDoingJob == true ? AppColors.primary : AppColors.borderLight,
+                            ),
+                          ),
+                        ),
+                        ChoiceChip(
+                          label: const Text('Not Working'),
+                          selected: tempIsDoingJob == false,
+                          onSelected: (_) => setSheet(() => tempIsDoingJob = false),
+                          selectedColor: AppColors.primary,
+                          backgroundColor: AppColors.backgroundCream,
+                          checkmarkColor: Colors.white,
+                          labelStyle: AppTextStyles.bodyMedium.copyWith(
+                            color: tempIsDoingJob == false ? Colors.white : AppColors.textPrimary,
+                            fontWeight: tempIsDoingJob == false ? FontWeight.bold : FontWeight.w500,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            side: BorderSide(
+                              color: tempIsDoingJob == false ? AppColors.primary : AppColors.borderLight,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.h),
+
                     // Job Type Filter
                     Text(
                       'Job Type',
@@ -407,6 +511,38 @@ class _AllMembersPageState extends State<AllMembersPage> {
                           ),
                         );
                       }).toList(),
+                    ),
+                    SizedBox(height: 20.h),
+
+                    // Job Designation Filter
+                    Text(
+                      'Designation / Post',
+                      style: AppTextStyles.labelLarge.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    TextField(
+                      controller: tempJobPostCtrl,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.backgroundCream,
+                        hintText: 'e.g. Police, Doctor, Teacher',
+                        prefixIcon: const Icon(Icons.badge_outlined, color: AppColors.textSecondary),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14.r),
+                          borderSide: const BorderSide(color: AppColors.borderLight, width: 1.5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14.r),
+                          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                        ),
+                      ),
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     SizedBox(height: 20.h),
 
@@ -480,6 +616,8 @@ class _AllMembersPageState extends State<AllMembersPage> {
                                 tempGender = null;
                                 tempJobType = null;
                                 tempVillage = null;
+                                tempIsDoingJob = null;
+                                tempJobPostCtrl.clear();
                               });
                             },
                             child: Text(
@@ -507,6 +645,13 @@ class _AllMembersPageState extends State<AllMembersPage> {
                                 _gender    = tempGender;
                                 _jobType   = tempJobType;
                                 _villageId = tempVillage;
+                                _isDoingJob = tempIsDoingJob;
+                                _jobPost    = tempJobPostCtrl.text.trim().isEmpty ? null : tempJobPostCtrl.text.trim();
+                                if (_jobPost != null) {
+                                  _jobPostCtrl.text = _jobPost!;
+                                } else {
+                                  _jobPostCtrl.clear();
+                                }
                               });
                               Navigator.pop(ctx);
                               _fetchFirstPage();

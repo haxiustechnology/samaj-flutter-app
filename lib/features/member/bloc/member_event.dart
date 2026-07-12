@@ -13,6 +13,8 @@ class FetchAllMembers extends MemberEvent {
   final int? villageId;
   final String? gender;   // 'male' | 'female' | 'other' | null
   final String? jobType;  // 'private' | 'government' | 'none' | null
+  final bool? isDoingJob; // true (doing job/business) | false (not doing job) | null
+  final String? jobPost;  // specific designation / post
   final bool reset;       // true → clears existing list
 
   FetchAllMembers({
@@ -22,6 +24,8 @@ class FetchAllMembers extends MemberEvent {
     this.villageId,
     this.gender,
     this.jobType,
+    this.isDoingJob,
+    this.jobPost,
     this.reset = false,
   });
 }

@@ -20,6 +20,8 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
   int?    _activeVillageId;
   String? _activeGender;
   String? _activeJobType;
+  bool?   _activeIsDoingJob;
+  String? _activeJobPost;
 
   // ── Debounce: tracks the latest typed query + search generation ─────────────
   // _latestSearchQuery: exit early if user typed more chars before 400ms passed
@@ -72,6 +74,8 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
       villageId: _activeVillageId,
       gender:    _activeGender,
       jobType:   _activeJobType,
+      isDoingJob: _activeIsDoingJob,
+      jobPost:   _activeJobPost,
     );
 
     // Another search started while we were awaiting → discard these results
@@ -140,6 +144,8 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
         _activeVillageId = event.villageId;
         _activeGender    = event.gender;
         _activeJobType   = event.jobType;
+        _activeIsDoingJob = event.isDoingJob;
+        _activeJobPost   = event.jobPost;
         emit(MemberLoading());
       } else {
         // Loading next page — don't wipe existing members from UI
@@ -154,6 +160,8 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
         villageId: _activeVillageId,
         gender:    _activeGender,
         jobType:   _activeJobType,
+        isDoingJob: _activeIsDoingJob,
+        jobPost:   _activeJobPost,
       );
 
       if (resp.isSuccess) {

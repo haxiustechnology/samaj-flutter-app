@@ -126,6 +126,8 @@ class MemberRepository {
     int? villageId,
     String? gender,
     String? jobType,
+    bool? isDoingJob,
+    String? jobPost,
   }) async {
     try {
       final queryParams = <String, dynamic>{
@@ -135,6 +137,8 @@ class MemberRepository {
         if (villageId != null) 'village_id': villageId,
         if (gender != null) 'gender': gender,
         if (jobType != null) 'job_type': jobType,
+        if (isDoingJob != null) 'is_doing_job': isDoingJob ? 1 : 0,
+        if (jobPost != null && jobPost.isNotEmpty) 'job_post': jobPost,
       };
       final resp = await ApiClient.dio.get(
         ApiEndpoints.allMembers,
