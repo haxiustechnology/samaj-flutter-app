@@ -546,57 +546,64 @@ class _AllMembersPageState extends State<AllMembersPage> {
                     ),
                     SizedBox(height: 20.h),
 
-                    // Village Dropdown
-                    Text(
-                      'Village',
-                      style: AppTextStyles.labelLarge.copyWith(
-                        color: AppColors.textSecondary,
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    if (_villages.isEmpty)
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.h),
-                        child: Text(
-                          'Loading villages…',
+                    // Village Dropdown — BlocConsumer so sheet rebuilds when villages arrive
+                    BlocConsumer<MemberBloc, MemberState>(
+                      bloc: _villageBloc,
+                      listener: (ctx, state) {
+                        if (state is VillagesLoaded) {
+                          // also update the parent widget's list
+                          setState(() => _villages = state.villages);
+                          // rebuild the sheet itself
+                          setSheet(() {});
+                        }
+                      },
+                      builder: (ctx, state) {
+                        final villages = _villages;
+                        if (villages.isEmpty) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.h),
+                            child: Text(
+                              'Loading villages…',
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color: AppColors.textMuted,
+                              ),
+                            ),
+                          );
+                        }
+                        return DropdownButtonFormField<int?>(
+                          value: tempVillage,
+                          dropdownColor: AppColors.backgroundWhite,
                           style: AppTextStyles.bodyMedium.copyWith(
-                            color: AppColors.textMuted,
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.w500,
                           ),
-                        ),
-                      )
-                    else
-                      DropdownButtonFormField<int?>(
-                        value: tempVillage,
-                        dropdownColor: AppColors.backgroundWhite,
-                        style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.backgroundCream,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.r),
-                            borderSide: const BorderSide(color: AppColors.borderLight, width: 1.5),
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: AppColors.backgroundCream,
+                            contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14.r),
+                              borderSide: const BorderSide(color: AppColors.borderLight, width: 1.5),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14.r),
+                              borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                            ),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14.r),
-                            borderSide: const BorderSide(color: AppColors.primary, width: 2),
-                          ),
-                        ),
-                        items: [
-                          const DropdownMenuItem<int?>(
-                            value: null,
-                            child: Text('All Villages'),
-                          ),
-                          ..._villages.map((v) => DropdownMenuItem<int?>(
-                            value: v.id,
-                            child: Text(v.villageName),
-                          )),
-                        ],
-                        onChanged: (v) => setSheet(() => tempVillage = v),
-                      ),
+                          items: [
+                            const DropdownMenuItem<int?>(
+                              value: null,
+                              child: Text('All Villages'),
+                            ),
+                            ...villages.map((v) => DropdownMenuItem<int?>(
+                              value: v.id,
+                              child: Text(v.villageName),
+                            )),
+                          ],
+                          onChanged: (v) => setSheet(() => tempVillage = v),
+                        );
+                      },
+                    ),
                     SizedBox(height: 32.h),
 
                     // Action Buttons
