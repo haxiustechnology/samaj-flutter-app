@@ -54,6 +54,8 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
   final ValueNotifier<File?> _imageFile = ValueNotifier<File?>(null);
   final ValueNotifier<bool> _isUploading = ValueNotifier<bool>(false);
   final ValueNotifier<double> _uploadProgress = ValueNotifier<double>(0.0);
+  final ValueNotifier<String?> _relationship = ValueNotifier<String?>(null);
+  final ValueNotifier<Member?> _linkedRelative = ValueNotifier<Member?>(null);
   
   final _repo = MemberRepository();
   late MemberBloc _bloc;
@@ -116,6 +118,10 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
       _businessDetails.text = widget.member!.businessDetails ?? '';
       _jobPost.text = widget.member!.jobPost ?? '';
       _otherEducation.text = widget.member!.otherEducation ?? '';
+      _relationship.value = widget.member!.relationship;
+      if (widget.member!.familyMembers != null && widget.member!.familyMembers!.isNotEmpty) {
+        _linkedRelative.value = widget.member!.familyMembers!.first;
+      }
     }
     _bloc = MemberBloc(repository: MemberRepository());
     _bloc.add(FetchVillages());
@@ -149,6 +155,8 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
     _imageFile.dispose();
     _isUploading.dispose();
     _uploadProgress.dispose();
+    _relationship.dispose();
+    _linkedRelative.dispose();
     
     super.dispose();
   }
@@ -278,6 +286,8 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
       'job_post': _isDoingJob.value && (_jobType.value == 'Private' || _jobType.value == 'Government')
           ? (_jobPost.text.trim().isEmpty ? null : _jobPost.text.trim())
           : null,
+      'relationship': _relationship.value,
+      'link_member_id': _linkedRelative.value?.id,
       'education': {
         'ssc_school': _sscSchool.text.trim(),
         'ssc_percentage': _sscPercentage.text.trim(),
@@ -769,6 +779,193 @@ class _AddEditMemberPageState extends State<AddEditMemberPage> {
                           hint: S.of(context).otherEducationHint,
                           prefixIcon: const Icon(Icons.school_outlined),
                           maxLines: 3,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 24.h),
+
+                  // Family Linking Section Card
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.backgroundWhite,
+                      borderRadius: BorderRadius.circular(20.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.04),
+                          blurRadius: 16,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.all(16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          S.of(context).familyMembers,
+                          style: AppTextStyles.subtitle1.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.secondary,
+                          ),
+                        ),
+                        const Divider(color: AppColors.borderLight, thickness: 1),
+                        SizedBox(height: 12.h),
+
+                        ValueListenableBuilder<Member?>(
+                          valueListenable: _linkedRelative,
+                          builder: (context, linkedRelative, _) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (linkedRelative != null) ...[
+                                  Text(
+                                    S.of(context).linkWithFamily,
+                                    style: AppTextStyles.bodyMedium.copyWith(
+                                      color: AppColors.textPrimary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.h),
+                                  Container(
+                                    padding: EdgeInsets.all(12.w),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.backgroundCream,
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 18.r,
+                                          backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                                          backgroundImage: linkedRelative.profileImage != null
+                                              ? CachedNetworkImageProvider(linkedRelative.profileImage!)
+                                              : null,
+                                          child: linkedRelative.profileImage == null
+                                              ? Icon(Icons.person, color: AppColors.primary, size: 20.sp)
+                                              : null,
+                                        ),
+                                        SizedBox(width: 12.w),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '${linkedRelative.firstName} ${linkedRelative.middleName ?? ''} ${linkedRelative.surname}',
+                                                style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+                                              ),
+                                              if (linkedRelative.villageName != null)
+                                                Text(
+                                                  linkedRelative.villageName!,
+                                                  style: AppTextStyles.bodySmall.copyWith(color: AppColors.textMuted),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(Icons.close, color: Colors.red),
+                                          onPressed: () {
+                                            _linkedRelative.value = null;
+                                            _relationship.value = null;
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ] else ...[
+                                  Autocomplete<Member>(
+                                    displayStringForOption: (Member m) => '${m.firstName} ${m.middleName ?? ''} ${m.surname}',
+                                    optionsBuilder: (TextEditingValue textEditingValue) async {
+                                      if (textEditingValue.text.trim().isEmpty) {
+                                        return const Iterable<Member>.empty();
+                                      }
+                                      final resp = await _repo.allMembers(search: textEditingValue.text, limit: 15);
+                                      if (resp.isSuccess && resp.data != null) {
+                                        final membersList = resp.data!['members'] as List<dynamic>? ?? [];
+                                        return membersList.map((e) => Member.fromJson(e as Map<String, dynamic>));
+                                      }
+                                      return const Iterable<Member>.empty();
+                                    },
+                                    onSelected: (Member selection) {
+                                      _linkedRelative.value = selection;
+                                    },
+                                    fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+                                      return AppTextField(
+                                        controller: controller,
+                                        focusNode: focusNode,
+                                        label: S.of(context).linkWithFamily,
+                                        hint: 'Search by first name or surname',
+                                        prefixIcon: const Icon(Icons.search_rounded),
+                                      );
+                                    },
+                                    optionsViewBuilder: (context, onSelected, options) {
+                                      return Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Material(
+                                          elevation: 4.0,
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                                          child: Container(
+                                            constraints: BoxConstraints(maxHeight: 200.h, maxWidth: 320.w),
+                                            child: ListView.builder(
+                                              padding: EdgeInsets.zero,
+                                              shrinkWrap: true,
+                                              itemCount: options.length,
+                                              itemBuilder: (BuildContext context, int index) {
+                                                final Member option = options.elementAt(index);
+                                                return ListTile(
+                                                  leading: CircleAvatar(
+                                                    radius: 14.r,
+                                                    backgroundImage: option.profileImage != null ? CachedNetworkImageProvider(option.profileImage!) : null,
+                                                    child: option.profileImage == null ? Icon(Icons.person, size: 16.sp) : null,
+                                                  ),
+                                                  title: Text('${option.firstName} ${option.middleName ?? ''} ${option.surname}'),
+                                                  subtitle: Text(option.villageName ?? ''),
+                                                  onTap: () => onSelected(option),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ],
+                            );
+                          },
+                        ),
+                        ValueListenableBuilder<Member?>(
+                          valueListenable: _linkedRelative,
+                          builder: (context, linkedRelative, _) {
+                            if (linkedRelative == null) return const SizedBox.shrink();
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 16.h),
+                                ValueListenableBuilder<String?>(
+                                  valueListenable: _relationship,
+                                  builder: (context, relValue, _) {
+                                    return AppDropdownField<String>(
+                                      value: relValue,
+                                      label: S.of(context).relationship,
+                                      items: [
+                                        DropdownMenuItem(value: 'father', child: Text(S.of(context).father)),
+                                        DropdownMenuItem(value: 'mother', child: Text(S.of(context).mother)),
+                                        DropdownMenuItem(value: 'spouse', child: Text(S.of(context).spouse)),
+                                        DropdownMenuItem(value: 'son', child: Text(S.of(context).son)),
+                                        DropdownMenuItem(value: 'daughter', child: Text(S.of(context).daughter)),
+                                        DropdownMenuItem(value: 'brother', child: Text(S.of(context).brother)),
+                                        DropdownMenuItem(value: 'sister', child: Text(S.of(context).sister)),
+                                        DropdownMenuItem(value: 'other', child: Text(S.of(context).other)),
+                                      ],
+                                      onChanged: (v) => _relationship.value = v,
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),

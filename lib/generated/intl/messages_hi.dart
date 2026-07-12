@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "bachelorPercentage": MessageLookupByLibrary.simpleMessage(
       "स्नातक प्रतिशत",
     ),
+    "brother": MessageLookupByLibrary.simpleMessage("भाई"),
     "businessJobDetails": MessageLookupByLibrary.simpleMessage(
       "व्यवसाय / नौकरी का विवरण",
     ),
@@ -57,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "© 2026 समाज समुदाय। सर्वाधिकार सुरक्षित।",
     ),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("जन्म तिथि"),
+    "daughter": MessageLookupByLibrary.simpleMessage("पुत्री"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("खाता हटाएं"),
     "deleteAccountConfirm": MessageLookupByLibrary.simpleMessage(
       "क्या आप वाकई अपना खाता स्थायी रूप से हटाना चाहते हैं? यह प्रक्रिया रद्द नहीं की जा सकती है, और आपका पंजीकृत सदस्य प्रोफ़ाइल निष्क्रिय कर दिया जाएगा।",
@@ -108,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
       "सूचना इतिहास लोड करने में विफल",
     ),
+    "familyMembers": MessageLookupByLibrary.simpleMessage("परिवार के सदस्य"),
+    "father": MessageLookupByLibrary.simpleMessage("पिता"),
     "female": MessageLookupByLibrary.simpleMessage("महिला"),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "साइन अप समाप्त करें",
@@ -136,6 +140,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "largeImageWarningTitle": MessageLookupByLibrary.simpleMessage("बड़ी छवि"),
     "lastNameOnId": MessageLookupByLibrary.simpleMessage("आईडी पर अंतिम नाम"),
+    "linkWithFamily": MessageLookupByLibrary.simpleMessage(
+      "परिवार के सदस्य से लिंक करें (वैकल्पिक)",
+    ),
     "login": MessageLookupByLibrary.simpleMessage("लॉगिन"),
     "loginNow": MessageLookupByLibrary.simpleMessage("अभी लॉगिन करें!"),
     "loginPromptCancel": MessageLookupByLibrary.simpleMessage("रद्द करें"),
@@ -170,17 +177,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "mobileValidationMsg": MessageLookupByLibrary.simpleMessage(
       "मोबाइल नंबर बिल्कुल 10 अंकों का होना चाहिए",
     ),
+    "mother": MessageLookupByLibrary.simpleMessage("माता"),
     "myMembers": MessageLookupByLibrary.simpleMessage("मेरे सदस्य"),
     "news": MessageLookupByLibrary.simpleMessage("समाचार"),
     "no": MessageLookupByLibrary.simpleMessage("नहीं"),
     "noMembersAdded": MessageLookupByLibrary.simpleMessage(
-      "अभी तक कोई सदस्य नहीं जोड़ा गया है।",
+      "अभी तक कोई सदस्य नहीं जोड़ा गया है.",
     ),
     "noNotifications": MessageLookupByLibrary.simpleMessage(
       "कोई नई सूचना नहीं है",
     ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(वैकल्पिक)"),
     "or": MessageLookupByLibrary.simpleMessage("या"),
+    "other": MessageLookupByLibrary.simpleMessage("अन्य"),
     "otherEducation": MessageLookupByLibrary.simpleMessage(
       "अन्य शिक्षा / योग्यताएं",
     ),
@@ -224,6 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "rateApp": MessageLookupByLibrary.simpleMessage("ऐप रेट करें"),
     "refresh": MessageLookupByLibrary.simpleMessage("ताज़ा करें"),
+    "relationship": MessageLookupByLibrary.simpleMessage("संबंध"),
     "requiredField": MessageLookupByLibrary.simpleMessage("आवश्यक"),
     "resendOtp": MessageLookupByLibrary.simpleMessage("ओटीपी पुनः भेजें"),
     "samuhLagnaSamitiList": MessageLookupByLibrary.simpleMessage(
@@ -237,6 +247,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "signUp": MessageLookupByLibrary.simpleMessage("साइन अप करें"),
     "single": MessageLookupByLibrary.simpleMessage("अविवाहित"),
+    "sister": MessageLookupByLibrary.simpleMessage("बहन"),
+    "son": MessageLookupByLibrary.simpleMessage("पुत्र"),
+    "spouse": MessageLookupByLibrary.simpleMessage("जीवनसाथी"),
     "sscPercentage": MessageLookupByLibrary.simpleMessage("SSC प्रतिशत"),
     "sscSchool": MessageLookupByLibrary.simpleMessage("SSC स्कूल"),
     "surname": MessageLookupByLibrary.simpleMessage("उपनाम"),

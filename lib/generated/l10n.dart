@@ -1113,6 +1113,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Relationship`
+  String get relationship {
+    return Intl.message(
+      'Relationship',
+      name: 'relationship',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Link with Family Member (Optional)`
+  String get linkWithFamily {
+    return Intl.message(
+      'Link with Family Member (Optional)',
+      name: 'linkWithFamily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Father`
+  String get father {
+    return Intl.message('Father', name: 'father', desc: '', args: []);
+  }
+
+  /// `Mother`
+  String get mother {
+    return Intl.message('Mother', name: 'mother', desc: '', args: []);
+  }
+
+  /// `Spouse`
+  String get spouse {
+    return Intl.message('Spouse', name: 'spouse', desc: '', args: []);
+  }
+
+  /// `Son`
+  String get son {
+    return Intl.message('Son', name: 'son', desc: '', args: []);
+  }
+
+  /// `Daughter`
+  String get daughter {
+    return Intl.message('Daughter', name: 'daughter', desc: '', args: []);
+  }
+
+  /// `Brother`
+  String get brother {
+    return Intl.message('Brother', name: 'brother', desc: '', args: []);
+  }
+
+  /// `Sister`
+  String get sister {
+    return Intl.message('Sister', name: 'sister', desc: '', args: []);
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message('Other', name: 'other', desc: '', args: []);
+  }
+
+  /// `Family Members`
+  String get familyMembers {
+    return Intl.message(
+      'Family Members',
+      name: 'familyMembers',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

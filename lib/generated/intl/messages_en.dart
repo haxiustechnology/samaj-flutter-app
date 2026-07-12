@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "bachelorPercentage": MessageLookupByLibrary.simpleMessage(
       "Bachelor Percentage",
     ),
+    "brother": MessageLookupByLibrary.simpleMessage("Brother"),
     "businessJobDetails": MessageLookupByLibrary.simpleMessage(
       "Business / Job Details",
     ),
@@ -57,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "© 2026 Samaj Community. All rights reserved.",
     ),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
+    "daughter": MessageLookupByLibrary.simpleMessage("Daughter"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "deleteAccountConfirm": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to permanently delete your account? This action cannot be undone, and your registered member profile will be deactivated.",
@@ -100,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
       "Failed to load notifications history",
     ),
+    "familyMembers": MessageLookupByLibrary.simpleMessage("Family Members"),
+    "father": MessageLookupByLibrary.simpleMessage("Father"),
     "female": MessageLookupByLibrary.simpleMessage("Female"),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "Finish signing up",
@@ -130,6 +134,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Large image",
     ),
     "lastNameOnId": MessageLookupByLibrary.simpleMessage("Last name on ID"),
+    "linkWithFamily": MessageLookupByLibrary.simpleMessage(
+      "Link with Family Member (Optional)",
+    ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "loginNow": MessageLookupByLibrary.simpleMessage("Login now!"),
     "loginPromptCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -164,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mobileValidationMsg": MessageLookupByLibrary.simpleMessage(
       "Mobile number must be exactly 10 digits",
     ),
+    "mother": MessageLookupByLibrary.simpleMessage("Mother"),
     "myMembers": MessageLookupByLibrary.simpleMessage("My Members"),
     "news": MessageLookupByLibrary.simpleMessage("News"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
@@ -175,6 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(Optional)"),
     "or": MessageLookupByLibrary.simpleMessage("Or"),
+    "other": MessageLookupByLibrary.simpleMessage("Other"),
     "otherEducation": MessageLookupByLibrary.simpleMessage(
       "Other Education / Qualifications",
     ),
@@ -216,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "rateApp": MessageLookupByLibrary.simpleMessage("Rate App"),
     "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
+    "relationship": MessageLookupByLibrary.simpleMessage("Relationship"),
     "requiredField": MessageLookupByLibrary.simpleMessage("Required"),
     "resendOtp": MessageLookupByLibrary.simpleMessage("Resend OTP"),
     "samuhLagnaSamitiList": MessageLookupByLibrary.simpleMessage(
@@ -229,6 +239,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "single": MessageLookupByLibrary.simpleMessage("Single"),
+    "sister": MessageLookupByLibrary.simpleMessage("Sister"),
+    "son": MessageLookupByLibrary.simpleMessage("Son"),
+    "spouse": MessageLookupByLibrary.simpleMessage("Spouse"),
     "sscPercentage": MessageLookupByLibrary.simpleMessage("SSC Percentage"),
     "sscSchool": MessageLookupByLibrary.simpleMessage("SSC School"),
     "surname": MessageLookupByLibrary.simpleMessage("Surname"),

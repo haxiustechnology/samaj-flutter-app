@@ -315,6 +315,7 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
                     ),
                     
                     _educationCard(member),
+                    _familyCard(member),
                     SizedBox(height: 32.h),
                   ],
                 ),
@@ -429,6 +430,119 @@ class _MemberDetailPageState extends State<MemberDetailPage> {
                     ),
                   ],
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _familyCard(Member member) {
+    if (member.familyMembers == null || member.familyMembers!.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      child: AppCard(
+        padding: EdgeInsets.all(16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              S.of(context).familyMembers,
+              style: AppTextStyles.subtitle1.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppColors.secondary,
+              ),
+            ),
+            const Divider(color: AppColors.borderLight, thickness: 1),
+            SizedBox(height: 12.h),
+            SizedBox(
+              height: 140.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemCount: member.familyMembers!.length,
+                itemBuilder: (context, index) {
+                  final relative = member.familyMembers![index];
+                  String relText = relative.relationship ?? '';
+                  if (relText.isNotEmpty) {
+                    final lower = relText.toLowerCase();
+                    if (lower == 'father') relText = S.of(context).father;
+                    else if (lower == 'mother') relText = S.of(context).mother;
+                    else if (lower == 'spouse') relText = S.of(context).spouse;
+                    else if (lower == 'son') relText = S.of(context).son;
+                    else if (lower == 'daughter') relText = S.of(context).daughter;
+                    else if (lower == 'brother') relText = S.of(context).brother;
+                    else if (lower == 'sister') relText = S.of(context).sister;
+                    else if (lower == 'other') relText = S.of(context).other;
+                  }
+
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MemberDetailPage(memberId: relative.id),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 120.w,
+                      margin: EdgeInsets.only(right: 12.w),
+                      decoration: BoxDecoration(
+                        color: AppColors.backgroundCream.withValues(alpha: 0.4),
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(color: AppColors.borderLight),
+                      ),
+                      padding: EdgeInsets.all(8.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 28.r,
+                            backgroundColor: AppColors.primary.withValues(alpha: 0.08),
+                            backgroundImage: relative.profileImage != null && relative.profileImage!.isNotEmpty
+                                ? CachedNetworkImageProvider(relative.profileImage!)
+                                : null,
+                            child: relative.profileImage == null || relative.profileImage!.isEmpty
+                                ? Icon(Icons.person, color: AppColors.primary, size: 28.sp)
+                                : null,
+                          ),
+                          SizedBox(height: 8.h),
+                          Text(
+                            relative.firstName,
+                            style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (relText.isNotEmpty) ...[
+                            SizedBox(height: 4.h),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: Text(
+                                relText,
+                                style: AppTextStyles.bodySmall.copyWith(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10.sp,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],

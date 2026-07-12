@@ -142,7 +142,18 @@
   "workingStatus": "कार्य की स्थिति",
   "yes": "हाँ",
   "no": "नहीं",
-  "noMembersAdded": "अभी तक कोई सदस्य नहीं जोड़ा गया है।"
+  "noMembersAdded": "अभी तक कोई सदस्य नहीं जोड़ा गया है.",
+  "relationship": "संबंध",
+  "linkWithFamily": "परिवार के सदस्य से लिंक करें (वैकल्पिक)",
+  "father": "पिता",
+  "mother": "माता",
+  "spouse": "जीवनसाथी",
+  "son": "पुत्र",
+  "daughter": "पुत्री",
+  "brother": "भाई",
+  "sister": "बहन",
+  "other": "अन्य",
+  "familyMembers": "परिवार के सदस्य"
 }
 
 

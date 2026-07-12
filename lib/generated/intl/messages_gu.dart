@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "bachelorPercentage": MessageLookupByLibrary.simpleMessage(
       "સ્નાતક ટકાવારી",
     ),
+    "brother": MessageLookupByLibrary.simpleMessage("ભાઈ"),
     "businessJobDetails": MessageLookupByLibrary.simpleMessage(
       "વ્યવસાય / નોકરીની વિગતો",
     ),
@@ -57,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "© ૨૦૨૬ સમાજ સમુદાય. સર્વાધિકાર સુરક્ષિત.",
     ),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("જન્મ તારીખ"),
+    "daughter": MessageLookupByLibrary.simpleMessage("પુત્રી"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("એકાઉન્ટ કાઢી નાખો"),
     "deleteAccountConfirm": MessageLookupByLibrary.simpleMessage(
       "શું તમે ખરેખર તમારું એકાઉન્ટ કાયમ માટે કાઢી નાખવા માંગો છો? આ પ્રક્રિયા રદ કરી શકાશે નહીં, અને તમારી નોંધાયેલ સભ્ય પ્રોફાઇલ નિષ્ક્રિય થઈ જશે.",
@@ -100,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
       "સૂચનાઓ મેળવવામાં નિષ્ફળતા",
     ),
+    "familyMembers": MessageLookupByLibrary.simpleMessage("પરિવારના સભ્યો"),
+    "father": MessageLookupByLibrary.simpleMessage("પિતા"),
     "female": MessageLookupByLibrary.simpleMessage("સ્ત્રી"),
     "finishSigningUp": MessageLookupByLibrary.simpleMessage(
       "સાઇન અપ પૂર્ણ કરો",
@@ -128,6 +132,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "largeImageWarningTitle": MessageLookupByLibrary.simpleMessage("મોટી છબી"),
     "lastNameOnId": MessageLookupByLibrary.simpleMessage("ID પર છેલ્લું નામ"),
+    "linkWithFamily": MessageLookupByLibrary.simpleMessage(
+      "કુટુંબના સભ્ય સાથે લિંક કરો (વૈકલ્પિક)",
+    ),
     "login": MessageLookupByLibrary.simpleMessage("લૉગિન"),
     "loginNow": MessageLookupByLibrary.simpleMessage("હવે લૉગિન કરો!"),
     "loginPromptMessage": MessageLookupByLibrary.simpleMessage(
@@ -161,6 +168,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mobileValidationMsg": MessageLookupByLibrary.simpleMessage(
       "મોબાઇલ નંબર બરાબર ૧૦ અંકનો હોવો જોઈએ",
     ),
+    "mother": MessageLookupByLibrary.simpleMessage("માતા"),
     "myMembers": MessageLookupByLibrary.simpleMessage("મારા સભ્ય"),
     "news": MessageLookupByLibrary.simpleMessage("સમાચાર"),
     "no": MessageLookupByLibrary.simpleMessage("ના"),
@@ -172,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "optionalBrace": MessageLookupByLibrary.simpleMessage("(વૈકલ્પિક)"),
     "or": MessageLookupByLibrary.simpleMessage("અથવા"),
+    "other": MessageLookupByLibrary.simpleMessage("અન્ય"),
     "otherEducation": MessageLookupByLibrary.simpleMessage(
       "અન્ય શિક્ષણ / લાયકાત",
     ),
@@ -215,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "rateApp": MessageLookupByLibrary.simpleMessage("એપ્લિકેશન રેટ કરો"),
     "refresh": MessageLookupByLibrary.simpleMessage("ફરીથી લોડ કરો"),
+    "relationship": MessageLookupByLibrary.simpleMessage("સંબંધ"),
     "requiredField": MessageLookupByLibrary.simpleMessage("આવશ્યક"),
     "resendOtp": MessageLookupByLibrary.simpleMessage("OTP ફરીથી મોકલો"),
     "samuhLagnaSamitiList": MessageLookupByLibrary.simpleMessage(
@@ -228,6 +238,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "signUp": MessageLookupByLibrary.simpleMessage("સાઇન અપ કરો"),
     "single": MessageLookupByLibrary.simpleMessage("અપરિણીત"),
+    "sister": MessageLookupByLibrary.simpleMessage("બહેન"),
+    "son": MessageLookupByLibrary.simpleMessage("પુત્ર"),
+    "spouse": MessageLookupByLibrary.simpleMessage("જીવનસાથી"),
     "sscPercentage": MessageLookupByLibrary.simpleMessage("SSC ટકાવારી"),
     "sscSchool": MessageLookupByLibrary.simpleMessage("SSC શાળા"),
     "surname": MessageLookupByLibrary.simpleMessage("ઉપનામ"),

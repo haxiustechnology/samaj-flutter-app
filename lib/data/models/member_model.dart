@@ -26,6 +26,9 @@ class Member {
   final String? businessDetails;
   final String? jobPost;
   final String? otherEducation;
+  final String? familyId;
+  final String? relationship;
+  final List<Member>? familyMembers;
 
   Member({
     required this.id,
@@ -53,6 +56,9 @@ class Member {
     this.businessDetails,
     this.jobPost,
     this.otherEducation,
+    this.familyId,
+    this.relationship,
+    this.familyMembers,
   });
 
   factory Member.fromJson(Map<String, dynamic> json) {
@@ -82,6 +88,13 @@ class Member {
       businessDetails: json['business_details'],
       jobPost: json['job_post'],
       otherEducation: json['other_education'],
+      familyId: json['family_id'],
+      relationship: json['relationship'],
+      familyMembers: json['family_members'] != null
+          ? (json['family_members'] as List)
+              .map((e) => Member.fromJson(e))
+              .toList()
+          : null,
     );
   }
 }

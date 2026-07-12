@@ -141,7 +141,18 @@
   "workingStatus": "નોકરીની સ્થિતિ",
   "yes": "હા",
   "no": "ના",
-  "noMembersAdded": "હજી સુધી કોઈ સભ્ય ઉમેરવામાં આવ્યા નથી."
+  "noMembersAdded": "હજી સુધી કોઈ સભ્ય ઉમેરવામાં આવ્યા નથી.",
+  "relationship": "સંબંધ",
+  "linkWithFamily": "કુટુંબના સભ્ય સાથે લિંક કરો (વૈકલ્પિક)",
+  "father": "પિતા",
+  "mother": "માતા",
+  "spouse": "જીવનસાથી",
+  "son": "પુત્ર",
+  "daughter": "પુત્રી",
+  "brother": "ભાઈ",
+  "sister": "બહેન",
+  "other": "અન્ય",
+  "familyMembers": "પરિવારના સભ્યો"
 }
 
 
